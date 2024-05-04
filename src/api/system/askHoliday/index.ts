@@ -3,7 +3,7 @@ import { AxiosPromise } from 'axios';
 import { AskHolidayVO, AskHolidayForm, AskHolidayQuery } from '@/api/system/askHoliday/types';
 
 /**
- * 查询请假申请列表
+ * Check the leave application list
  * @param query
  * @returns {*}
  */
@@ -17,7 +17,7 @@ export const listAskHoliday = (query?: AskHolidayQuery): AxiosPromise<AskHoliday
 };
 
 /**
- * 查询请假申请详细
+ * Query Leave Application detail
  * @param id
  */
 export const getAskHoliday = (id: string | number): AxiosPromise<AskHolidayVO> => {
@@ -28,7 +28,7 @@ export const getAskHoliday = (id: string | number): AxiosPromise<AskHolidayVO> =
 };
 
 /**
- * 新增请假申请
+ * Add a new leave application
  * @param data
  */
 export const addAskHoliday = (data: AskHolidayForm) => {
@@ -40,7 +40,7 @@ export const addAskHoliday = (data: AskHolidayForm) => {
 };
 
 /**
- * 修改请假申请
+ * Modify leave application
  * @param data
  */
 export const updateAskHoliday = (data: AskHolidayForm) => {
@@ -52,7 +52,7 @@ export const updateAskHoliday = (data: AskHolidayForm) => {
 };
 
 /**
- * 删除请假申请
+ * Delete leave application
  * @param id
  */
 export const delAskHoliday = (id: string | number | Array<string | number>) => {

@@ -180,7 +180,7 @@ export const useTagsViewStore = defineStore('tagsView', () => {
   };
 
   const isDynamicRoute = (view: any): boolean => {
-    // 检查匹配的路由记录中是否有动态段
+    // Check if there is a dynamic segment in the matching route record
     return view.matched.some((m: RouteRecordNormalized) => m.path.includes(':'));
   };
 

@@ -20,7 +20,7 @@ export const useNoticeStore = defineStore('notice', () => {
     state.notices.splice(state.notices.indexOf(notice), 1);
   };
 
-  //实现全部已读
+  //read all
   const readAll = () => {
     state.notices.forEach((item) => {
       item.read = true;

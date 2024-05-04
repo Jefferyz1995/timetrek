@@ -22,9 +22,9 @@ const appStore = useAppStore();
 const size = computed(() => appStore.size);
 
 const sizeOptions = ref([
-    { label: "较大", value: "large" },
-    { label: "默认", value: "default" },
-    { label: "稍小", value: "small" },
+    { label: "Large", value: "large" },
+    { label: "Default", value: "default" },
+    { label: "Small", value: "small" },
 ]);
 
 const handleSetSize = (size: string) => {

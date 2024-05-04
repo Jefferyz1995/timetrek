@@ -3,7 +3,7 @@ import { AxiosPromise } from 'axios';
 import { ProjectGroupVO, ProjectGroupForm, ProjectGroupQuery } from '@/api/system/projectGroup/types';
 
 /**
- * 查询项目组列表
+ * Query project group list
  * @param query
  * @returns {*}
  */
@@ -17,7 +17,7 @@ export const listProjectGroup = (query?: ProjectGroupQuery): AxiosPromise<Projec
 };
 
 /**
- * 查询项目组详细
+ * Query project group details
  * @param id
  */
 export const getProjectGroup = (id: string | number): AxiosPromise<ProjectGroupVO> => {
@@ -28,7 +28,7 @@ export const getProjectGroup = (id: string | number): AxiosPromise<ProjectGroupV
 };
 
 /**
- * 新增项目组
+ * Add new project group
  * @param data
  */
 export const addProjectGroup = (data: ProjectGroupForm) => {
@@ -40,7 +40,7 @@ export const addProjectGroup = (data: ProjectGroupForm) => {
 };
 
 /**
- * 修改项目组
+ * modify project group
  * @param data
  */
 export const updateProjectGroup = (data: ProjectGroupForm) => {
@@ -52,7 +52,7 @@ export const updateProjectGroup = (data: ProjectGroupForm) => {
 };
 
 /**
- * 删除项目组
+ * delete project group
  * @param id
  */
 export const delProjectGroup = (id: string | number | Array<string | number>) => {

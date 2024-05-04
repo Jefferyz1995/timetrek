@@ -29,14 +29,14 @@ import { propTypes } from '@/utils/propTypes';
 
 
 const props = defineProps({
-  // 数据
+  // data
   options: {
     type: Array as PropType<DictDataOption[]>,
     default: null,
   },
-  // 当前的值
+  // current value
   value: [Number, String, Array] as PropType<number | string | Array<number | string>>,
-  // 当未找到匹配的数据时，显示value
+  // When no matching data is found, value is displayed
   showValue: propTypes.bool.def(true),
   separator: propTypes.string.def(","),
 });
@@ -47,17 +47,17 @@ const values = computed(() => {
 
 const unmatch = computed(() => {
   if (props.options?.length == 0 || props.value === '' || props.value === null || typeof props.value === "undefined") return false
-  // 传入值为非数组
+  // The value passed in is not an array
   values.value.forEach(item => {
     if (!props.options.some(v => v.value === item)) {
-      return true // 如果有未匹配项，将标志设置为true
+      return true // If there are no matches, set the flag to true
     }
   })
-  return false // 返回标志的值
+  return false
 });
 
 const unmatchArray = computed(() => {
-// 记录未匹配的项
+// record unmatched items
   const itemUnmatchArray: Array<string | number> = [];
   if (props.value !== '' && props.value !== null && typeof props.value !== "undefined") {
     values.value.forEach(item => {
@@ -66,7 +66,7 @@ const unmatchArray = computed(() => {
       }
     })
   }
-  // 没有value不显示
+  // No value, no display
   return handleArray(itemUnmatchArray);
 });
 

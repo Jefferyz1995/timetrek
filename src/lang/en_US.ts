@@ -33,7 +33,7 @@ export default {
     save: 'Save',
     cancel: 'Cancel',
     confirm: 'Confirm',
-    close: 'close',
+    close: 'Close',
     submit: 'Submit',
     reset: 'Reset',
     search: 'Search',
@@ -48,7 +48,7 @@ export default {
     createBy: 'createBy',
     createTime: 'createTime',
     startTime: 'Start Time',
-    endTime: 'End  Time'
+    endTime: 'End Time'
   },
   userManager: {
     userName: 'User ID',
@@ -58,10 +58,10 @@ export default {
     deptName: 'Dept',
     sex: 'Sex',
     email: 'email',
-    bankNum: 'Bank Card ID',
+    bankNum: 'Bank Card',
     status: 'Status',
     createTime: 'Create Time',
-    userRemark: 'User Remark',
+    userRemark: 'Remark',
     action: 'Action',
     role: 'Role',
     post: 'Post',
@@ -70,7 +70,7 @@ export default {
   menuManager: {
     menuName: 'Menu Name',
     menuType: 'Menu Type',
-    icon: 'icon',
+    icon: 'Icon',
     orderNum: 'Order No.',
     perms: 'Permission ID',
     component: 'Component Path',
@@ -79,11 +79,11 @@ export default {
     queryParam: 'queryParam',
     isFrame: 'isFrame',
     isCache: 'isCache',
-    visible: 'visible',
-    leader: 'leader'
+    visible: 'Visible',
+    leader: 'PIC'
   },
   deptManager: {
-    deptName: 'Dept Dept',
+    deptName: 'Dept',
     orderNum: 'Order No.',
     parent: 'Previous menu',
     leader: 'Leader',
@@ -120,8 +120,8 @@ export default {
     tenantId: 'Tenant Id',
     tenantName: 'Tenant Name',
     contactUserName: 'Contact Person',
-    contactPhone: 'contact',
-    contactEmail: 'contact Email',
+    contactPhone: 'Contact',
+    contactEmail: 'Contact Email',
     companyName: 'Company Name',
     companyNum: 'UEN NO.',
     expireTime: 'Expire Date',
@@ -132,8 +132,8 @@ export default {
     tenantStatus: 'Tenant Status',
     tenantCode: 'Tenant Code',
     tenantRemark: 'Tenant Remark',
-    username: 'userName',
-    password: 'password'
+    username: 'UserName',
+    password: 'Password'
   },
   packageManager: {
     packageName: 'Package Name',
@@ -156,8 +156,8 @@ export default {
     taskPIC: 'Task PIC',
     taskPriority: 'Task Priority',
     taskStatus: 'Task Status',
-    startTime: 'startTime',
-    endTime: 'endTime',
+    startTime: 'Start Time',
+    endTime: 'End Time',
     taskCode: 'Task Code',
     taskRemark: 'Task Remark'
   },

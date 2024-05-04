@@ -1,4 +1,3 @@
-<!-- 动态表单渲染 -->
 <script setup name="Render">
 
 const props = defineProps({
@@ -17,15 +16,15 @@ const props = defineProps({
 })
 
 const vFormRef = ref(null)
-// 获取表单数据-异步
+// Get form data - asynchronous
 const getFormData = () => {
   return vFormRef.value.getFormData()
 }
 
 /**
- * 设置表单内容
+ * Set form content
  * @param {表单配置} formConf
- * formConfig：{ formTemplate：表单模板，formData：表单数据，hiddenField：需要隐藏的字段字符串集合，disabledField：需要禁用的自读字符串集合}
+ * formConfig：{ formTemplate: form template, formData: form data, hiddenField: field string collection that needs to be hidden, disabledField: self-reading string collection that needs to be disabled}
  */
 const initForm = (formConf) => {
   const { formTemplate, formData, hiddenField, disabledField } = toRaw(formConf)

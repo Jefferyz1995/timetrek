@@ -5,7 +5,7 @@
         <el-autocomplete
           v-model="state.menuQuery"
           :fetch-suggestions="menuSearch"
-          placeholder="搜索"
+          placeholder="Search"
           ref="layoutMenuAutocompleteRef"
           @select="onHandleSelect"
           :fit-input-width="true"
@@ -40,7 +40,7 @@ type SearchState<T = any> = {
 	menuQuery: string;
 	menuList: T[];
 };
-// 定义变量内容
+// Define variable content
 const layoutMenuAutocompleteRef = ref();
 const router = useRouter();
 const routes = computed(() => usePermissionStore().routes);
@@ -50,7 +50,7 @@ const state = reactive<SearchState>({
 	menuList: [],
 });
 
-// 搜索弹窗打开
+// Search pop-up window opens
 const openSearch = () => {
 	state.menuQuery = '';
 	state.isShowSearch = true;
@@ -61,11 +61,11 @@ const openSearch = () => {
 		});
 	});
 };
-// 搜索弹窗关闭
+// Search popup closes
 const closeSearch = () => {
 	state.isShowSearch = false;
 };
-// 菜单搜索数据过滤
+// Menu search data filtering
 const menuSearch = (queryString: string, cb: Function) => {
 	let options = state.menuList.filter((item) => {
 		return item.title.indexOf(queryString) > -1;
@@ -110,11 +110,11 @@ const generateRoutes = (routes: RouteOption[], basePath = '', prefixTitle: strin
 	});
 	return res;
 }
-// 当前菜单选中时
+// When the current menu is selected
 const onHandleSelect = (val: any) => {
 	const paths = val.path;
 	if (isHttp(paths)) {
-		// http(s):// 路径新窗口打开
+		// http(s):// path open a new window
 		const pindex = paths.indexOf("http");
 		window.open(paths.substring(pindex, paths.length), "_blank");
 	} else {
@@ -125,7 +125,7 @@ const onHandleSelect = (val: any) => {
 
 };
 
-// 暴露变量
+
 defineExpose({
 	openSearch
 });

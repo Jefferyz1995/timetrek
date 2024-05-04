@@ -1,4 +1,4 @@
-// 日期格式化
+// date formatting
 export function parseTime(time: any, pattern?: string) {
   if (arguments.length === 0 || !time) {
     return null;
@@ -34,7 +34,7 @@ export function parseTime(time: any, pattern?: string) {
     let value = formatObj[key];
     // Note: getDay() returns 0 on Sunday
     if (key === 'a') {
-      return ['日', '一', '二', '三', '四', '五', '六'][value];
+      return ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][value];
     }
     if (result.length > 0 && value < 10) {
       value = '0' + value;
@@ -44,7 +44,7 @@ export function parseTime(time: any, pattern?: string) {
 }
 
 /**
- * 添加日期范围
+ * Add date range
  * @param params
  * @param dateRange
  * @param propName
@@ -63,7 +63,7 @@ export const addDateRange = (params: any, dateRange: any[], propName?: string) =
   return search;
 };
 
-// 回显数据字典
+// echo data dictionary
 export const selectDictLabel = (datas: any, value: number | string) => {
   if (value === undefined) {
     return '';
@@ -81,7 +81,7 @@ export const selectDictLabel = (datas: any, value: number | string) => {
   return actions.join('');
 };
 
-// 回显数据字典（字符串数组）
+// echo data dictionary (array of strings)
 export const selectDictLabels = (datas: any, value: any, separator: any) => {
   if (value === undefined || value.length === 0) {
     return '';
@@ -107,7 +107,7 @@ export const selectDictLabels = (datas: any, value: any, separator: any) => {
   return actions.join('').substring(0, actions.join('').length - 1);
 };
 
-// 字符串格式化(%s )
+// String formatting (%s)
 export function sprintf(str: string) {
   if (arguments.length !== 0) {
     let flag = true,
@@ -124,7 +124,7 @@ export function sprintf(str: string) {
   }
 }
 
-// 转换字符串，undefined,null等转化为""
+// Convert strings, undefined, null, etc. into ""
 export const parseStrEmpty = (str: any) => {
   if (!str || str == 'undefined' || str == 'null') {
     return '';
@@ -132,7 +132,7 @@ export const parseStrEmpty = (str: any) => {
   return str;
 };
 
-// 数据合并
+// Data merge
 export const mergeRecursive = (source: any, target: any) => {
   for (const p in target) {
     try {
@@ -149,11 +149,11 @@ export const mergeRecursive = (source: any, target: any) => {
 };
 
 /**
- * 构造树型结构数据
- * @param {*} data 数据源
- * @param {*} id id字段 默认 'id'
- * @param {*} parentId 父节点字段 默认 'parentId'
- * @param {*} children 孩子节点字段 默认 'children'
+ * Construct tree structure data
+ * @param {*} data 
+ * @param {*} id 
+ * @param {*} parentId 
+ * @param {*} children 
  */
 export const handleTree = <T>(data: any[], id?: string, parentId?: string, children?: string): T[] => {
   const config: {
@@ -204,8 +204,8 @@ export const handleTree = <T>(data: any[], id?: string, parentId?: string, child
 };
 
 /**
- * 参数处理
- * @param {*} params  参数
+ * handel parameters
+ * @param {*} params
  */
 export const tansParams = (params: any) => {
   let result = '';
@@ -229,7 +229,7 @@ export const tansParams = (params: any) => {
   return result;
 };
 
-// 返回项目路径
+// Return project path
 export const getNormalPath = (p: string): string => {
   if (p.length === 0 || !p || p === 'undefined') {
     return p;
@@ -241,7 +241,7 @@ export const getNormalPath = (p: string): string => {
   return res;
 };
 
-// 验证是否为blob格式
+// Verify if it is in blob format
 export const blobValidate = (data: any) => {
   return data.type !== 'application/json';
 };

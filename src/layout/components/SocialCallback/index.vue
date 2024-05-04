@@ -12,7 +12,7 @@ const loading = ref(true);
 
 
 /**
- * 接收Route传递的参数
+ * Receive parameters passed by Route
  * @param {Object} route.query.
  */
 const code = route.query.code as string;

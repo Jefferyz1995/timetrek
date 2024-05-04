@@ -3,8 +3,8 @@
     <div class="mb-[10px]">
       <el-card shadow="hover">
         <el-form :model="queryParams" ref="queryFormRef" :inline="true">
-          <el-form-item label="登录地址" prop="ipaddr">
-            <el-input v-model="queryParams.ipaddr" placeholder="请输入登录地址" clearable style="width: 200px" @keyup.enter="handleQuery" />
+          <el-form-item label="Login Address" prop="ipaddr">
+            <el-input v-model="queryParams.ipaddr" placeholder="Please Enter Login Address" clearable style="width: 200px" @keyup.enter="handleQuery" />
           </el-form-item>
           <el-form-item :label="$t('userManager.userName')" prop="userName">
             <el-input v-model="queryParams.userName" :placeholder="$t('userManager.userName')" clearable style="width: 200px" @keyup.enter="handleQuery" />
@@ -27,27 +27,27 @@
             <span>{{ (queryParams.pageNum - 1) * queryParams.pageSize + scope.$index + 1 }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="会话编号" align="center" prop="tokenId" :show-overflow-tooltip="true" />
-        <el-table-column label="登录名称" align="center" prop="userName" :show-overflow-tooltip="true" />
-        <el-table-column label="客户端" align="center" prop="clientKey" :show-overflow-tooltip="true" />
-        <el-table-column label="设备类型" align="center">
+        <el-table-column label="Session No." align="center" prop="tokenId" :show-overflow-tooltip="true" />
+        <el-table-column label="Login Name" align="center" prop="userName" :show-overflow-tooltip="true" />
+        <el-table-column label="Client" align="center" prop="clientKey" :show-overflow-tooltip="true" />
+        <el-table-column label="Device Type" align="center">
           <template #default="scope">
             <dict-tag :options="sys_device_type" :value="scope.row.deviceType" />
           </template>
         </el-table-column>
-        <el-table-column label="所属部门" align="center" prop="deptName" :show-overflow-tooltip="true" />
-        <el-table-column label="主机" align="center" prop="ipaddr" :show-overflow-tooltip="true" />
-        <el-table-column label="登录地点" align="center" prop="loginLocation" :show-overflow-tooltip="true" />
-        <el-table-column label="操作系统" align="center" prop="os" :show-overflow-tooltip="true" />
-        <el-table-column label="浏览器" align="center" prop="browser" :show-overflow-tooltip="true" />
-        <el-table-column label="登录时间" align="center" prop="loginTime" width="180">
+        <el-table-column label="Department" align="center" prop="deptName" :show-overflow-tooltip="true" />
+        <el-table-column label="Host" align="center" prop="ipaddr" :show-overflow-tooltip="true" />
+        <el-table-column label="Login Location" align="center" prop="loginLocation" :show-overflow-tooltip="true" />
+        <el-table-column label="OS" align="center" prop="os" :show-overflow-tooltip="true" />
+        <el-table-column label="Browser" align="center" prop="browser" :show-overflow-tooltip="true" />
+        <el-table-column label="Login Time" align="center" prop="loginTime" width="180">
           <template #default="scope">
             <span>{{ parseTime(scope.row.loginTime) }}</span>
           </template>
         </el-table-column>
         <el-table-column :label="$t('commonColumn.action')" align="center" class-name="small-padding fixed-width">
           <template #default="scope">
-            <el-tooltip content="强退" placement="top">
+            <el-tooltip content="Force quit" placement="top">
               <el-button link type="primary" icon="Delete" @click="handleForceLogout(scope.row)" v-hasPermi="['monitor:online:forceLogout']">
               </el-button>
             </el-tooltip>
@@ -82,7 +82,7 @@ const queryParams = ref<OnlineQuery>({
   userName: ''
 });
 
-/** 查询登录日志列表 */
+/** Query login log list */
 const getList = async () => {
   loading.value = true;
   const res = await initData(queryParams.value);
@@ -90,19 +90,19 @@ const getList = async () => {
   total.value = res.total;
   loading.value = false;
 }
-/** 搜索按钮操作 */
+/** Search button action */
 const handleQuery = () => {
   queryParams.value.pageNum = 1;
   getList();
 }
-/** 重置按钮操作 */
+/** reset button action */
 const resetQuery = () => {
   queryFormRef.value?.resetFields();
   handleQuery();
 }
-/** 强退按钮操作 */
+/** Force logout */
 const handleForceLogout = async (row: OnlineVO) => {
-  const [err] = await to(proxy?.$modal.confirm('是否确认强退名称为"' + row.userName + '"的用户?') as any);
+  const [err] = await to(proxy?.$modal.confirm('Confirm to force logout the user name"' + row.userName + '"?') as any);
   if (!err) {
     await forceLogout(row.tokenId);
     await getList();

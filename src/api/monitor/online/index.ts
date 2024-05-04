@@ -2,7 +2,7 @@ import request from '@/utils/request';
 import { OnlineQuery, OnlineVO } from './types';
 import { AxiosPromise } from 'axios';
 
-// 查询在线用户列表
+// Query online user list
 export function list(query: OnlineQuery): AxiosPromise<OnlineVO[]> {
   return request({
     url: '/monitor/online/list',
@@ -11,7 +11,7 @@ export function list(query: OnlineQuery): AxiosPromise<OnlineVO[]> {
   });
 }
 
-// 强退用户
+// Force logoout
 export function forceLogout(tokenId: string) {
   return request({
     url: '/monitor/online/' + tokenId,

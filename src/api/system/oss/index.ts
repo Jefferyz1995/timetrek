@@ -2,7 +2,7 @@ import request from '@/utils/request';
 import { OssQuery, OssVO } from './types';
 import { AxiosPromise } from 'axios';
 
-// 查询OSS对象存储列表
+// Query OSS object storage list
 export function listOss(query: OssQuery): AxiosPromise<OssVO[]> {
   return request({
     url: '/resource/oss/list',
@@ -11,7 +11,7 @@ export function listOss(query: OssQuery): AxiosPromise<OssVO[]> {
   });
 }
 
-// 查询OSS对象基于id串
+// Query OSS objects based on id string
 export function listByIds(ossId: string | number): AxiosPromise<OssVO[]> {
   return request({
     url: '/resource/oss/listByIds/' + ossId,
@@ -19,7 +19,7 @@ export function listByIds(ossId: string | number): AxiosPromise<OssVO[]> {
   });
 }
 
-// 删除OSS对象存储
+// Delete OSS object storage
 export function delOss(ossId: string | number | Array<string | number>) {
   return request({
     url: '/resource/oss/' + ossId,

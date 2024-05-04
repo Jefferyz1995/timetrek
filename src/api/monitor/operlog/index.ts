@@ -2,7 +2,7 @@ import request from '@/utils/request';
 import { OperLogQuery, OperLogVO } from './types';
 import { AxiosPromise } from 'axios';
 
-// 查询操作日志列表
+// Query operation log list
 export function list(query: OperLogQuery): AxiosPromise<OperLogVO[]> {
   return request({
     url: '/monitor/operlog/list',
@@ -11,7 +11,7 @@ export function list(query: OperLogQuery): AxiosPromise<OperLogVO[]> {
   });
 }
 
-// 删除操作日志
+// Delete operation log
 export function delOperlog(operId: string | number | Array<string | number>) {
   return request({
     url: '/monitor/operlog/' + operId,
@@ -19,7 +19,7 @@ export function delOperlog(operId: string | number | Array<string | number>) {
   });
 }
 
-// 清空操作日志
+// Clear operation log
 export function cleanOperlog() {
   return request({
     url: '/monitor/operlog/clean',

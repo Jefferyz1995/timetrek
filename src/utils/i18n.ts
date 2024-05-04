@@ -2,8 +2,8 @@
 import i18n from '@/lang/index';
 
 /**
- * 获取国际化路由，如果不存在则原生返回
- * @param title 路由名称
+ * Get the internationalized route and return it natively if it does not exist
+ * @param title Route name
  * @returns {string}
  */
 export const translateRouteTitle = (title: string): string => {

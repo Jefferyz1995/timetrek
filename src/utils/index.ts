@@ -33,19 +33,19 @@ export const formatTime = (time: string, option: string) => {
   const diff = (now - d) / 1000;
 
   if (diff < 30) {
-    return '刚刚';
+    return 'Just Now';
   } else if (diff < 3600) {
     // less 1 hour
-    return Math.ceil(diff / 60) + '分钟前';
+    return Math.ceil(diff / 60) + 'min(s) ago';
   } else if (diff < 3600 * 24) {
-    return Math.ceil(diff / 3600) + '小时前';
+    return Math.ceil(diff / 3600) + 'hour(S) ago';
   } else if (diff < 3600 * 24 * 2) {
-    return '1天前';
+    return '1 day ago';
   }
   if (option) {
     return parseTime(t, option);
   } else {
-    return d.getMonth() + 1 + '月' + d.getDate() + '日' + d.getHours() + '时' + d.getMinutes() + '分';
+    return d.getMonth() + 1 + 'month' + d.getDate() + 'day' + d.getHours() + 'hour' + d.getMinutes() + 'min';
   }
 };
 
@@ -208,15 +208,15 @@ export const debounce = (func: any, wait: number, immediate: boolean) => {
   let timeout: any, args: any, context: any, timestamp: any, result: any;
 
   const later = function () {
-    // 据上一次触发时间间隔
+    // According to the last trigger time interval
     const last = +new Date() - timestamp;
 
-    // 上次被包装函数被调用时间间隔 last 小于设定时间间隔 wait
+    // The time interval between the last time the wrapped function was called last is less than the set time interval wait
     if (last < wait && last > 0) {
       timeout = setTimeout(later, wait - last);
     } else {
       timeout = null;
-      // 如果设定为immediate===true，因为开始边界已经调用过了此处无需调用
+      // If set to immediate===true, there is no need to call here because the starting boundary has already been called.
       if (!immediate) {
         result = func.apply(context, args);
         if (!timeout) context = args = null;
@@ -228,7 +228,7 @@ export const debounce = (func: any, wait: number, immediate: boolean) => {
     context = this;
     timestamp = +new Date();
     const callNow = immediate && !timeout;
-    // 如果延时不存在，重新设定延时
+    // If the delay does not exist, reset the delay
     if (!timeout) timeout = setTimeout(later, wait);
     if (callNow) {
       result = func.apply(context, args);

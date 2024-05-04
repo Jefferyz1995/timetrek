@@ -133,7 +133,7 @@ const usedmemory = ref();
 const { proxy } = getCurrentInstance() as ComponentInternalInstance;
 
 const getList = async () => {
-  proxy?.$modal.loading("正在加载缓存监控数据，请稍候！");
+  proxy?.$modal.loading("Loading cache monitoring data, please wait!");
   const res = await getCache();
   proxy?.$modal.closeLoading();
   cache.value = res.data;
@@ -145,7 +145,7 @@ const getList = async () => {
     },
     series: [
       {
-        name: "命令",
+        name: "Command",
         type: "pie",
         roseType: "radius",
         radius: [15, 95],
@@ -163,7 +163,7 @@ const getList = async () => {
     },
     series: [
       {
-        name: "峰值",
+        name: "Peak",
         type: "gauge",
         min: 0,
         max: 1000,
@@ -173,7 +173,7 @@ const getList = async () => {
         data: [
           {
             value: parseFloat(cache.value.info.used_memory_human),
-            name: "内存消耗"
+            name: "Memory Consumption"
           }
         ]
       }

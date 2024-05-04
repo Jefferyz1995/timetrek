@@ -52,7 +52,7 @@ export const encryptWithAes = (message: string, aesKey: CryptoJS.lib.WordArray) 
 };
 
 /**
- * 使用密钥对数据进行解密
+ * Decrypt data using key
  * @param message
  * @param aesKey
  * @returns {string}

@@ -11,11 +11,11 @@ export const useUserStore = defineStore('user', () => {
   const nickname = ref('');
   const userId = ref<string | number>('');
   const avatar = ref('');
-  const roles = ref<Array<string>>([]); // 用户角色编码集合 → 判断路由权限
-  const permissions = ref<Array<string>>([]); // 用户权限编码集合 → 判断按钮权限
+  const roles = ref<Array<string>>([]); // User role coding set → determine routing permissions
+  const permissions = ref<Array<string>>([]); // User permission coding set → Determine button permissions
 
   /**
-   * 登录
+   * Login
    * @param userInfo
    * @returns
    */
@@ -30,7 +30,7 @@ export const useUserStore = defineStore('user', () => {
     return Promise.reject(err);
   };
 
-  // 获取用户信息
+  // Get user information
   const getInfo = async (): Promise<void> => {
     const [err, res] = await to(getUserInfo());
     if (res) {
@@ -39,7 +39,7 @@ export const useUserStore = defineStore('user', () => {
       const profile = user.avatar == '' || user.avatar == null ? defAva : user.avatar;
 
       if (data.roles && data.roles.length > 0) {
-        // 验证返回的roles是否是一个非空数组
+        // Verify whether the returned roles is a non-empty array
         roles.value = data.roles;
         permissions.value = data.permissions;
       } else {
@@ -54,7 +54,7 @@ export const useUserStore = defineStore('user', () => {
     return Promise.reject(err);
   };
 
-  // 注销
+  // Sign out
   const logout = async (): Promise<void> => {
     await logoutApi();
     token.value = '';
@@ -82,7 +82,7 @@ export const useUserStore = defineStore('user', () => {
 });
 
 export default useUserStore;
-// 非setup
+
 export function useUserStoreHook() {
   return useUserStore(store);
 }

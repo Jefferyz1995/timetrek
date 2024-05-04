@@ -1,36 +1,36 @@
 export interface AskHolidayVO {
   /**
-   * 主键id
+   * Primay Key
    */
   id: string | number;
 
   /**
-   * 用户id
+   * User ID
    */
   userId: string | number;
 
   /**
-   * 请假天数
+   * days of leave
    */
   askDays: string;
 
   /**
-   * 请求状态
+   * Request status
    */
   askStatus: string;
 
   /**
-   * 请假事由
+   * Reason for leave
    */
   askReason: string;
 
   /**
-   * 审批意见
+   * Approval comments
    */
   approvalOpinion: string;
 
   /**
-   * 备注
+   * Remark
    */
   remark: string;
 
@@ -38,37 +38,37 @@ export interface AskHolidayVO {
 
 export interface AskHolidayForm extends BaseEntity {
   /**
-   * 主键id
+   * Primay Key
    */
   id?: string | number;
 
   /**
-   * 用户id
+   * User ID
    */
   userId?: string | number;
 
   /**
-   * 请假天数
+   * days of leave
    */
   askDays?: string;
 
   /**
-   * 请求状态
+   * Request status
    */
   askStatus?: string;
 
   /**
-   * 请假事由
+   * Reason for leave
    */
   askReason?: string;
 
   /**
-   * 审批意见
+   * Approval comments
    */
   approvalOpinion?: string;
 
   /**
-   * 备注
+   * Remark
    */
   remark?: string;
 
@@ -77,27 +77,27 @@ export interface AskHolidayForm extends BaseEntity {
 export interface AskHolidayQuery extends PageQuery {
 
   /**
-   * 用户id
+   * User ID
    */
   userId?: string | number;
 
   /**
-   * 请假天数
+   * days of leave
    */
   askDays?: string;
 
   /**
-   * 请求状态
+   * Request status
    */
   askStatus?: string;
 
   /**
-   * 请假事由
+   * Reason for leave
    */
   askReason?: string;
 
   /**
-   * 审批意见
+   * Approval comments
    */
   approvalOpinion?: string;
 

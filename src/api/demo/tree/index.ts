@@ -39,7 +39,7 @@ export const addTree = (data: TreeForm) => {
 };
 
 /**
- * 修改测试树
+ * Modify test tree
  * @param data
  */
 export const updateTree = (data: TreeForm) => {
@@ -51,7 +51,7 @@ export const updateTree = (data: TreeForm) => {
 };
 
 /**
- * 删除测试树
+ * Delete test tree
  * @param id
  */
 export const delTree = (id: string | number | Array<string | number>) => {

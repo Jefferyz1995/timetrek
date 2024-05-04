@@ -7,7 +7,7 @@ declare global {
   declare type PropType<T> = VuePropType<T>;
 
   /**
-   * 界面字段隐藏属性
+   * Interface field hidden properties
    */
   declare interface FieldOption {
     key: number;
@@ -17,43 +17,43 @@ declare global {
   }
 
   /**
-   * 弹窗属性
+   * Popup window properties
    */
   declare interface DialogOption {
     /**
-     * 弹窗标题
+     * popup window title
      */
     title?: string;
     /**
-     * 是否显示
+     * display?
      */
     visible: boolean;
   }
 
   declare interface UploadOption {
-    /** 设置上传的请求头部 */
+    /** Set upload request headers */
     headers: { [key: string]: any };
 
-    /** 上传的地址 */
+    /** Upload address */
     url: string;
   }
 
   /**
-   * 导入属性
+   * Import properties
    */
   declare interface ImportOption extends UploadOption {
-    /** 是否显示弹出层 */
+    /** Whether to display the popup layer */
     open: boolean;
-    /** 弹出层标题 */
-    title: string;
-    /** 是否禁用上传 */
+    /** Popup layer title */
+    title: sPopup layer titletring;
+    /** disable upload? */
     isUploading: boolean;
 
-    /** 其他参数 */
+    /** other permettre */
     [key: string]: any;
   }
   /**
-   * 字典数据  数据配置
+   * Dictionary data and data configuration
    */
   declare interface DictDataOption {
     label: string;
@@ -71,9 +71,9 @@ declare global {
   }
 
   /**
-   * 分页数据
-   * T : 表单数据
-   * D : 查询参数
+   * paged data
+   * T : form data
+   * D : qurey the data
    */
   declare interface PageData<T, D> {
     form: T;
@@ -81,7 +81,7 @@ declare global {
     rules: ElFormRules;
   }
   /**
-   * 分页查询参数
+   * Pagination query parameters
    */
   declare interface PageQuery {
     pageNum: number;

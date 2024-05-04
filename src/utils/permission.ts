@@ -1,8 +1,8 @@
 import useUserStore from '@/store/modules/user';
 
 /**
- * 字符权限校验
- * @param {Array} value 校验值
+ * Character permission verification
+ * @param {Array} value Check value
  * @returns {Boolean}
  */
 export const checkPermi = (value: any) => {
@@ -26,8 +26,8 @@ export const checkPermi = (value: any) => {
 };
 
 /**
- * 角色权限校验
- * @param {Array} value 校验值
+ * Role permission verification
+ * @param {Array} value Check value
  * @returns {Boolean}
  */
 export const checkRole = (value: any): boolean => {

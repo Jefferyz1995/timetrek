@@ -2,7 +2,7 @@ import request from '@/utils/request';
 import { LoginInfoQuery, LoginInfoVO } from './types';
 import { AxiosPromise } from 'axios';
 
-// 查询登录日志列表
+// Query login log list
 export function list(query: LoginInfoQuery): AxiosPromise<LoginInfoVO[]> {
   return request({
     url: '/monitor/logininfor/list',
@@ -11,7 +11,7 @@ export function list(query: LoginInfoQuery): AxiosPromise<LoginInfoVO[]> {
   });
 }
 
-// 删除登录日志
+// Delete login log
 export function delLoginInfo(infoId: string | number | Array<string | number>) {
   return request({
     url: '/monitor/logininfor/' + infoId,
@@ -19,7 +19,7 @@ export function delLoginInfo(infoId: string | number | Array<string | number>) {
   });
 }
 
-// 解锁用户登录状态
+// Unlock user login status
 export function unlockLoginInfo(userName: string | Array<string>) {
   return request({
     url: '/monitor/logininfor/unlock/' + userName,
@@ -27,7 +27,7 @@ export function unlockLoginInfo(userName: string | Array<string>) {
   });
 }
 
-// 清空登录日志
+// Clear login log
 export function cleanLoginInfo() {
   return request({
     url: '/monitor/logininfor/clean',

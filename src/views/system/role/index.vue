@@ -174,7 +174,7 @@
           ></el-tree>
         </el-form-item>
         <el-form-item :label="$t('commonColumn.remark')">
-          <el-input v-model="form.remark" type="textarea" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.remark" type="textarea" placeholder="Please input content"></el-input>
         </el-form-item>
       </el-form>
       <template #footer>
@@ -401,7 +401,7 @@ const handleAdd = () => {
   reset();
   getMenuTreeselect();
   dialog.visible = true;
-  dialog.title = "添加角色";
+  dialog.title = "Add Role";
 }
 /** 修改角色 */
 const handleUpdate = async (row?: RoleVO) => {
@@ -411,7 +411,7 @@ const handleUpdate = async (row?: RoleVO) => {
   Object.assign(form.value, data);
   form.value.roleSort = Number(form.value.roleSort);
   const res = await getRoleMenuTreeselect(roleId);
-  dialog.title = "修改角色";
+  dialog.title = "Modify Role";
   dialog.visible = true;
   res.checkedKeys.forEach((v) => {
     nextTick(() => {
@@ -517,7 +517,7 @@ const submitDataScope = async () => {
   if (form.value.roleId) {
     form.value.deptIds = getDeptAllCheckedKeys();
     await dataScope(form.value);
-    proxy?.$modal.msgSuccess("修改成功");
+    proxy?.$modal.msgSuccess("Done");
     openDataScope.value = false;
     getList();
   }

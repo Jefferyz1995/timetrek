@@ -24,27 +24,27 @@ export const globalHeaders = () => {
 
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8';
 axios.defaults.headers['clientid'] = import.meta.env.VITE_APP_CLIENT_ID;
-// 创建 axios 实例
+// Create an axios instance
 const service = axios.create({
   baseURL: import.meta.env.VITE_APP_BASE_API,
   timeout: 50000
 });
 
-// 请求拦截器
+// request interceptor
 service.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    // 对应国际化资源文件后缀
+    // Corresponding international resource file suffix
     config.headers['Content-Language'] = getLanguage();
 
     const isToken = (config.headers || {}).isToken === false;
-    // 是否需要防止数据重复提交
+    // Is it necessary to prevent repeated submission of data
     const isRepeatSubmit = (config.headers || {}).repeatSubmit === false;
-    // 是否需要加密
+    // Whether encryption is required
     const isEncrypt = (config.headers || {}).isEncrypt === 'true';
     if (getToken() && !isToken) {
-      config.headers['Authorization'] = 'Bearer ' + getToken(); // 让每个请求携带自定义token 请根据实际情况自行修改
+      config.headers['Authorization'] = 'Bearer ' + getToken(); // Let each request carry a custom token.
     }
-    // get请求映射params参数
+    // get request mapping params parameters
     if (config.method === 'get' && config.params) {
       let url = config.url + '?' + tansParams(config.params);
       url = url.slice(0, -1);
@@ -62,12 +62,12 @@ service.interceptors.request.use(
       if (sessionObj === undefined || sessionObj === null || sessionObj === '') {
         cache.session.setJSON('sessionObj', requestObj);
       } else {
-        const s_url = sessionObj.url; // 请求地址
-        const s_data = sessionObj.data; // 请求数据
-        const s_time = sessionObj.time; // 请求时间
-        const interval = 500; // 间隔时间(ms)，小于此时间视为重复提交
+        const s_url = sessionObj.url; // request address
+        const s_data = sessionObj.data; // request data
+        const s_time = sessionObj.time; // request time
+        const interval = 500; // Interval time (ms), less than this time is considered a duplicate submission
         if (s_data === requestObj.data && requestObj.time - s_time < interval && s_url === requestObj.url) {
-          const message = '数据正在处理，请勿重复提交';
+          const message = 'Data is being processed, please do not resubmit';
           console.warn(`[${s_url}]: ` + message);
           return Promise.reject(new Error(message));
         } else {
@@ -75,14 +75,14 @@ service.interceptors.request.use(
         }
       }
     }
-    // 当开启参数加密
+    // When parameter encryption is turned on
     if (isEncrypt && (config.method === 'post' || config.method === 'put')) {
-      // 生成一个 AES 密钥
+      // Generate an AES key
       const aesKey = generateAesKey();
       config.headers[encryptHeader] = encrypt(encryptBase64(aesKey));
       config.data = typeof config.data === 'object' ? encryptWithAes(JSON.stringify(config.data), aesKey) : encryptWithAes(config.data, aesKey);
     }
-    // FormData数据去请求头Content-Type
+    // FormData data goes to request header Content-Type
     if (config.data instanceof FormData) {
       delete config.headers['Content-Type'];
     }
@@ -94,28 +94,28 @@ service.interceptors.request.use(
   }
 );
 
-// 响应拦截器
+// response interceptor
 service.interceptors.response.use(
   (res: AxiosResponse) => {
-    // 加密后的 AES 秘钥
+    // Encrypted AES key
     const keyStr = res.headers[encryptHeader];
-    // 加密
+    // encryption
     if (keyStr != null && keyStr != '') {
       const data = res.data;
-      // 请求体 AES 解密
+      // Request body AES decryption
       const base64Str = decrypt(keyStr);
-      // base64 解码 得到请求头的 AES 秘钥
+      // Base64 decoding to get the AES key of the request header
       const aesKey = decryptBase64(base64Str.toString());
-      // aesKey 解码 data
+      // aesKey decode data
       const decryptData = decryptWithAes(data, aesKey);
-      // 将结果 (得到的是 JSON 字符串) 转为 JSON
+      // Convert the result (resulting in a JSON string) to JSON
       res.data = JSON.parse(decryptData);
     }
-    // 未设置状态码则默认成功状态
+    // If the status code is not set, the default success status is
     const code = res.data.code || HttpStatus.SUCCESS;
-    // 获取错误信息
+    // Get error message
     const msg = errorCode[code] || res.data.msg || errorCode['default'];
-    // 二进制数据则直接返回
+    // Binary data is returned directly
     if (res.request.responseType === 'blob' || res.request.responseType === 'arraybuffer') {
       return res.data;
     }
@@ -123,9 +123,9 @@ service.interceptors.response.use(
       // prettier-ignore
       if (!isRelogin.show) {
         isRelogin.show = true;
-        ElMessageBox.confirm('登录状态已过期，您可以继续留在该页面，或者重新登录', '系统提示', {
-          confirmButtonText: '重新登录',
-          cancelButtonText: '取消',
+        ElMessageBox.confirm('The login status has expired. You can continue to stay on this page or log in again.', 'System Reminder', {
+          confirmButtonText: 'Login Again',
+          cancelButtonText: 'Cancel',
           type: 'warning'
         }).then(() => {
           isRelogin.show = false;
@@ -136,7 +136,7 @@ service.interceptors.response.use(
           isRelogin.show = false;
         });
       }
-      return Promise.reject('无效的会话，或者会话已过期，请重新登录。');
+      return Promise.reject('Invalid session, or the session has expired, please log in again.');
     } else if (code === HttpStatus.SERVER_ERROR) {
       console.log(msg);
       ElMessage({ message: msg, type: 'error' });
@@ -154,17 +154,17 @@ service.interceptors.response.use(
   (error: any) => {
     let { message } = error;
     if (message == 'Network Error') {
-      message = '后端接口连接异常';
+      message = 'Connection Error';
     } else if (message.includes('timeout')) {
-      message = '系统接口请求超时';
+      message = 'Request Timeout';
     } else if (message.includes('Request failed with status code')) {
-      message = '系统接口' + message.substr(message.length - 3) + '异常';
+      message = 'System interface' + message.substr(message.length - 3) + 'Error';
     }
     ElMessage({ message: message, type: 'error', duration: 5 * 1000 });
     return Promise.reject(error);
   }
 );
-// 通用下载方法
+// General Download Method
 export function download(url: string, params: any, fileName: string) {
   downloadLoadingInstance = ElLoading.service({ text: 'Downloading data, please wait.', background: 'rgba(0, 0, 0, 0.7)' });
   // prettier-ignore
@@ -190,7 +190,7 @@ export function download(url: string, params: any, fileName: string) {
       downloadLoadingInstance.close();
     }).catch((r: any) => {
       console.error(r);
-      ElMessage.error('下载文件出现错误，请联系管理员！');
+      ElMessage.error('There was an error downloading the file, please contact the administrator.！');
       downloadLoadingInstance.close();
     });
 }

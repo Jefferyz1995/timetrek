@@ -28,7 +28,7 @@ export default {
       downloadLoadingInstance.close();
     } catch (r) {
       console.error(r);
-      ElMessage.error('下载文件出现错误，请联系管理员！');
+      ElMessage.error('There was an error downloading the file, please contact the administrator!');
       downloadLoadingInstance.close();
     }
   },
@@ -52,7 +52,7 @@ export default {
       downloadLoadingInstance.close();
     } catch (r) {
       console.error(r);
-      ElMessage.error('下载文件出现错误，请联系管理员！');
+      ElMessage.error('There was an error downloading the file, please contact the administrator!');
       downloadLoadingInstance.close();
     }
   },

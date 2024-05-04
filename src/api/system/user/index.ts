@@ -6,7 +6,7 @@ import { UserForm, UserQuery, UserVO, UserInfoVO } from './types';
 import { parseStrEmpty } from '@/utils/ruoyi';
 
 /**
- * 查询用户列表
+ * Query user list
  * @param query
  */
 export const listUser = (query: UserQuery): AxiosPromise<UserVO[]> => {
@@ -17,7 +17,7 @@ export const listUser = (query: UserQuery): AxiosPromise<UserVO[]> => {
   });
 };
 /**
- * 查询用户列表
+ * Query user list
  * @param query
  */
 export const listAllUser = (): AxiosPromise<UserVO[]> => {
@@ -27,7 +27,7 @@ export const listAllUser = (): AxiosPromise<UserVO[]> => {
   });
 };
 /**
- * 获取用户详情
+ * Get user details
  * @param userId
  */
 export const getUser = (userId?: string | number): AxiosPromise<UserInfoVO> => {
@@ -38,7 +38,7 @@ export const getUser = (userId?: string | number): AxiosPromise<UserInfoVO> => {
 };
 
 /**
- * 新增用户
+ * add user
  */
 export const addUser = (data: UserForm) => {
   return request({
@@ -49,7 +49,7 @@ export const addUser = (data: UserForm) => {
 };
 
 /**
- * 修改用户
+ * modify user
  */
 export const updateUser = (data: UserForm) => {
   return request({
@@ -60,8 +60,8 @@ export const updateUser = (data: UserForm) => {
 };
 
 /**
- * 删除用户
- * @param userId 用户ID
+ * delete user
+ * @param userId
  */
 export const delUser = (userId: Array<string | number> | string | number) => {
   return request({
@@ -71,9 +71,9 @@ export const delUser = (userId: Array<string | number> | string | number) => {
 };
 
 /**
- * 用户密码重置
- * @param userId 用户ID
- * @param password 密码
+ * reset user password
+ * @param userId
+ * @param password
  */
 export const resetUserPwd = (userId: string | number, password: string) => {
   const data = {
@@ -91,9 +91,9 @@ export const resetUserPwd = (userId: string | number, password: string) => {
 };
 
 /**
- * 用户状态修改
- * @param userId 用户ID
- * @param status 用户状态
+ * modify user status
+ * @param userId
+ * @param status
  */
 export const changeUserStatus = (userId: number | string, status: string) => {
   const data = {
@@ -108,7 +108,7 @@ export const changeUserStatus = (userId: number | string, status: string) => {
 };
 
 /**
- * 查询用户个人信息
+ * query user profile
  */
 export const getUserProfile = (): AxiosPromise<UserInfoVO> => {
   return request({
@@ -118,8 +118,8 @@ export const getUserProfile = (): AxiosPromise<UserInfoVO> => {
 };
 
 /**
- * 修改用户个人信息
- * @param data 用户信息
+ * modify user profile
+ * @param data user info
  */
 export const updateUserProfile = (data: UserForm) => {
   return request({
@@ -130,9 +130,9 @@ export const updateUserProfile = (data: UserForm) => {
 };
 
 /**
- * 用户密码重置
- * @param oldPassword 旧密码
- * @param newPassword 新密码
+ * reset user password
+ * @param oldPassword 
+ * @param newPassword
  */
 export const updateUserPwd = (oldPassword: string, newPassword: string) => {
   const data = {
@@ -150,8 +150,8 @@ export const updateUserPwd = (oldPassword: string, newPassword: string) => {
 };
 
 /**
- * 用户头像上传
- * @param data 头像文件
+ * upload user image
+ * @param data imagefile
  */
 export const uploadAvatar = (data: FormData) => {
   return request({
@@ -162,8 +162,8 @@ export const uploadAvatar = (data: FormData) => {
 };
 
 /**
- * 查询授权角色
- * @param userId 用户ID
+ * Query authorization roles
+ * @param userId
  */
 export const getAuthRole = (userId: string | number): AxiosPromise<{ user: UserVO; roles: RoleVO[] }> => {
   return request({
@@ -173,7 +173,7 @@ export const getAuthRole = (userId: string | number): AxiosPromise<{ user: UserV
 };
 
 /**
- * 保存授权角色
+ * Save authorization role
  * @param data 用户ID
  */
 export const updateAuthRole = (data: { userId: string; roleIds: string }) => {
@@ -185,7 +185,7 @@ export const updateAuthRole = (data: { userId: string; roleIds: string }) => {
 };
 
 /**
- * 查询当前部门的所有用户信息
+ * Query all user information of the current department
  * @param deptId
  */
 export const listUserByDeptId = (deptId: string | number): AxiosPromise<UserVO[]> => {
@@ -196,7 +196,7 @@ export const listUserByDeptId = (deptId: string | number): AxiosPromise<UserVO[]
 };
 
 /**
- * 查询部门下拉树结构
+ * Query department drop-down tree structure
  */
 export const deptTreeSelect = (): AxiosPromise<DeptVO[]> => {
   return request({

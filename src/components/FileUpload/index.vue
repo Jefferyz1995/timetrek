@@ -14,21 +14,21 @@
       class="upload-file-uploader"
       ref="fileUploadRef"
     >
-      <!-- 上传按钮 -->
-      <el-button type="primary">选取文件</el-button>
+      <!-- Upload button -->
+      <el-button type="primary">Select File</el-button>
     </el-upload>
-    <!-- 上传提示 -->
+    <!-- Upload prompt -->
     <div class="el-upload__tip" v-if="showTip">
-      请上传
+      Upload
       <template v-if="fileSize">
-        大小不超过 <b style="color: #f56c6c">{{ fileSize }}MB</b>
+        Size does not exceed <b style="color: #f56c6c">{{ fileSize }}MB</b>
       </template>
       <template v-if="fileType">
-        格式为 <b style="color: #f56c6c">{{ fileType.join("/") }}</b>
+        File in <b style="color: #f56c6c">{{ fileType.join("/") }}</b>
       </template>
-      的文件
+      format
     </div>
-    <!-- 文件列表 -->
+    <!-- Filelist -->
     <transition-group class="upload-file-list el-upload-list el-upload-list--text" name="el-fade-in-linear" tag="ul">
       <li :key="file.uid" class="el-upload-list__item ele-upload-list__item-content" v-for="(file, index) in fileList">
         <el-link :href="`${file.url}`" :underline="false" target="_blank">
@@ -49,13 +49,13 @@ import { globalHeaders } from "@/utils/request";
 
 const props = defineProps({
     modelValue: [String, Object, Array],
-    // 数量限制
+    // Quantitative restrictions
     limit: propTypes.number.def(5),
-    // 大小限制(MB)
+    // Size limit(MB)
     fileSize: propTypes.number.def(5),
-    // 文件类型, 例如['png', 'jpg', 'jpeg']
+    // File types, such as ['png', 'jpg', 'jpeg']
     fileType: propTypes.array.def(["doc", "xls", "ppt", "txt", "pdf"]),
-    // 是否显示提示
+    // Whether to display prompts
     isShowTip: propTypes.bool.def(true),
 });
 
@@ -65,7 +65,7 @@ const number = ref(0);
 const uploadList = ref<any[]>([]);
 
 const baseUrl = import.meta.env.VITE_APP_BASE_API;
-const uploadFileUrl = ref(baseUrl + "/resource/oss/upload"); // 上传文件服务器地址
+const uploadFileUrl = ref(baseUrl + "/resource/oss/upload"); // Upload file server address
 const headers = ref(globalHeaders());
 
 const fileList = ref<any[]>([]);
@@ -78,7 +78,7 @@ const fileUploadRef = ref<ElUploadInstance>();
 watch(() => props.modelValue, async val => {
     if (val) {
         let temp = 1;
-        // 首先将值转为数组
+        // convert the value into an array
         let list = [];
         if (Array.isArray(val)) {
             list = val;
@@ -89,7 +89,7 @@ watch(() => props.modelValue, async val => {
                 return data;
             });
         }
-        // 然后将数组转为对象数组
+        // Then convert the array into an object array
         fileList.value = list.map(item => {
             item = { name: item.name, url: item.url, ossId: item.ossId };
             item.uid = item.uid || new Date().getTime() + temp++;
@@ -101,42 +101,42 @@ watch(() => props.modelValue, async val => {
     }
 }, { deep: true, immediate: true });
 
-// 上传前校检格式和大小
+// Check format and size before uploading
 const handleBeforeUpload = (file: any) => {
-    // 校检文件类型
+    // check file type
     if (props.fileType.length) {
         const fileName = file.name.split('.');
         const fileExt = fileName[fileName.length - 1];
         const isTypeOk = props.fileType.indexOf(fileExt) >= 0;
         if (!isTypeOk) {
-            proxy?.$modal.msgError(`文件格式不正确, 请上传${props.fileType.join("/")}格式文件!`);
+            proxy?.$modal.msgError(`The file format is incorrect, please upload a ${props.fileType.join("/")}format file!`);
             return false;
         }
     }
-    // 校检文件大小
+    // check file size
     if (props.fileSize) {
         const isLt = file.size / 1024 / 1024 < props.fileSize;
         if (!isLt) {
-            proxy?.$modal.msgError(`上传文件大小不能超过 ${props.fileSize} MB!`);
+            proxy?.$modal.msgError(`Upload file size cannot exceed ${props.fileSize} MB!`);
             return false;
         }
     }
-    proxy?.$modal.loading("正在上传文件，请稍候...");
+    proxy?.$modal.loading("Uploading files, please wait...");
     number.value++;
     return true;
 }
 
-// 文件个数超出
+// The number of files exceeds
 const handleExceed = () => {
-    proxy?.$modal.msgError(`上传文件数量不能超过 ${props.limit} 个!`);
+    proxy?.$modal.msgError(`The number of uploaded files cannot exceed ${props.limit}`);
 }
 
-// 上传失败
+// upload failed
 const handleUploadError = () => {
-    proxy?.$modal.msgError("上传文件失败");
+    proxy?.$modal.msgError("File upload failed");
 }
 
-// 上传成功回调
+// Upload success callback
 const handleUploadSuccess = (res: any, file: UploadFile) => {
     if (res.code === 200) {
         uploadList.value.push({ name: res.data.fileName, url: res.data.url, ossId: res.data.ossId });
@@ -150,7 +150,7 @@ const handleUploadSuccess = (res: any, file: UploadFile) => {
     }
 }
 
-// 删除文件
+// delete file
 const handleDelete = (index: number) => {
     let ossId = fileList.value[index].ossId;
     delOss(ossId);
@@ -158,7 +158,7 @@ const handleDelete = (index: number) => {
     emit("update:modelValue", listToString(fileList.value));
 }
 
-// 上传结束处理
+// upload completed
 const uploadedSuccessfully = () => {
     if (number.value > 0 && uploadList.value.length === number.value) {
         fileList.value = fileList.value.filter(f => f.url !== undefined).concat(uploadList.value);
@@ -169,9 +169,9 @@ const uploadedSuccessfully = () => {
     }
 }
 
-// 获取文件名称
+// get file name
 const getFileName = (name: string) => {
-    // 如果是url那么取最后的名字 如果不是直接返回
+    // If it is a url, then take the last name. If it is not returned directly,
     if (name.lastIndexOf("/") > -1) {
         return name.slice(name.lastIndexOf("/") + 1);
     } else {
@@ -179,7 +179,7 @@ const getFileName = (name: string) => {
     }
 }
 
-// 对象转成指定字符串分隔
+// Convert the object to the specified string delimited
 const listToString = (list: any[], separator?: string) => {
     let strs = "";
     separator = separator || ",";

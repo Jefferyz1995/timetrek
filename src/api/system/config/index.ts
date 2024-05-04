@@ -2,7 +2,7 @@ import request from '@/utils/request';
 import { ConfigForm, ConfigQuery, ConfigVO } from './types';
 import { AxiosPromise } from 'axios';
 
-// 查询参数列表
+// Query parameter list
 export function listConfig(query: ConfigQuery): AxiosPromise<ConfigVO[]> {
   return request({
     url: '/system/config/list',
@@ -11,7 +11,7 @@ export function listConfig(query: ConfigQuery): AxiosPromise<ConfigVO[]> {
   });
 }
 
-// 查询参数详细
+// Query parameter details
 export function getConfig(configId: string | number): AxiosPromise<ConfigVO> {
   return request({
     url: '/system/config/' + configId,
@@ -19,7 +19,7 @@ export function getConfig(configId: string | number): AxiosPromise<ConfigVO> {
   });
 }
 
-// 根据参数键名查询参数值
+// Query parameter value based on parameter key name
 export function getConfigKey(configKey: string): AxiosPromise<String> {
   return request({
     url: '/system/config/configKey/' + configKey,
@@ -27,7 +27,7 @@ export function getConfigKey(configKey: string): AxiosPromise<String> {
   });
 }
 
-// 新增参数配置
+// add parameter configuration
 export function addConfig(data: ConfigForm) {
   return request({
     url: '/system/config',
@@ -36,7 +36,7 @@ export function addConfig(data: ConfigForm) {
   });
 }
 
-// 修改参数配置
+// Modify parameter configuration
 export function updateConfig(data: ConfigForm) {
   return request({
     url: '/system/config',
@@ -45,7 +45,7 @@ export function updateConfig(data: ConfigForm) {
   });
 }
 
-// 修改参数配置
+// Modify parameter configuration
 export function updateConfigByKey(key: string, value: any) {
   return request({
     url: '/system/config/updateByKey',
@@ -57,7 +57,7 @@ export function updateConfigByKey(key: string, value: any) {
   });
 }
 
-// 删除参数配置
+// Delete parameter configuration
 export function delConfig(configId: string | number | Array<string | number>) {
   return request({
     url: '/system/config/' + configId,
@@ -65,7 +65,7 @@ export function delConfig(configId: string | number | Array<string | number>) {
   });
 }
 
-// 刷新参数缓存
+// Refresh parameter cache
 export function refreshCache() {
   return request({
     url: '/system/config/refreshCache',

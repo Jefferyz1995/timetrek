@@ -7,8 +7,8 @@ export const useDictStore = defineStore('dict', () => {
   >([]);
 
   /**
-   * 获取字典
-   * @param _key 字典key
+   * Get dictionary
+   * @param _key Dictionary key
    */
   const getDict = (_key: string): DictDataOption[] | null => {
     if (_key == null && _key == '') {
@@ -27,9 +27,9 @@ export const useDictStore = defineStore('dict', () => {
   };
 
   /**
-   * 设置字典
-   * @param _key 字典key
-   * @param _value 字典value
+   * set Dictionary
+   * @param _key Dictionary key
+   * @param _value Dictionary value
    */
   const setDict = (_key: string, _value: DictDataOption[]) => {
     if (_key !== null && _key !== '') {
@@ -41,7 +41,7 @@ export const useDictStore = defineStore('dict', () => {
   };
 
   /**
-   * 删除字典
+   * delete Dictionary
    * @param _key
    */
   const removeDict = (_key: string): boolean => {
@@ -60,7 +60,7 @@ export const useDictStore = defineStore('dict', () => {
   };
 
   /**
-   * 清空字典
+   * clear Dictionary
    */
   const cleanDict = (): void => {
     dict.value = [];

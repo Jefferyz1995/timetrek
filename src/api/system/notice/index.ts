@@ -1,7 +1,7 @@
 import request from '@/utils/request';
 import { NoticeForm, NoticeQuery, NoticeVO } from './types';
 import { AxiosPromise } from 'axios';
-// 查询公告列表
+// Query notice list
 export function listNotice(query: NoticeQuery): AxiosPromise<NoticeVO[]> {
   return request({
     url: '/system/notice/list',
@@ -10,7 +10,7 @@ export function listNotice(query: NoticeQuery): AxiosPromise<NoticeVO[]> {
   });
 }
 
-// 查询公告详细
+// Check the notice details
 export function getNotice(noticeId: string | number): AxiosPromise<NoticeVO> {
   return request({
     url: '/system/notice/' + noticeId,
@@ -18,7 +18,7 @@ export function getNotice(noticeId: string | number): AxiosPromise<NoticeVO> {
   });
 }
 
-// 新增公告
+// add new notice
 export function addNotice(data: NoticeForm) {
   return request({
     url: '/system/notice',
@@ -27,7 +27,7 @@ export function addNotice(data: NoticeForm) {
   });
 }
 
-// 修改公告
+// modify notice
 export function updateNotice(data: NoticeForm) {
   return request({
     url: '/system/notice',
@@ -36,7 +36,7 @@ export function updateNotice(data: NoticeForm) {
   });
 }
 
-// 删除公告
+// delete notice
 export function delNotice(noticeId: string | number | Array<string | number>) {
   return request({
     url: '/system/notice/' + noticeId,

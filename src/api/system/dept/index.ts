@@ -2,7 +2,7 @@ import request from '@/utils/request';
 import { AxiosPromise } from 'axios';
 import { DeptForm, DeptQuery, DeptVO } from './types';
 
-// 查询部门列表
+// Query department list
 export const listDept = (query?: DeptQuery) => {
   return request({
     url: '/system/dept/list',
@@ -11,7 +11,7 @@ export const listDept = (query?: DeptQuery) => {
   });
 };
 
-// 查询部门列表（排除节点）
+// Query department list (exclude nodes)
 export const listDeptExcludeChild = (deptId: string | number): AxiosPromise<DeptVO[]> => {
   return request({
     url: '/system/dept/list/exclude/' + deptId,
@@ -19,7 +19,7 @@ export const listDeptExcludeChild = (deptId: string | number): AxiosPromise<Dept
   });
 };
 
-// 查询部门详细
+// Query department details
 export const getDept = (deptId: string | number): AxiosPromise<DeptVO> => {
   return request({
     url: '/system/dept/' + deptId,
@@ -27,7 +27,7 @@ export const getDept = (deptId: string | number): AxiosPromise<DeptVO> => {
   });
 };
 
-// 查询部门下拉树结构
+// Query department drop-down tree structure
 export const treeselect = (): AxiosPromise<DeptVO[]> => {
   return request({
     url: '/system/dept/treeselect',
@@ -35,7 +35,7 @@ export const treeselect = (): AxiosPromise<DeptVO[]> => {
   });
 };
 
-// 新增部门
+// Add new department
 export const addDept = (data: DeptForm) => {
   return request({
     url: '/system/dept',
@@ -44,7 +44,7 @@ export const addDept = (data: DeptForm) => {
   });
 };
 
-// 修改部门
+// Modify department
 export const updateDept = (data: DeptForm) => {
   return request({
     url: '/system/dept',
@@ -53,7 +53,7 @@ export const updateDept = (data: DeptForm) => {
   });
 };
 
-// 删除部门
+// Delete department
 export const delDept = (deptId: number | string) => {
   return request({
     url: '/system/dept/' + deptId,

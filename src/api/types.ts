@@ -1,5 +1,5 @@
 /**
- * 注册
+ * register
  */
 export type RegisterForm = {
   tenantId: string;
@@ -12,7 +12,7 @@ export type RegisterForm = {
 };
 
 /**
- * 登录请求
+ * Login request
  */
 export interface LoginData {
   tenantId?: string;
@@ -29,14 +29,14 @@ export interface LoginData {
 }
 
 /**
- * 登录响应
+ * Login response
  */
 export interface LoginResult {
   access_token: string;
 }
 
 /**
- * 验证码返回
+ * Verification code returned
  */
 export interface VerifyCodeResult {
   captchaEnabled: boolean;
@@ -45,7 +45,7 @@ export interface VerifyCodeResult {
 }
 
 /**
- * 租户
+ * tenant
  */
 export interface TenantVO {
   companyName: string;

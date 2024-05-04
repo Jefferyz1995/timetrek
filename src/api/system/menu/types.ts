@@ -1,7 +1,7 @@
 import { MenuTypeEnum } from '@/enums/MenuTypeEnum';
 
 /**
- * 菜单树形结构类型
+ * Menu tree structure type
  */
 export interface MenuTreeOption {
   id: string | number;
@@ -17,7 +17,7 @@ export interface RoleMenuTree {
 }
 
 /**
- * 菜单查询参数类型
+ * Menu query parameter type
  */
 export interface MenuQuery {
   keywords?: string;
@@ -26,7 +26,7 @@ export interface MenuQuery {
 }
 
 /**
- * 菜单视图对象类型
+ * Menu view object type
  */
 export interface MenuVO extends BaseEntity {
   parentName: string;

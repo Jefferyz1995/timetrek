@@ -1,5 +1,5 @@
 /**
- * 部门查询参数
+ * Query department parameter
  */
 export interface DeptQuery extends PageQuery {
   deptName?: string;
@@ -7,7 +7,7 @@ export interface DeptQuery extends PageQuery {
 }
 
 /**
- * 部门类型
+ * dept type
  */
 export interface DeptVO extends BaseEntity {
   id: number | string;
@@ -27,7 +27,7 @@ export interface DeptVO extends BaseEntity {
 }
 
 /**
- * 部门表单类型
+ * Department form type
  */
 export interface DeptForm {
   parentName?: string;

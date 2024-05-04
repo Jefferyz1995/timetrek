@@ -3,7 +3,7 @@ import { AxiosPromise } from 'axios';
 import { ProjectTaskVO, ProjectTaskForm, ProjectTaskQuery } from '@/api/system/projectTask/types';
 
 /**
- * 查询项目的任务列表
+ * Query the task list of a project
  * @param query
  * @returns {*}
  */
@@ -17,7 +17,7 @@ export const listProjectTask = (query?: ProjectTaskQuery): AxiosPromise<ProjectT
 };
 
 /**
- * 查询项目的任务详细
+ * Query project task details
  * @param id
  */
 export const getProjectTask = (id: string | number): AxiosPromise<ProjectTaskVO> => {
@@ -28,7 +28,7 @@ export const getProjectTask = (id: string | number): AxiosPromise<ProjectTaskVO>
 };
 
 /**
- * 新增项目的任务
+ * Add new project tasks
  * @param data
  */
 export const addProjectTask = (data: ProjectTaskForm) => {
@@ -40,7 +40,7 @@ export const addProjectTask = (data: ProjectTaskForm) => {
 };
 
 /**
- * 修改项目的任务
+ * Modify project tasks
  * @param data
  */
 export const updateProjectTask = (data: ProjectTaskForm) => {
@@ -52,7 +52,7 @@ export const updateProjectTask = (data: ProjectTaskForm) => {
 };
 
 /**
- * 删除项目的任务
+ * Delete project tasks
  * @param id
  */
 export const delProjectTask = (id: string | number | Array<string | number>) => {

@@ -128,8 +128,8 @@
 
       <pagination v-show="total > 0" :total="total" v-model:page="queryParams.pageNum" v-model:limit="queryParams.pageSize" @pagination="getList" />
     </el-card>
-    <!-- 操作日志详细 -->
-    <el-dialog title="操作日志详细" v-model="dialog.visible" width="700px" append-to-body>
+    <!-- operation log deatil -->
+    <el-dialog title="Log Detail" v-model="dialog.visible" width="700px" append-to-body>
       <el-form :model="form" label-width="100px">
         <el-row>
           <el-col :span="24">
@@ -157,7 +157,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="CostTime：">{{ form.costTime }}毫秒</el-form-item>
+            <el-form-item label="CostTime：">{{ form.costTime }}ms</el-form-item>
           </el-col>
           <el-col :span="10">
             <el-form-item label="OperTime：">{{ parseTime(form.operTime) }}</el-form-item>
@@ -169,7 +169,7 @@
       </el-form>
       <template #footer>
         <div class="dialog-footer">
-          <el-button @click="dialog.visible = false">关 闭</el-button>
+          <el-button @click="dialog.visible = false">Close</el-button>
         </div>
       </template>
     </el-dialog>
@@ -239,7 +239,7 @@ const data = reactive<PageData<OperLogForm, OperLogQuery>>({
 
 const { queryParams, form } = toRefs(data);
 
-/** 查询登录日志 */
+/** Query login log */
 const getList = async () => {
   loading.value = true;
   const res = await list(proxy?.addDateRange(queryParams.value, dateRange.value));
@@ -247,56 +247,56 @@ const getList = async () => {
   total.value = res.total;
   loading.value = false;
 }
-/** 操作日志类型字典翻译 */
+/** Operation log type dictionary translation */
 const typeFormat = (row: OperLogForm) => {
   return proxy?.selectDictLabel(sys_oper_type.value, row.businessType);
 }
-/** 搜索按钮操作 */
+/** Search button action */
 const handleQuery = () => {
   queryParams.value.pageNum = 1;
   getList();
 }
-/** 重置按钮操作 */
+/** reset button action */
 const resetQuery = () => {
   dateRange.value = ['', ''];
   queryFormRef.value?.resetFields();
   queryParams.value.pageNum = 1;
   operLogTableRef.value?.sort(defaultSort.value.prop, defaultSort.value.order);
 }
-/** 多选框选中数据 */
+/** Multiple selection box selected data */
 const handleSelectionChange = (selection: OperLogVO[]) => {
   ids.value = selection.map(item => item.operId);
   multiple.value = !selection.length;
 }
-/** 排序触发事件 */
+/** Sorting trigger events */
 const handleSortChange = (column: any) => {
   queryParams.value.orderByColumn = column.prop;
   queryParams.value.isAsc = column.order;
   getList();
 }
-/** 详细按钮操作 */
+/** Detail button action */
 const handleView = (row: OperLogVO) => {
   dialog.visible = true;
   form.value = row;
 }
-/** 删除按钮操作 */
+/** Delelte button action */
 const handleDelete = async (row?: OperLogVO) => {
   const operIds = row?.operId || ids.value;
-  await proxy?.$modal.confirm('是否确认删除日志编号为"' + operIds + '?');
+  await proxy?.$modal.confirm('Confirm to delete the log number"' + operIds + '?');
   await delOperlog(operIds);
   await getList();
   proxy?.$modal.msgSuccess("Successfully deleted");
 }
 
-/** 清空按钮操作 */
+/** clear button action */
 const handleClean = async () => {
-  await proxy?.$modal.confirm("是否确认清空所有操作日志数据项?");
+  await proxy?.$modal.confirm("Confirm to clear all log data?");
   await cleanOperlog();
   await getList();
-  proxy?.$modal.msgSuccess("清空成功");
+  proxy?.$modal.msgSuccess("Cleared successfully");
 }
 
-/** 导出按钮操作 */
+/** export button action */
 const handleExport = () => {
   proxy?.download("monitor/operlog/export", {
     ...queryParams.value,

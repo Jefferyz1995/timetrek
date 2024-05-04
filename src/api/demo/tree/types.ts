@@ -1,80 +1,80 @@
 export interface TreeVO {
   /**
-   * 主键
+   * Primary Key
    */
   id: string | number;
 
   /**
-   * 父id
+   * Parent id
    */
   parentId: string | number;
 
   /**
-   * 部门id
+   * dept id
    */
   deptId: string | number;
 
   /**
-   * 用户id
+   * user id
    */
   userId: string | number;
 
   /**
-   * 值
+   * value
    */
   treeName: string;
 
   /**
-   * 子对象
+   * children
    */
   children: TreeVO[];
 }
 
 export interface TreeForm extends BaseEntity {
   /**
-   * 主键
+   * primary key
    */
   id?: string | number;
 
   /**
-   * 父id
+   * parent id
    */
   parentId?: string | number;
 
   /**
-   * 部门id
+   * dept id
    */
   deptId?: string | number;
 
   /**
-   * 用户id
+   * userid
    */
   userId?: string | number;
 
   /**
-   * 值
+   * value
    */
   treeName?: string;
 }
 
 export interface TreeQuery {
   /**
-   * 父id
+   * parent id
    */
   parentId?: string | number;
 
   /**
-   * 部门id
+   * dept id
    */
   deptId?: string | number;
 
   /**
-   * 用户id
+   * user id
    */
   userId?: string | number;
 
   /**
-   * 值
+   * value
    */
   treeName?: string;
 }

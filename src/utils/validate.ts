@@ -1,5 +1,5 @@
 /**
- * 判断url是否是http或https
+ * Determine whether the url is http or https
  * @returns {Boolean}
  * @param url
  */
@@ -8,7 +8,7 @@ export const isHttp = (url: string): boolean => {
 };
 
 /**
- * 判断path是否为外链
+ * Determine whether the path is an external link
  * @param {string} path
  * @returns {Boolean}
  */

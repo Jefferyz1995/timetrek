@@ -4,8 +4,8 @@ import { TagView, RouteLocationRaw } from 'vue-router';
 
 export default {
   /**
-   * 刷新当前tab页签
-   * @param obj 标签对象
+   * Refresh the current tab page
+   * @param obj label object
    */
   async refreshPage(obj?: TagView): Promise<void> {
     const { path, query, matched } = router.currentRoute.value;
@@ -30,14 +30,14 @@ export default {
       query: query1
     });
   },
-  // 关闭当前tab页签，打开新页签
+  // Close the current tab and open a new tab
   closeOpenPage(obj: RouteLocationRaw): void {
     useTagsViewStore().delView(router.currentRoute.value);
     if (obj !== undefined) {
       router.push(obj);
     }
   },
-  // 关闭指定tab页签
+  // Close the specified tab
   async closePage(obj?: TagView): Promise<{ visitedViews: TagView[]; cachedViews: string[] } | any> {
     if (obj === undefined) {
       // prettier-ignore
@@ -50,35 +50,35 @@ export default {
     }
     return useTagsViewStore().delView(obj);
   },
-  // 关闭所有tab页签
+  // Close all tabs
   closeAllPage() {
     return useTagsViewStore().delAllViews();
   },
-  // 关闭左侧tab页签
+  // Close the left tab
   closeLeftPage(obj?: TagView) {
     return useTagsViewStore().delLeftTags(obj || router.currentRoute.value);
   },
-  // 关闭右侧tab页签
+  // Close the right tab
   closeRightPage(obj?: TagView) {
     return useTagsViewStore().delRightTags(obj || router.currentRoute.value);
   },
-  // 关闭其他tab页签
+  // Close other tabs
   closeOtherPage(obj?: TagView) {
     return useTagsViewStore().delOthersViews(obj || router.currentRoute.value);
   },
   /**
-   * 打开tab页签
-   * @param url 路由地址
-   * @param title 标题
-   * @param query 参数
+   * Open tab
+   * @param url
+   * @param title
+   * @param query
    */
   openPage(url: string, title?: string, query?: any) {
     const obj = { path: url, query: { ...query, title } };
     return router.push(obj);
   },
   /**
-   * 修改tab页签
-   * @param obj 标签对象
+   * Modify tabs
+   * @param obj
    */
   updatePage(obj: TagView) {
     return useTagsViewStore().updateVisitedView(obj);

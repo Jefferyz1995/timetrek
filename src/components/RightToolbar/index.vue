@@ -1,16 +1,16 @@
 <template>
   <div class="top-right-btn" :style="style">
     <el-row>
-      <el-tooltip class="item" effect="dark" :content="showSearch ? '隐藏搜索' : '显示搜索'" placement="top" v-if="search">
+      <el-tooltip class="item" effect="dark" :content="showSearch ? 'Hide Search' : 'Show Search'" placement="top" v-if="search">
         <el-button circle icon="Search" @click="toggleSearch()" />
       </el-tooltip>
-      <el-tooltip class="item" effect="dark" content="刷新" placement="top">
+      <el-tooltip class="item" effect="dark" content="Refresh" placement="top">
         <el-button circle icon="Refresh" @click="refresh()" />
       </el-tooltip>
-      <el-tooltip class="item" effect="dark" content="显示/隐藏列" placement="top" v-if="columns">
+      <el-tooltip class="item" effect="dark" content="Show/Hide Row" placement="top" v-if="columns">
         <div class="show-btn">
           <el-popover placement="bottom" trigger="click">
-            <div class="tree-header">显示/隐藏列</div>
+            <div class="tree-header">Show/Hide Row</div>
             <el-tree
               ref="columnRef"
               :data="columns"
@@ -52,24 +52,23 @@ const style = computed(() => {
     return ret;
 });
 
-// 搜索
+// Search
 function toggleSearch() {
     emits("update:showSearch", !props.showSearch);
 }
 
-// 刷新
+// Refresh
 function refresh() {
     emits("queryTable");
 }
 
-// 更改数据列的显示和隐藏
+// show / hide the data column
 function columnChange(...args: any[]) {
   props.columns?.forEach((item) => {
     item.visible = args[1].checkedKeys.includes(item.key);
   })
 }
 
-// 显隐列初始默认隐藏列
 onMounted(() => {
     props.columns?.forEach((item) => {
         if (item.visible) {

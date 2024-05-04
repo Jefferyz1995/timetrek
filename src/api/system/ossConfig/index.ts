@@ -2,7 +2,7 @@ import request from '@/utils/request';
 import { OssConfigForm, OssConfigQuery, OssConfigVO } from './types';
 import { AxiosPromise } from 'axios';
 
-// 查询对象存储配置列表
+// Query object storage configuration list
 export function listOssConfig(query: OssConfigQuery): AxiosPromise<OssConfigVO[]> {
   return request({
     url: '/resource/oss/config/list',
@@ -11,7 +11,7 @@ export function listOssConfig(query: OssConfigQuery): AxiosPromise<OssConfigVO[]
   });
 }
 
-// 查询对象存储配置详细
+// Query object storage configuration details
 export function getOssConfig(ossConfigId: string | number): AxiosPromise<OssConfigVO> {
   return request({
     url: '/resource/oss/config/' + ossConfigId,
@@ -19,7 +19,7 @@ export function getOssConfig(ossConfigId: string | number): AxiosPromise<OssConf
   });
 }
 
-// 新增对象存储配置
+// Add new object storage configuration
 export function addOssConfig(data: OssConfigForm) {
   return request({
     url: '/resource/oss/config',
@@ -28,7 +28,7 @@ export function addOssConfig(data: OssConfigForm) {
   });
 }
 
-// 修改对象存储配置
+// Modify object storage configuration
 export function updateOssConfig(data: OssConfigForm) {
   return request({
     url: '/resource/oss/config',
@@ -37,7 +37,7 @@ export function updateOssConfig(data: OssConfigForm) {
   });
 }
 
-// 删除对象存储配置
+// Delete object storage configuration
 export function delOssConfig(ossConfigId: string | number | Array<string | number>) {
   return request({
     url: '/resource/oss/config/' + ossConfigId,
@@ -45,7 +45,7 @@ export function delOssConfig(ossConfigId: string | number | Array<string | numbe
   });
 }
 
-// 对象存储状态修改
+// Object storage status modification
 export function changeOssConfigStatus(ossConfigId: string | number, status: string, configKey: string) {
   const data = {
     ossConfigId,

@@ -33,17 +33,17 @@ import { propTypes } from '@/utils/propTypes';
 import { globalHeaders } from "@/utils/request";
 
 const props = defineProps({
-  /* 编辑器的内容 */
+  /* Editor content */
   modelValue: propTypes.string,
-  /* 高度 */
+  /* height */
   height: propTypes.number.def(400),
-  /* 最小高度 */
+  /* minimum height */
   minHeight: propTypes.number.def(400),
-  /* 只读 */
+  /* readonly */
   readOnly: propTypes.bool.def(false),
-  /* 上传文件大小限制(MB) */
+  /* Upload file size limit (MB) */
   fileSize: propTypes.number.def(5),
-  /* 类型（base64格式、url格式） */
+  /* Type (base64 format, url format) */
   type: propTypes.string.def('url')
 });
 
@@ -60,24 +60,24 @@ const options = ref({
   bounds: document.body,
   debug: "warn",
   modules: {
-    // 工具栏配置
+    // Toolbar configuration
     toolbar: {
       container: [
-        ["bold", "italic", "underline", "strike"],       // 加粗 斜体 下划线 删除线
-        ["blockquote", "code-block"],                    // 引用  代码块
-        [{ list: "ordered" }, { list: "bullet" }],       // 有序、无序列表
-        [{ indent: "-1" }, { indent: "+1" }],            // 缩进
-        [{ size: ["small", false, "large", "huge"] }],   // 字体大小
-        [{ header: [1, 2, 3, 4, 5, 6, false] }],         // 标题
-        [{ color: [] }, { background: [] }],             // 字体颜色、字体背景颜色
-        [{ align: [] }],                                 // 对齐方式
-        ["clean"],                                       // 清除文本格式
-        ["link", "image", "video"]                       // 链接、图片、视频
+        ["bold", "italic", "underline", "strike"],
+        ["blockquote", "code-block"],
+        [{ list: "ordered" }, { list: "bullet" }],
+        [{ indent: "-1" }, { indent: "+1" }],
+        [{ size: ["small", false, "large", "huge"] }],
+        [{ header: [1, 2, 3, 4, 5, 6, false] }],
+        [{ color: [] }, { background: [] }],
+        [{ align: [] }],
+        ["clean"],
+        ["link", "image", "video"]
       ],
       handlers: {
         image: function (value: any) {
           if (value) {
-            // 调用element图片上传
+            // Call element image upload
             (document.querySelector(".editor-img-uploader>.el-upload") as HTMLDivElement)?.click();
           } else {
             Quill.format("image", true);
@@ -86,7 +86,7 @@ const options = ref({
       },
     }
   },
-  placeholder: "请输入内容",
+  placeholder: "Please Input Content",
   readOnly: props.readOnly,
 });
 
@@ -108,17 +108,17 @@ watch(() => props.modelValue, (v) => {
   }
 }, { immediate: true });
 
-// 图片上传成功返回图片地址
+// Image upload is successful and the image address is returned
 const handleUploadSuccess = (res: any) => {
-  // 如果上传成功
+  // If the upload is successful
   if (res.code === 200) {
-    // 获取富文本实例
+    // Get rich text instance
     let quill = toRaw(quillEditorRef.value).getQuill();
-    // 获取光标位置
+    // Get cursor position
     let length = quill.selection.savedRange.index;
-    // 插入图片，res为服务器返回的图片链接地址
+    // Insert a picture, res is the picture link address returned by the server
     quill.insertEmbed(length, "image", res.data.url);
-    // 调整光标到最后
+    // Adjust the cursor to the end
     quill.setSelection(length + 1);
     proxy?.$modal.closeLoading();
   } else {
@@ -127,31 +127,31 @@ const handleUploadSuccess = (res: any) => {
   }
 }
 
-// 图片上传前拦截
+// handle images before uploading
 const handleBeforeUpload = (file: any) => {
   const type = ["image/jpeg", "image/jpg", "image/png", "image/svg"];
   const isJPG = type.includes(file.type);
-  //检验文件格式
+  //Check file format
   if (!isJPG) {
-    proxy?.$modal.msgError(`图片格式错误!`);
+    proxy?.$modal.msgError(`Image Format Error!`);
     return false;
   }
-  // 校检文件大小
+  // check file size
   if (props.fileSize) {
     const isLt = file.size / 1024 / 1024 < props.fileSize;
     if (!isLt) {
-      proxy?.$modal.msgError(`上传文件大小不能超过 ${props.fileSize} MB!`);
+      proxy?.$modal.msgError(`Upload file size cannot exceed ${props.fileSize} MB!`);
       return false;
     }
   }
-  proxy?.$modal.loading('正在上传文件，请稍候...');
+  proxy?.$modal.loading('Uploading files, Please Wait...');
   return true;
 }
 
-// 图片失败拦截
+// handle images error
 const handleUploadError = (err: any) => {
   console.error(err);
-  proxy?.$modal.msgError('上传文件失败');
+  proxy?.$modal.msgError('File upload failed');
 }
 </script>
 
@@ -168,15 +168,15 @@ const handleUploadError = (err: any) => {
   display: none;
 }
 .ql-snow .ql-tooltip[data-mode="link"]::before {
-  content: "请输入链接地址:";
+  content: "Please enter the link address:";
 }
 .ql-snow .ql-tooltip.ql-editing a.ql-action::after {
   border-right: 0;
-  content: "保存";
+  content: "Save";
   padding-right: 0;
 }
 .ql-snow .ql-tooltip[data-mode="video"]::before {
-  content: "请输入视频地址:";
+  content: "Please enter the video address:";
 }
 .ql-snow .ql-picker.ql-size .ql-picker-label::before,
 .ql-snow .ql-picker.ql-size .ql-picker-item::before {
@@ -196,42 +196,42 @@ const handleUploadError = (err: any) => {
 }
 .ql-snow .ql-picker.ql-header .ql-picker-label::before,
 .ql-snow .ql-picker.ql-header .ql-picker-item::before {
-  content: "文本";
+  content: "Text";
 }
 .ql-snow .ql-picker.ql-header .ql-picker-label[data-value="1"]::before,
 .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="1"]::before {
-  content: "标题1";
+  content: "Head 1";
 }
 .ql-snow .ql-picker.ql-header .ql-picker-label[data-value="2"]::before,
 .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="2"]::before {
-  content: "标题2";
+  content: "Head 2";
 }
 .ql-snow .ql-picker.ql-header .ql-picker-label[data-value="3"]::before,
 .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="3"]::before {
-  content: "标题3";
+  content: "Head 3";
 }
 .ql-snow .ql-picker.ql-header .ql-picker-label[data-value="4"]::before,
 .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="4"]::before {
-  content: "标题4";
+  content: "Head 4";
 }
 .ql-snow .ql-picker.ql-header .ql-picker-label[data-value="5"]::before,
 .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="5"]::before {
-  content: "标题5";
+  content: "Head 5";
 }
 .ql-snow .ql-picker.ql-header .ql-picker-label[data-value="6"]::before,
 .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="6"]::before {
-  content: "标题6";
+  content: "Head 6";
 }
 .ql-snow .ql-picker.ql-font .ql-picker-label::before,
 .ql-snow .ql-picker.ql-font .ql-picker-item::before {
-  content: "标准字体";
+  content: "Standard Font";
 }
 .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="serif"]::before,
 .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="serif"]::before {
-  content: "衬线字体";
+  content: "Serif Font";
 }
 .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="monospace"]::before,
 .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="monospace"]::before {
-  content: "等宽字体";
+  content: "Monospaced Font";
 }
 </style>

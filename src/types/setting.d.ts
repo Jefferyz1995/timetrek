@@ -1,68 +1,68 @@
 declare type DefaultSettings = {
   /**
-   * 网页标题
+   * Web Page title
    */
   title?: string;
 
   /**
-   * 侧边栏主题 theme-dark | theme-light
+   * sidebar theme theme-dark | theme-light
    */
   sideTheme?: string;
 
   /**
-   * 是否显示系统布局设置
+   * Whether to display system layout settings
    */
   showSettings?: boolean;
 
   /**
-   * 是否显示顶部导航
+   * Whether to display top navigation
    */
   topNav?: boolean;
 
   /**
-   * 是否显示多标签导航
+   * Whether to display multi-tab navigation
    */
   tagsView?: boolean;
   /**
-   * 是否固定头部
+   * fixed header
    */
   fixedHeader?: boolean;
   /**
-   * 是否显示侧边栏Logo
+   * Whether to display the sidebar logo
    */
   sidebarLogo?: boolean;
   /**
-   * 导航栏布局
+   * Navigation bar layout
    */
   layout?: string;
   /**
-   * 主题模式
+   * theme
    */
   theme?: string;
 
   /**
-   * 布局大小
+   * size fot layout
    */
   size?: string;
 
   /**
-   * 语言
+   * Lanaguage
    */
   language?: string;
 
   /**
-   * 是否显示动态标题
+   * Whether to display dynamic titles
    */
   dynamicTitle?: boolean;
   /**
-   * 是否启用动画效果
+   * to enable animation effects
    */
   animationEnable?: boolean;
   /**
-   *  是否启用暗黑模式
+   *  Dark Mode？
    *
-   * true:暗黑模式
-   * false: 明亮模式
+   * true: Dark mode
+   * false: lig mode
    */
   dark?: boolean;
 

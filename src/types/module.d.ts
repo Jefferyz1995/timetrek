@@ -11,7 +11,7 @@ import type { download as rd } from '@/utils/request';
 
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
-    // 全局方法声明
+    // global method declaration
     $modal: typeof modal;
     $tab: typeof tab;
     $download: typeof download;

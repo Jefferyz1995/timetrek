@@ -51,10 +51,11 @@ export const usePermissionStore = defineStore('permission', () => {
   };
 
   /**
-   * 遍历后台传来的路由字符串，转换为组件对象
-   * @param asyncRouterMap 后台传来的路由字符串
-   * @param lastRouter 上一级路由
-   * @param type 是否是重写路由
+   * Traverse the routing string sent from the backend
+   * and convert it into a component object
+   * @param asyncRouterMap The routing string sent from the backend
+   * @param lastRouter upper level routing
+   * @param Type
    */
   const filterAsyncRouter = (asyncRouterMap: RouteOption[], lastRouter?: RouteOption, type = false): RouteOption[] => {
     return asyncRouterMap.filter((route) => {
@@ -62,7 +63,7 @@ export const usePermissionStore = defineStore('permission', () => {
         route.children = filterChildren(route.children, undefined);
       }
       if (route.component) {
-        // Layout ParentView 组件特殊处理
+        // Layout ParentView 
         if (route.component === 'Layout') {
           route.component = Layout;
         } else if (route.component === 'ParentView') {

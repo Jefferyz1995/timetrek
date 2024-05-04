@@ -2,7 +2,7 @@ import request from '@/utils/request';
 import { AxiosPromise } from 'axios';
 import { MenuQuery, MenuVO, MenuForm, MenuTreeOption, RoleMenuTree } from './types';
 
-// 查询菜单列表
+// Query menu list
 export const listMenu = (query?: MenuQuery): AxiosPromise<MenuVO[]> => {
   return request({
     url: '/system/menu/list',
@@ -11,7 +11,7 @@ export const listMenu = (query?: MenuQuery): AxiosPromise<MenuVO[]> => {
   });
 };
 
-// 查询菜单详细
+// Query menu details
 export const getMenu = (menuId: string | number): AxiosPromise<MenuVO> => {
   return request({
     url: '/system/menu/' + menuId,
@@ -19,7 +19,7 @@ export const getMenu = (menuId: string | number): AxiosPromise<MenuVO> => {
   });
 };
 
-// 查询菜单下拉树结构
+// Query menu drop-down tree structure
 export const treeselect = (): AxiosPromise<MenuTreeOption[]> => {
   return request({
     url: '/system/menu/treeselect',
@@ -27,7 +27,7 @@ export const treeselect = (): AxiosPromise<MenuTreeOption[]> => {
   });
 };
 
-// 根据角色ID查询菜单下拉树结构
+// Query menu drop-down tree structure based on role ID
 export const roleMenuTreeselect = (roleId: string | number): AxiosPromise<RoleMenuTree> => {
   return request({
     url: '/system/menu/roleMenuTreeselect/' + roleId,
@@ -35,7 +35,7 @@ export const roleMenuTreeselect = (roleId: string | number): AxiosPromise<RoleMe
   });
 };
 
-// 根据角色ID查询菜单下拉树结构
+// Query menu drop-down tree structure based on role ID
 export const tenantPackageMenuTreeselect = (packageId: string | number): AxiosPromise<RoleMenuTree> => {
   return request({
     url: '/system/menu/tenantPackageMenuTreeselect/' + packageId,
@@ -43,7 +43,7 @@ export const tenantPackageMenuTreeselect = (packageId: string | number): AxiosPr
   });
 };
 
-// 新增菜单
+// add menu
 export const addMenu = (data: MenuForm) => {
   return request({
     url: '/system/menu',
@@ -52,7 +52,7 @@ export const addMenu = (data: MenuForm) => {
   });
 };
 
-// 修改菜单
+// modify menu
 export const updateMenu = (data: MenuForm) => {
   return request({
     url: '/system/menu',
@@ -61,7 +61,7 @@ export const updateMenu = (data: MenuForm) => {
   });
 };
 
-// 删除菜单
+// delete menu
 export const delMenu = (menuId: string | number) => {
   return request({
     url: '/system/menu/' + menuId,

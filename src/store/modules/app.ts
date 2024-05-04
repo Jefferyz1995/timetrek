@@ -11,7 +11,7 @@ export const useAppStore = defineStore('app', () => {
   const device = ref<string>('desktop');
   const size = useStorage('size', 'default');
 
-  // 语言
+  // language
   const language = useStorage('language', 'en_US');
   const languageObj: any = {
     en_US: enUS,

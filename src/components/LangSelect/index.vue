@@ -28,7 +28,7 @@ const message: any = {
 const handleLanguageChange = (lang: string) => {
   locale.value = lang;
   appStore.changeLanguage(lang);
-  ElMessage.success(message[lang] || '切换语言成功！');
+  ElMessage.success(message[lang] || 'Switch Language Successful!');
 }
 </script>
 

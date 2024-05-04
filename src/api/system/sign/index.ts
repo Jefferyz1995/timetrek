@@ -3,7 +3,7 @@ import { AxiosPromise } from 'axios';
 import { SignVO, SignForm, SignQuery } from '@/api/system/sign/types';
 
 /**
- * 查询用户签到列表
+ * Query user clock-in list
  * @param query
  * @returns {*}
  */
@@ -17,7 +17,7 @@ export const listSign = (query?: SignQuery): AxiosPromise<SignVO[]> => {
 };
 
 /**
- * 查询用户签到详细
+ * Query user clock-in details
  * @param id
  */
 export const getSign = (id: string | number): AxiosPromise<SignVO> => {
@@ -28,7 +28,7 @@ export const getSign = (id: string | number): AxiosPromise<SignVO> => {
 };
 
 /**
- * 新增用户签到
+ * Add new user clock-in
  * @param data
  */
 export const addSign = (data: SignForm) => {
@@ -40,7 +40,7 @@ export const addSign = (data: SignForm) => {
 };
 
 /**
- * 修改用户签到
+ * modify user clock-in
  * @param data
  */
 export const updateSign = (data: SignForm) => {
@@ -52,7 +52,7 @@ export const updateSign = (data: SignForm) => {
 };
 
 /**
- * 删除用户签到
+ * delete user clock-in
  * @param id
  */
 export const delSign = (id: string | number | Array<string | number>) => {

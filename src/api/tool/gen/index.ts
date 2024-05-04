@@ -2,7 +2,7 @@ import request from '@/utils/request';
 import { DbTableQuery, DbTableVO, TableQuery, TableVO, GenTableVO, DbTableForm } from './types';
 import { AxiosPromise } from 'axios';
 
-// 查询生成表数据
+// Query to generate table data
 export const listTable = (query: TableQuery): AxiosPromise<TableVO[]> => {
   return request({
     url: '/tool/gen/list',
@@ -10,7 +10,7 @@ export const listTable = (query: TableQuery): AxiosPromise<TableVO[]> => {
     params: query
   });
 };
-// 查询db数据库列表
+// Query db database list
 export const listDbTable = (query: DbTableQuery): AxiosPromise<DbTableVO[]> => {
   return request({
     url: '/tool/gen/db/list',
@@ -19,7 +19,7 @@ export const listDbTable = (query: DbTableQuery): AxiosPromise<DbTableVO[]> => {
   });
 };
 
-// 查询表详细信息
+// Query table details
 export const getGenTable = (tableId: string | number): AxiosPromise<GenTableVO> => {
   return request({
     url: '/tool/gen/' + tableId,
@@ -27,7 +27,7 @@ export const getGenTable = (tableId: string | number): AxiosPromise<GenTableVO> 
   });
 };
 
-// 修改代码生成信息
+// Modify code generation information
 export const updateGenTable = (data: DbTableForm) => {
   return request({
     url: '/tool/gen',
@@ -36,7 +36,7 @@ export const updateGenTable = (data: DbTableForm) => {
   });
 };
 
-// 导入表
+// Import table
 export const importTable = (data: { tables: string; dataName: string }) => {
   return request({
     url: '/tool/gen/importTable',
@@ -45,7 +45,7 @@ export const importTable = (data: { tables: string; dataName: string }) => {
   });
 };
 
-// 预览生成代码
+// Preview generated code
 export const previewTable = (tableId: string | number) => {
   return request({
     url: '/tool/gen/preview/' + tableId,
@@ -53,7 +53,7 @@ export const previewTable = (tableId: string | number) => {
   });
 };
 
-// 删除表数据
+// Delete table data
 export const delTable = (tableId: string | number | Array<string | number>) => {
   return request({
     url: '/tool/gen/' + tableId,
@@ -61,7 +61,7 @@ export const delTable = (tableId: string | number | Array<string | number>) => {
   });
 };
 
-// 生成代码（自定义路径）
+// Generate code (custom path)
 export const genCode = (tableId: string | number) => {
   return request({
     url: '/tool/gen/genCode/' + tableId,
@@ -69,7 +69,7 @@ export const genCode = (tableId: string | number) => {
   });
 };
 
-// 同步数据库
+// Sync database
 export const synchDb = (tableId: string | number) => {
   return request({
     url: '/tool/gen/synchDb/' + tableId,
@@ -77,7 +77,7 @@ export const synchDb = (tableId: string | number) => {
   });
 };
 
-// 获取数据源名称
+// Get data source name
 export const getDataNames = () => {
   return request({
     url: '/tool/gen/getDataNames',

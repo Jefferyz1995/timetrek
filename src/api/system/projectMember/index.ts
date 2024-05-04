@@ -3,7 +3,7 @@ import { AxiosPromise } from 'axios';
 import { ProjectMemberVO, ProjectMemberForm, ProjectMemberQuery } from '@/api/system/projectMember/types';
 
 /**
- * 查询项目组内成员列表
+ * Query the list of members in the project team
  * @param query
  * @returns {*}
  */
@@ -18,7 +18,7 @@ export const listProjectMember = (query?: ProjectMemberQuery): AxiosPromise<Proj
 
 
 /**
- * 查询项目组内成员列表
+ * Query the list of members in the project team
  * @param query
  * @returns {*}
  */
@@ -31,7 +31,7 @@ export const listAllProjectMember = (query?: ProjectMemberQuery): AxiosPromise<P
   });
 };
 /**
- * 查询项目组内成员详细
+ * Query details of members in the project team
  * @param id
  */
 export const getProjectMember = (id: string | number): AxiosPromise<ProjectMemberVO> => {
@@ -42,7 +42,7 @@ export const getProjectMember = (id: string | number): AxiosPromise<ProjectMembe
 };
 
 /**
- * 新增项目组内成员
+ * Add new members to the project team
  * @param data
  */
 export const addProjectMember = (data: ProjectMemberForm) => {
@@ -54,7 +54,7 @@ export const addProjectMember = (data: ProjectMemberForm) => {
 };
 
 /**
- * 修改项目组内成员
+ * Modify project team members
  * @param data
  */
 export const updateProjectMember = (data: ProjectMemberForm) => {
@@ -66,7 +66,7 @@ export const updateProjectMember = (data: ProjectMemberForm) => {
 };
 
 /**
- * 删除项目组内成员
+ * Delete project team members
  * @param id
  */
 export const delProjectMember = (id: string | number | Array<string | number>) => {

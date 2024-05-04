@@ -14,7 +14,7 @@
         </div>
       </template>
 
-      <el-input class="p-2" v-model="filterValue" placeholder="搜索图标" clearable @input="filterIcons" />
+      <el-input class="p-2" v-model="filterValue" placeholder="Search Icon" clearable @input="filterIcons" />
 
       <el-scrollbar height="w-[200px]">
         <ul class="icon-list">
@@ -46,7 +46,7 @@ const iconNames = ref<string[]>(icons);
 const filterValue = ref('');
 
 /**
- * 筛选图标
+ * filter icon
  */
 const filterIcons = () => {
   if (filterValue.value) {
@@ -58,8 +58,8 @@ const filterIcons = () => {
   }
 }
 /**
- * 选择图标
- * @param iconName 选择的图标名称
+ * Select icon
+ * @param iconName Selected icon name
  */
 const selectedIcon = (iconName: string) => {
   emit('update:modelValue', iconName);

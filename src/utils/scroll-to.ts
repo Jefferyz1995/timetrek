@@ -20,7 +20,7 @@ const requestAnimFrame = (function () {
 })();
 
 /**
- * Because it's so fucking difficult to detect the scrolling element, just move them all
+ * Because it's so difficult to detect the scrolling element, just move them all
  * @param {number} amount
  */
 const move = (amount: number) => {

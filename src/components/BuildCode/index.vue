@@ -1,4 +1,3 @@
-<!-- 代码构建 -->
 <script setup lang="ts">
 
 const props = defineProps({
@@ -17,7 +16,7 @@ const emits = defineEmits(['reJson', 'saveDesign']);
 
 
 
-//获取表单json
+//Get form json
 const getJson = () => {
   const formJson = JSON.stringify(buildRef.value.getFormJson())
   const fieldJson = JSON.stringify(buildRef.value.getFieldWidgets())
@@ -42,7 +41,7 @@ onMounted(() => {
       :designer-config="{ importJsonButton: true, exportJsonButton: true, exportCodeButton: true, generateSFCButton: true, formTemplates: true }"
     >
       <template #customToolButtons v-if="showBtn">
-        <el-button link type="primary" icon="Select" @click="getJson">保存</el-button>
+        <el-button link type="primary" icon="Select" @click="getJson">Save</el-button>
       </template>
     </v-form-designer>
   </div>

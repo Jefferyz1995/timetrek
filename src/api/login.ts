@@ -3,7 +3,7 @@ import { AxiosPromise } from 'axios';
 import { LoginData, LoginResult, VerifyCodeResult, TenantInfo } from './types';
 import { UserInfo } from '@/api/system/user/types';
 
-// pc端固定客户端授权id
+// Fixed client authorization id on PC
 const clientId = import.meta.env.VITE_APP_CLIENT_ID;
 
 /**
@@ -27,7 +27,7 @@ export function login(data: LoginData): AxiosPromise<LoginResult> {
   });
 }
 
-// 注册方法
+// Registration method
 export function register(data: any) {
   const params = {
     ...data,
@@ -46,7 +46,7 @@ export function register(data: any) {
 }
 
 /**
- * 注销
+ * Log out
  */
 export function logout() {
   return request({
@@ -56,7 +56,7 @@ export function logout() {
 }
 
 /**
- * 获取验证码
+ * get verification code
  */
 export function getCodeImg(): AxiosPromise<VerifyCodeResult> {
   return request({
@@ -70,7 +70,7 @@ export function getCodeImg(): AxiosPromise<VerifyCodeResult> {
 }
 
 /**
- * 第三方登录
+ * Third party sign in
  */
 export function callback(data: LoginData): AxiosPromise<any> {
   const LoginData = {
@@ -85,7 +85,7 @@ export function callback(data: LoginData): AxiosPromise<any> {
   });
 }
 
-// 获取用户详细信息
+// Get user details
 export function getInfo(): AxiosPromise<UserInfo> {
   return request({
     url: '/system/user/getInfo',
@@ -93,7 +93,7 @@ export function getInfo(): AxiosPromise<UserInfo> {
   });
 }
 
-// 获取租户列表
+// Get tenant list
 export function getTenantList(): AxiosPromise<TenantInfo> {
   return request({
     url: '/auth/tenant/list',

@@ -3,14 +3,14 @@
     <transition :enter-active-class="proxy?.animate.searchAnimate.enter" :leave-active-class="proxy?.animate.searchAnimate.leave">
       <div class="search" v-show="showSearch">
         <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="100px">
-          <el-form-item label="客户端key" prop="clientKey">
-            <el-input v-model="queryParams.clientKey" placeholder="请输入客户端key" clearable style="width: 240px" @keyup.enter="handleQuery" />
+          <el-form-item label="Client Key" prop="clientKey">
+            <el-input v-model="queryParams.clientKey" placeholder="Please Enter Client Key" clearable style="width: 240px" @keyup.enter="handleQuery" />
           </el-form-item>
-          <el-form-item label="客户端秘钥" prop="clientSecret">
-            <el-input v-model="queryParams.clientSecret" placeholder="请输入客户端秘钥" clearable style="width: 240px" @keyup.enter="handleQuery" />
+          <el-form-item label="Client Secret Key" prop="clientSecret">
+            <el-input v-model="queryParams.clientSecret" placeholder="Please Enter Client Secret Key" clearable style="width: 240px" @keyup.enter="handleQuery" />
           </el-form-item>
           <el-form-item :label="$t('commonColumn.status')" prop="status">
-            <el-select v-model="queryParams.status" placeholder="状态" clearable>
+            <el-select v-model="queryParams.status" placeholder="Status" clearable>
               <el-option v-for="dict in sys_normal_disable" :key="dict.value" :label="dict.label" :value="dict.value" />
             </el-select>
           </el-form-item>
@@ -30,7 +30,7 @@
           </el-col>
           <el-col :span="1.5">
             <el-button type="success" plain icon="Edit" :disabled="single" @click="handleUpdate()" v-hasPermi="['system:client:edit']">
-              修改
+              Modify
             </el-button>
           </el-col>
           <el-col :span="1.5">
@@ -47,15 +47,15 @@
       <el-table v-loading="loading" :data="clientList" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" align="center" />
         <el-table-column label="id" align="center" prop="id" v-if="true" />
-        <el-table-column label="客户端id" align="center" prop="clientId" />
-        <el-table-column label="客户端key" align="center" prop="clientKey" />
-        <el-table-column label="客户端秘钥" align="center" prop="clientSecret" />
-        <el-table-column label="授权类型" align="center">
+        <el-table-column label="Client id" align="center" prop="clientId" />
+        <el-table-column label="Client key" align="center" prop="clientKey" />
+        <el-table-column label="Client secret key" align="center" prop="clientSecret" />
+        <el-table-column label="Authorization type" align="center">
           <template #default="scope">
             <dict-tag :options="sys_grant_type" :value="scope.row.grantTypeList" />
           </template>
         </el-table-column>
-        <el-table-column label="设备类型" align="center">
+        <el-table-column label="Device Type" align="center">
           <template #default="scope">
             <dict-tag :options="sys_device_type" :value="scope.row.deviceType" />
           </template>

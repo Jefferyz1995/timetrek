@@ -1,15 +1,15 @@
 export enum MenuTypeEnum {
   /**
-   * 目录
+   * Content
    */
   M = 'M',
   /**
-   * 菜单
+   * Menu
    */
   C = 'C',
 
   /**
-   * 按钮
+   * Button
    */
   F = 'F'
 }

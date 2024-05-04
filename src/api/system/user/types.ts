@@ -3,7 +3,7 @@ import { RoleVO } from '@/api/system/role/types';
 import { PostVO } from '@/api/system/post/types';
 
 /**
- * 用户信息
+ * user info
  */
 export interface UserInfo {
   user: UserVO;
@@ -12,7 +12,7 @@ export interface UserInfo {
 }
 
 /**
- * 用户查询对象类型
+ * User query object type
  */
 export interface UserQuery extends PageQuery {
   userName?: string;
@@ -23,7 +23,7 @@ export interface UserQuery extends PageQuery {
 }
 
 /**
- * 用户返回对象
+ * User returns object
  */
 export interface UserVO extends BaseEntity {
   userId: string | number;
@@ -51,7 +51,7 @@ export interface UserVO extends BaseEntity {
 }
 
 /**
- * 用户表单类型
+ * Userform type
  */
 export interface UserForm {
   id?: string;

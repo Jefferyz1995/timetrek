@@ -2,7 +2,7 @@ import request from '@/utils/request';
 import { TenantForm, TenantQuery, TenantVO } from './types';
 import { AxiosPromise } from 'axios';
 
-// 查询租户列表
+// Query tenant list
 export function listTenant(query: TenantQuery): AxiosPromise<TenantVO[]> {
   return request({
     url: '/system/tenant/list',
@@ -11,7 +11,7 @@ export function listTenant(query: TenantQuery): AxiosPromise<TenantVO[]> {
   });
 }
 
-// 查询租户详细
+// Check tenant details
 export function getTenant(id: string | number): AxiosPromise<TenantVO> {
   return request({
     url: '/system/tenant/' + id,
@@ -19,7 +19,7 @@ export function getTenant(id: string | number): AxiosPromise<TenantVO> {
   });
 }
 
-// 新增租户
+// add new tenant
 export function addTenant(data: TenantForm) {
   return request({
     url: '/system/tenant',
@@ -31,7 +31,7 @@ export function addTenant(data: TenantForm) {
   });
 }
 
-// 修改租户
+// modify tenant
 export function updateTenant(data: TenantForm) {
   return request({
     url: '/system/tenant',
@@ -40,7 +40,7 @@ export function updateTenant(data: TenantForm) {
   });
 }
 
-// 租户状态修改
+// Tenant status modification
 export function changeTenantStatus(id: string | number, tenantId: string | number, status: string) {
   const data = {
     id,
@@ -54,7 +54,7 @@ export function changeTenantStatus(id: string | number, tenantId: string | numbe
   });
 }
 
-// 删除租户
+// Delete tenant
 export function delTenant(id: string | number | Array<string | number>) {
   return request({
     url: '/system/tenant/' + id,
@@ -62,7 +62,7 @@ export function delTenant(id: string | number | Array<string | number>) {
   });
 }
 
-// 动态切换租户
+// Dynamically switch tenants
 export function dynamicTenant(tenantId: string | number) {
   return request({
     url: '/system/tenant/dynamic/' + tenantId,
@@ -70,7 +70,7 @@ export function dynamicTenant(tenantId: string | number) {
   });
 }
 
-// 清除动态租户
+// Clear dynamic tenants
 export function dynamicClear() {
   return request({
     url: '/system/tenant/dynamic/clear',
@@ -78,7 +78,7 @@ export function dynamicClear() {
   });
 }
 
-// 同步租户套餐
+// Synchronize tenant packages
 export function syncTenantPackage(tenantId: string | number, packageId: string | number) {
   const data = {
     tenantId,

@@ -3,7 +3,7 @@ import { AxiosPromise } from 'axios';
 import { DemoVO, DemoForm, DemoQuery } from '@/api/demo/demo/types';
 
 /**
- * 查询测试单列表
+ * Query the testing list
  * @param query
  * @returns {*}
  */
@@ -16,7 +16,7 @@ export const listDemo = (query?: DemoQuery): AxiosPromise<DemoVO[]> => {
 };
 
 /**
- * 查询测试单详细
+ * query the detail of the testing list
  * @param id
  */
 export const getDemo = (id: string | number): AxiosPromise<DemoVO> => {
@@ -27,7 +27,7 @@ export const getDemo = (id: string | number): AxiosPromise<DemoVO> => {
 };
 
 /**
- * 新增测试单
+ * add test data
  * @param data
  */
 export const addDemo = (data: DemoForm) => {
@@ -39,7 +39,7 @@ export const addDemo = (data: DemoForm) => {
 };
 
 /**
- * 修改测试单
+ * update test data
  * @param data
  */
 export const updateDemo = (data: DemoForm) => {
@@ -51,7 +51,7 @@ export const updateDemo = (data: DemoForm) => {
 };
 
 /**
- * 删除测试单
+ * delete the test data
  * @param id
  */
 export const delDemo = (id: string | number | Array<string | number>) => {

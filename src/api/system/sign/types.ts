@@ -1,21 +1,21 @@
 export interface SignVO {
   /**
-   * 主键id
+   * primarykey id
    */
   id: string | number;
 
   /**
-   * 用户id
+   * user id
    */
   userId: string | number;
 
   /**
-   * 签到类型(0为签到,1为签退)
+   * clock-in type (0 means clock-in, 1 means clock-out)
    */
   signType: string;
 
   /**
-   * 备注
+   * remark
    */
   remark: string;
 
@@ -23,22 +23,22 @@ export interface SignVO {
 
 export interface SignForm extends BaseEntity {
   /**
-   * 主键id
+   * primarykey id
    */
   id?: string | number;
 
   /**
-   * 用户id
+   * user id
    */
   userId?: string | number;
 
   /**
-   * 签到类型(0为签到,1为签退)
+   * clock-in type (0 means clock-in, 1 means clock-out)
    */
   signType?: string;
 
   /**
-   * 备注
+   * remark
    */
   remark?: string;
 
@@ -47,17 +47,17 @@ export interface SignForm extends BaseEntity {
 export interface SignQuery extends PageQuery {
 
   /**
-   * 用户id
+   * user id
    */
   userId?: string | number;
 
   /**
-   * 签到类型(0为签到,1为签退)
+   * clock-in type (0 means clock-in, 1 means clock-out)
    */
   signType?: string;
 
     /**
-     * 日期范围参数
+     * date range parameter
      */
     params?: any;
 }

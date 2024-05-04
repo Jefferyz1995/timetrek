@@ -5,42 +5,40 @@ export interface ClientVO {
   id: string | number;
 
   /**
-   * 客户端id
+   * client id
    */
   clientId: string | number;
 
   /**
-   * 客户端key
+   * client key
    */
   clientKey: string;
 
-  /**
-   * 客户端秘钥
-   */
+
   clientSecret: string;
 
   /**
-   * 授权类型
+   * Grant type
    */
   grantTypeList: string[];
 
   /**
-   * 设备类型
+   * device type
    */
   deviceType: string;
 
   /**
-   * token活跃超时时间
+   * token active timeout
    */
   activeTimeout: number;
 
   /**
-   * token固定超时
+   * token fixed timeout
    */
   timeout: number;
 
   /**
-   * 状态（0正常 1停用）
+   * Status (0 normal 1 disabled)
    */
   status: string;
 }
@@ -52,84 +50,80 @@ export interface ClientForm extends BaseEntity {
   id?: string | number;
 
   /**
-   * 客户端id
+   * client id
    */
   clientId?: string | number;
 
   /**
-   * 客户端key
+   * client key
    */
   clientKey?: string;
 
-  /**
-   * 客户端秘钥
-   */
+
   clientSecret?: string;
 
   /**
-   * 授权类型
+   *  Grant type
    */
   grantTypeList?: string[];
 
   /**
-   * 设备类型
+   * device type
    */
   deviceType?: string;
 
   /**
-   * token活跃超时时间
+   * token active timeout
    */
   activeTimeout?: number;
 
   /**
-   * token固定超时
+   * token fixed timeout
    */
   timeout?: number;
 
   /**
-   * 状态（0正常 1停用）
+   * Status (0 normal 1 disabled)
    */
   status?: string;
 }
 
 export interface ClientQuery extends PageQuery {
   /**
-   * 客户端id
+   * client id
    */
   clientId?: string | number;
 
   /**
-   * 客户端key
+   * client key
    */
   clientKey?: string;
 
-  /**
-   * 客户端秘钥
-   */
+
   clientSecret?: string;
 
   /**
-   * 授权类型
+   *  Grant type
    */
   grantType?: string;
 
   /**
-   * 设备类型
+   * device type
    */
   deviceType?: string;
 
   /**
-   * token活跃超时时间
+   * token active timeout
    */
   activeTimeout?: number;
 
   /**
-   * token固定超时
+   * token fixed timeout
    */
   timeout?: number;
 
   /**
-   * 状态（0正常 1停用）
+   * Status (0 normal 1 disabled)
    */
   status?: string;
 }

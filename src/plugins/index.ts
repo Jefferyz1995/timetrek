@@ -7,18 +7,18 @@ import auth from './auth';
 import { App } from 'vue';
 
 export default function installPlugin(app: App) {
-  // 页签操作
+  // Tab operation
   app.config.globalProperties.$tab = tab;
 
-  // 模态框对象
+  // Modal object
   app.config.globalProperties.$modal = modal;
 
-  // 缓存对象
+  // Cache object
   app.config.globalProperties.$cache = cache;
 
-  // 下载文件
+  // download file
   app.config.globalProperties.$download = download;
 
-  // 认证对象
+  // Authentication object
   app.config.globalProperties.$auth = auth;
 }

@@ -2,71 +2,71 @@ import { MessageBoxData } from 'element-plus';
 import { LoadingInstance } from 'element-plus/es/components/loading/src/loading';
 let loadingInstance: LoadingInstance;
 export default {
-  // 消息提示
+  // message reminder
   msg(content: any) {
     ElMessage.info(content);
   },
-  // 错误消息
+  // error message
   msgError(content: any) {
     ElMessage.error(content);
   },
-  // 成功消息
+  // success message
   msgSuccess(content: any) {
     ElMessage.success(content);
   },
-  // 警告消息
+  // warning message
   msgWarning(content: any) {
     ElMessage.warning(content);
   },
-  // 弹出提示
+  // popup message
   alert(content: any) {
-    ElMessageBox.alert(content, '系统提示');
+    ElMessageBox.alert(content, 'System Reminder');
   },
-  // 错误提示
+  // error message
   alertError(content: any) {
-    ElMessageBox.alert(content, '系统提示', { type: 'error' });
+    ElMessageBox.alert(content, 'System Reminder', { type: 'error' });
   },
-  // 成功提示
+  // success reminder
   alertSuccess(content: any) {
-    ElMessageBox.alert(content, '系统提示', { type: 'success' });
+    ElMessageBox.alert(content, 'System Reminder', { type: 'success' });
   },
-  // 警告提示
+  // warning reminder
   alertWarning(content: any) {
-    ElMessageBox.alert(content, '系统提示', { type: 'warning' });
+    ElMessageBox.alert(content, 'System Reminder', { type: 'warning' });
   },
-  // 通知提示
+  // notice reminder
   notify(content: any) {
     ElNotification.info(content);
   },
-  // 错误通知
+  // error
   notifyError(content: any) {
     ElNotification.error(content);
   },
-  // 成功通知
+  // success
   notifySuccess(content: any) {
     ElNotification.success(content);
   },
-  // 警告通知
+  // warning
   notifyWarning(content: any) {
     ElNotification.warning(content);
   },
-  // 确认窗体
+  // Confirmation
   confirm(content: any): Promise<MessageBoxData> {
-    return ElMessageBox.confirm(content, '系统提示', {
-      confirmButtonText: '确定',
-      cancelButtonText: '取消',
+    return ElMessageBox.confirm(content, 'System Reminder', {
+      confirmButtonText: 'Confirm',
+      cancelButtonText: 'Cancel',
       type: 'warning'
     });
   },
-  // 提交内容
+  // submit content
   prompt(content: any) {
-    return ElMessageBox.prompt(content, '系统提示', {
-      confirmButtonText: '确定',
-      cancelButtonText: '取消',
+    return ElMessageBox.prompt(content, 'System Reminder', {
+      confirmButtonText: 'Confirm',
+      cancelButtonText: 'Cancel',
       type: 'warning'
     });
   },
-  // 打开遮罩层
+
   loading(content: string) {
     loadingInstance = ElLoading.service({
       lock: true,
@@ -74,7 +74,7 @@ export default {
       background: 'rgba(0, 0, 0, 0.7)'
     });
   },
-  // 关闭遮罩层
+
   closeLoading() {
     loadingInstance.close();
   }

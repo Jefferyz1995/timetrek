@@ -19,7 +19,7 @@ import { ComponentInternalInstance } from "vue";
 const { proxy } = getCurrentInstance() as ComponentInternalInstance;
 const tagsViewStore = useTagsViewStore();
 
-// 随机动画集合
+// Collection of random animations
 const animante = ref<string>('');
 const animationEnable = ref(useSettingsStore().animationEnable);
 watch(()=> useSettingsStore().animationEnable, (val) => {

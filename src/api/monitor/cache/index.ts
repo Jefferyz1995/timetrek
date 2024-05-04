@@ -2,7 +2,7 @@ import request from '@/utils/request';
 import { AxiosPromise } from 'axios';
 import { CacheVO } from './types';
 
-// 查询缓存详细
+// Query cache details
 export function getCache(): AxiosPromise<CacheVO> {
   return request({
     url: '/monitor/cache',
@@ -10,7 +10,7 @@ export function getCache(): AxiosPromise<CacheVO> {
   });
 }
 
-// 查询缓存名称列表
+// Query cache name list
 export function listCacheName() {
   return request({
     url: '/monitor/cache/getNames',
@@ -26,7 +26,7 @@ export function listCacheKey(cacheName: string) {
   });
 }
 
-// 查询缓存内容
+// Query the cache key list
 export function getCacheValue(cacheName: string, cacheKey: string) {
   return request({
     url: '/monitor/cache/getValue/' + cacheName + '/' + cacheKey,
@@ -34,7 +34,7 @@ export function getCacheValue(cacheName: string, cacheKey: string) {
   });
 }
 
-// 清理指定名称缓存
+// Clear cache of specified name
 export function clearCacheName(cacheName: string) {
   return request({
     url: '/monitor/cache/clearCacheName/' + cacheName,
@@ -42,7 +42,7 @@ export function clearCacheName(cacheName: string) {
   });
 }
 
-// 清理指定键名缓存
+// Clear cache of specified key name
 export function clearCacheKey(cacheName: string, cacheKey: string) {
   return request({
     url: '/monitor/cache/clearCacheKey/' + cacheName + '/' + cacheKey,
@@ -50,7 +50,7 @@ export function clearCacheKey(cacheName: string, cacheKey: string) {
   });
 }
 
-// 清理全部缓存
+// Clear all cache
 export function clearCacheAll() {
   return request({
     url: '/monitor/cache/clearCacheAll',

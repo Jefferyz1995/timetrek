@@ -2,7 +2,7 @@ import request from '@/utils/request';
 import { DictTypeForm, DictTypeVO, DictTypeQuery } from './types';
 import { AxiosPromise } from 'axios';
 
-// 查询字典类型列表
+// Query dictionary type list
 export function listType(query: DictTypeQuery): AxiosPromise<DictTypeVO[]> {
   return request({
     url: '/system/dict/type/list',
@@ -11,7 +11,7 @@ export function listType(query: DictTypeQuery): AxiosPromise<DictTypeVO[]> {
   });
 }
 
-// 查询字典类型详细
+// Query dictionary type details
 export function getType(dictId: number | string): AxiosPromise<DictTypeVO> {
   return request({
     url: '/system/dict/type/' + dictId,
@@ -19,7 +19,7 @@ export function getType(dictId: number | string): AxiosPromise<DictTypeVO> {
   });
 }
 
-// 新增字典类型
+// Add new dictionary type
 export function addType(data: DictTypeForm) {
   return request({
     url: '/system/dict/type',
@@ -28,7 +28,7 @@ export function addType(data: DictTypeForm) {
   });
 }
 
-// 修改字典类型
+// Modify dictionary type
 export function updateType(data: DictTypeForm) {
   return request({
     url: '/system/dict/type',
@@ -37,7 +37,7 @@ export function updateType(data: DictTypeForm) {
   });
 }
 
-// 删除字典类型
+// Delete dictionary type
 export function delType(dictId: string | number | Array<string | number>) {
   return request({
     url: '/system/dict/type/' + dictId,
@@ -45,7 +45,7 @@ export function delType(dictId: string | number | Array<string | number>) {
   });
 }
 
-// 刷新字典缓存
+// refresh dict cache
 export function refreshCache() {
   return request({
     url: '/system/dict/type/refreshCache',
@@ -53,7 +53,7 @@ export function refreshCache() {
   });
 }
 
-// 获取字典选择框列表
+// Get list of dictionary select boxes
 export function optionselect(): AxiosPromise<DictTypeVO[]> {
   return request({
     url: '/system/dict/type/optionselect',

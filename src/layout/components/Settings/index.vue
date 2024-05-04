@@ -43,38 +43,38 @@
 
 <!--    <el-divider />-->
 
-    <h3 class="drawer-title">系统布局配置</h3>
+    <h3 class="drawer-title">System Layout Configure</h3>
 
     <div class="drawer-item">
-      <span>开启 TopNav</span>
+      <span>Active TopNav</span>
       <span class="comp-style">
         <el-switch v-model="topNav" class="drawer-switch" />
       </span>
     </div>
 
     <div class="drawer-item">
-      <span>开启 Tags-Views</span>
+      <span>Active Tags-Views</span>
       <span class="comp-style">
         <el-switch v-model="tagsView" class="drawer-switch" />
       </span>
     </div>
 
     <div class="drawer-item">
-      <span>固定 Header</span>
+      <span>Fix Header</span>
       <span class="comp-style">
         <el-switch v-model="fixedHeader" class="drawer-switch" />
       </span>
     </div>
 
     <div class="drawer-item">
-      <span>显示 Logo</span>
+      <span>Show Logo</span>
       <span class="comp-style">
         <el-switch v-model="sidebarLogo" class="drawer-switch" />
       </span>
     </div>
 
     <div class="drawer-item">
-      <span>动态标题</span>
+      <span>Dynamic Title</span>
       <span class="comp-style">
         <el-switch v-model="dynamicTitle" class="drawer-switch" />
       </span>
@@ -82,8 +82,8 @@
 
     <el-divider />
 
-    <el-button type="primary" plain icon="DocumentAdd" @click="saveSetting">保存配置</el-button>
-    <el-button plain icon="Refresh" @click="resetSetting">重置配置</el-button>
+    <el-button type="primary" plain icon="DocumentAdd" @click="saveSetting">Save</el-button>
+    <el-button plain icon="Refresh" @click="resetSetting">Reset</el-button>
   </el-drawer>
 </template>
 
@@ -109,7 +109,7 @@ const sideTheme = ref(settingsStore.sideTheme);
 const storeSettings = computed(() => settingsStore);
 const predefineColors = ref(["#409EFF", "#ff4500", "#ff8c00", "#ffd700", "#90ee90", "#00ced1", "#1e90ff", "#c71585"]);
 
-// 是否暗黑模式
+// Dark Mode
 const isDark = useDark({
   storageKey: 'useDarkKey',
   valueDark: 'dark',
@@ -124,7 +124,7 @@ watch(isDark, ()=> {
 })
 const toggleDark = () => useToggle(isDark);
 
-/** 是否需要topNav */
+/**whether need topNav */
 const topNav = computed({
     get: () => storeSettings.value.topNav,
     set: (val) => {
@@ -183,7 +183,7 @@ const handleTheme = (val: string) => {
     settingsStore.changeSetting({ key: SettingTypeEnum.SIDE_THEME, value: val })
 }
 const saveSetting = () => {
-    proxy?.$modal.loading("正在保存到本地，请稍候...");
+    proxy?.$modal.loading("Saving to local, please wait...");
     let layoutSetting = {
         "topNav": storeSettings.value.topNav,
         "tagsView": storeSettings.value.tagsView,
@@ -197,7 +197,7 @@ const saveSetting = () => {
     setTimeout(() => {proxy?.$modal.closeLoading()}, 1000)
 }
 const resetSetting = () => {
-    proxy?.$modal.loading("正在清除设置缓存并刷新，请稍候...");
+    proxy?.$modal.loading("Clearing settings cache and refreshing, please wait...");
     localStorage.removeItem("layout-setting")
     setTimeout("window.location.reload()", 1000)
 }

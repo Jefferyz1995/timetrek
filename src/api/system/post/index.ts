@@ -2,7 +2,7 @@ import request from '@/utils/request';
 import { PostForm, PostQuery, PostVO } from './types';
 import { AxiosPromise } from 'axios';
 
-// 查询岗位列表
+// Query position list
 export function listPost(query: PostQuery): AxiosPromise<PostVO[]> {
   return request({
     url: '/system/post/list',
@@ -11,7 +11,7 @@ export function listPost(query: PostQuery): AxiosPromise<PostVO[]> {
   });
 }
 
-// 查询岗位详细
+// query postion detial
 export function getPost(postId: string | number): AxiosPromise<PostVO> {
   return request({
     url: '/system/post/' + postId,
@@ -19,7 +19,7 @@ export function getPost(postId: string | number): AxiosPromise<PostVO> {
   });
 }
 
-// 新增岗位
+// add new position
 export function addPost(data: PostForm) {
   return request({
     url: '/system/post',
@@ -28,7 +28,7 @@ export function addPost(data: PostForm) {
   });
 }
 
-// 修改岗位
+// modify position
 export function updatePost(data: PostForm) {
   return request({
     url: '/system/post',
@@ -37,7 +37,7 @@ export function updatePost(data: PostForm) {
   });
 }
 
-// 删除岗位
+// delete position
 export function delPost(postId: string | number | (string | number)[]) {
   return request({
     url: '/system/post/' + postId,

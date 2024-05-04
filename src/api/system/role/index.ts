@@ -13,7 +13,7 @@ export const listRole = (query: RoleQuery): AxiosPromise<RoleVO[]> => {
 };
 
 /**
- * 查询角色详细
+ * Query role details
  */
 export const getRole = (roleId: string | number): AxiosPromise<RoleVO> => {
   return request({
@@ -23,7 +23,7 @@ export const getRole = (roleId: string | number): AxiosPromise<RoleVO> => {
 };
 
 /**
- * 新增角色
+ * Add new role
  */
 export const addRole = (data: any) => {
   return request({
@@ -34,7 +34,7 @@ export const addRole = (data: any) => {
 };
 
 /**
- * 修改角色
+ * Modify role
  * @param data
  */
 export const updateRole = (data: any) => {
@@ -46,7 +46,7 @@ export const updateRole = (data: any) => {
 };
 
 /**
- * 角色数据权限
+ * Role data permissions
  */
 export const dataScope = (data: any) => {
   return request({
@@ -57,7 +57,7 @@ export const dataScope = (data: any) => {
 };
 
 /**
- * 角色状态修改
+ * Role status modification
  */
 export const changeRoleStatus = (roleId: string | number, status: string) => {
   const data = {
@@ -72,7 +72,7 @@ export const changeRoleStatus = (roleId: string | number, status: string) => {
 };
 
 /**
- * 删除角色
+ * Delete role
  */
 export const delRole = (roleId: Array<string | number> | string | number) => {
   return request({
@@ -82,7 +82,7 @@ export const delRole = (roleId: Array<string | number> | string | number) => {
 };
 
 /**
- * 查询角色已授权用户列表
+ * Query the list of users authorized by the role
  */
 export const allocatedUserList = (query: UserQuery): AxiosPromise<UserVO[]> => {
   return request({
@@ -93,7 +93,7 @@ export const allocatedUserList = (query: UserQuery): AxiosPromise<UserVO[]> => {
 };
 
 /**
- * 查询角色未授权用户列表
+ * Query the list of users whose role is not authorized
  */
 export const unallocatedUserList = (query: UserQuery): AxiosPromise<UserVO[]> => {
   return request({
@@ -104,7 +104,7 @@ export const unallocatedUserList = (query: UserQuery): AxiosPromise<UserVO[]> =>
 };
 
 /**
- * 取消用户授权角色
+ * Cancel user authorization role
  */
 export const authUserCancel = (data: any) => {
   return request({
@@ -115,7 +115,7 @@ export const authUserCancel = (data: any) => {
 };
 
 /**
- * 批量取消用户授权角色
+ * Cancel user authorization roles in batches
  */
 export const authUserCancelAll = (data: any) => {
   return request({
@@ -126,7 +126,7 @@ export const authUserCancelAll = (data: any) => {
 };
 
 /**
- * 授权用户选择
+ * Authorized user selection
  */
 export const authUserSelectAll = (data: any) => {
   return request({
@@ -135,7 +135,7 @@ export const authUserSelectAll = (data: any) => {
     params: data
   });
 };
-// 根据角色ID查询部门树结构
+// Query department tree structure based on role ID
 export const deptTreeSelect = (roleId: string | number): AxiosPromise<RoleDeptTree> => {
   return request({
     url: '/system/role/deptTree/' + roleId,

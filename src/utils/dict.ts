@@ -1,7 +1,7 @@
 import { getDicts } from '@/api/system/dict/data';
 import { useDictStore } from '@/store/modules/dict';
 /**
- * 获取字典数据
+ * Get dictionary data
  */
 export const useDict = (...args: string[]): { [key: string]: DictDataOption[] } => {
   const res = ref<{

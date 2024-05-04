@@ -3,7 +3,7 @@ import { AxiosPromise } from 'axios';
 import { ClientVO, ClientForm, ClientQuery } from '@/api/system/client/types';
 
 /**
- * 查询客户端管理列表
+ * Query client management list
  * @param query
  * @returns {*}
  */
@@ -17,7 +17,7 @@ export const listClient = (query?: ClientQuery): AxiosPromise<ClientVO[]> => {
 };
 
 /**
- * 查询客户端管理详细
+ * Query client management details
  * @param id
  */
 export const getClient = (id: string | number): AxiosPromise<ClientVO> => {
@@ -28,7 +28,7 @@ export const getClient = (id: string | number): AxiosPromise<ClientVO> => {
 };
 
 /**
- * 新增客户端管理
+ * Add client management
  * @param data
  */
 export const addClient = (data: ClientForm) => {
@@ -40,7 +40,7 @@ export const addClient = (data: ClientForm) => {
 };
 
 /**
- * 修改客户端管理
+ * Modify client management
  * @param data
  */
 export const updateClient = (data: ClientForm) => {
@@ -52,7 +52,7 @@ export const updateClient = (data: ClientForm) => {
 };
 
 /**
- * 删除客户端管理
+ * Delete client management
  * @param id
  */
 export const delClient = (id: string | number | Array<string | number>) => {
@@ -63,9 +63,9 @@ export const delClient = (id: string | number | Array<string | number>) => {
 };
 
 /**
- * 状态修改
- * @param id ID
- * @param status 状态
+ * Status modification
+ * @param id 
+ * @param status
  */
 export function changeStatus(id: number | string, status: string) {
   const data = {
