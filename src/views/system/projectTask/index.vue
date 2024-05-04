@@ -280,13 +280,15 @@ const submitForm = () => {
   projectTaskFormRef.value?.validate(async (valid: boolean) => {
     if (valid) {
       buttonLoading.value = true;
-      form.value.projectId=queryParams.value.projectId
+      if(queryParams.value.projectId !=null){
+        form.value.projectId=queryParams.value.projectId
+      }
       if (form.value.id) {
         await updateProjectTask(form.value).finally(() =>  buttonLoading.value = false);
       } else {
         await addProjectTask(form.value).finally(() =>  buttonLoading.value = false);
       }
-      proxy?.$modal.msgSuccess("修改成功");
+      proxy?.$modal.msgSuccess("Modified successfully");
       dialog.visible = false;
       await getList();
     }

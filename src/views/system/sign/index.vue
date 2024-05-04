@@ -24,7 +24,9 @@
             <el-button type="success" plain icon="Edit" :disabled="single" @click="handleUpdate()" v-hasPermi="['system:sign:edit']">修改</el-button>
           </el-col>
           <el-col :span="1.5">
-            <el-button type="danger" plain icon="Delete" :disabled="multiple" @click="handleDelete()" v-hasPermi="['system:sign:remove']">删除</el-button>
+            <el-button type="danger" plain icon="Delete" :disabled="multiple" @click="handleDelete()" v-hasPermi="['system:sign:remove']"
+              >删除</el-button
+            >
           </el-col>
           <el-col :span="1.5">
             <el-button type="warning" plain icon="Download" @click="handleExport" v-hasPermi="['system:sign:export']">导出</el-button>
@@ -35,8 +37,13 @@
 
       <el-table v-loading="loading" :data="signList" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" align="center" />
-        <el-table-column label="User No." align="center" prop="userId" />
-        <el-table-column label="Type" align="center" prop="signType" />
+        <el-table-column label="User No." align="center" prop="userName" />
+        <el-table-column label="Type" align="center" prop="signType">
+          <template #default="scope">
+            <dict-tag :options="sign_type" :value="scope.row.signType" />
+          </template>
+        </el-table-column>
+        <el-table-column label="Sign Time" align="center" prop="createTime" />
         <el-table-column label="remark" align="center" prop="remark" />
         <el-table-column label="Action" align="center" class-name="small-padding fixed-width">
           <template #default="scope">
@@ -50,13 +57,7 @@
         </el-table-column>
       </el-table>
 
-      <pagination
-          v-show="total>0"
-          :total="total"
-          v-model:page="queryParams.pageNum"
-          v-model:limit="queryParams.pageSize"
-          @pagination="getList"
-      />
+      <pagination v-show="total>0" :total="total" v-model:page="queryParams.pageNum" v-model:limit="queryParams.pageSize" @pagination="getList" />
     </el-card>
     <!-- 添加或修改用户签到对话框 -->
     <el-dialog :title="dialog.title" v-model="dialog.visible" width="500px" append-to-body>
@@ -81,8 +82,9 @@
 <script setup name="Sign" lang="ts">
 import { listSign, getSign, delSign, addSign, updateSign } from '@/api/system/sign';
 import { SignVO, SignQuery, SignForm } from '@/api/system/sign/types';
-
 const { proxy } = getCurrentInstance() as ComponentInternalInstance;
+const { sign_type } = toRefs<any>(proxy?.useDict('sign_type'));
+
 
 const signList = ref<SignVO[]>([]);
 const buttonLoading = ref(false);
@@ -202,7 +204,7 @@ const submitForm = () => {
       } else {
         await addSign(form.value).finally(() =>  buttonLoading.value = false);
       }
-      proxy?.$modal.msgSuccess("修改成功");
+      proxy?.$modal.msgSuccess("Modified successfully");
       dialog.visible = false;
       await getList();
     }

@@ -24,6 +24,12 @@
     "await-to-js": "^3.0.0",
     "axios": "^1.3.4",
     "echarts": "5.4.0",
+
+    "bpmn-js": "^7.3.1",
+    "bpmn-js-properties-panel": "^0.37.2",
+    "bpmn-moddle": "^6.0.0",
+    "camunda-bpmn-moddle": "^4.5.0",
+    "diagram-js-minimap": "2.0.4",
     "element-plus": "2.2.27",
     "file-saver": "2.0.5",
     "fuse.js": "6.6.2",

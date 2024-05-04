@@ -3,7 +3,28 @@ import { AxiosPromise } from 'axios';
 import { SignVO, SignForm, SignQuery } from '@/api/system/sign/types';
 
 /**
- * Query user clock-in list
+ * 上班签到
+ * @param query
+ */
+export const signIn = (): AxiosPromise<SignVO[]> => {
+  return request({
+    url: '/system/sign/signIn',
+    method: 'get'
+  });
+};
+
+/**
+ * 下班签退
+ * @param query
+ */
+export const sighOut = (): AxiosPromise<SignVO[]> => {
+  return request({
+    url: '/system/sign/sighOut',
+    method: 'get'
+  });
+};
+/**
+ * 查询用户签到列表
  * @param query
  * @returns {*}
  */
@@ -17,7 +38,7 @@ export const listSign = (query?: SignQuery): AxiosPromise<SignVO[]> => {
 };
 
 /**
- * Query user clock-in details
+ * 查询用户签到详细
  * @param id
  */
 export const getSign = (id: string | number): AxiosPromise<SignVO> => {
@@ -28,7 +49,7 @@ export const getSign = (id: string | number): AxiosPromise<SignVO> => {
 };
 
 /**
- * Add new user clock-in
+ * 新增用户签到
  * @param data
  */
 export const addSign = (data: SignForm) => {
@@ -40,7 +61,7 @@ export const addSign = (data: SignForm) => {
 };
 
 /**
- * modify user clock-in
+ * 修改用户签到
  * @param data
  */
 export const updateSign = (data: SignForm) => {
@@ -52,7 +73,7 @@ export const updateSign = (data: SignForm) => {
 };
 
 /**
- * delete user clock-in
+ * 删除用户签到
  * @param id
  */
 export const delSign = (id: string | number | Array<string | number>) => {
