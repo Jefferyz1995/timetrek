@@ -57,7 +57,7 @@
           @pagination="getList"
       />
     </el-card>
-    <!-- 添加或修改项目组对话框 -->
+    <!-- Add or modify project group dialog box -->
     <el-dialog :title="dialog.title" v-model="dialog.visible" width="500px" append-to-body>
       <el-form ref="projectGroupFormRef" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="groupName" prop="groupName">
@@ -116,20 +116,20 @@ const data = reactive<PageData<ProjectGroupForm, ProjectGroupQuery>>({
   },
   rules: {
     id: [
-      { required: true, message: "主键id不能为空", trigger: "blur" }
+      { required: true, message: "Primary key id cannot be empty", trigger: "blur" }
     ],
     groupName: [
-      { required: true, message: "项目组名不能为空", trigger: "blur" }
+      { required: true, message: "Project group name cannot be empty", trigger: "blur" }
     ],
     remark: [
-      { required: true, message: "备注不能为空", trigger: "blur" }
+      { required: true, message: "Remarks cannot be empty", trigger: "blur" }
     ]
   }
 });
 
 const { queryParams, form, rules } = toRefs(data);
 
-/** 查询项目组列表 */
+/** Query project group list */
 const getList = async () => {
   loading.value = true;
   const res = await listProjectGroup(queryParams.value);
@@ -138,55 +138,55 @@ const getList = async () => {
   loading.value = false;
 }
 
-/** 取消按钮 */
+/** Cancel button */
 const cancel = () => {
   reset();
   dialog.visible = false;
 }
 
-/** 表单重置 */
+/** form reset */
 const reset = () => {
   form.value = {...initFormData};
   projectGroupFormRef.value?.resetFields();
 }
 
-/** 搜索按钮操作 */
+/** Search button action */
 const handleQuery = () => {
   queryParams.value.pageNum = 1;
   getList();
 }
 
-/** 重置按钮操作 */
+/** reset button action */
 const resetQuery = () => {
   queryFormRef.value?.resetFields();
   handleQuery();
 }
 
-/** 多选框选中数据 */
+/** Multiple selection box selected data */
 const handleSelectionChange = (selection: ProjectGroupVO[]) => {
   ids.value = selection.map(item => item.id);
   single.value = selection.length != 1;
   multiple.value = !selection.length;
 }
 
-/** 新增按钮操作 */
+/** Add button operation */
 const handleAdd = () => {
   reset();
   dialog.visible = true;
-  dialog.title = "添加项目组";
+  dialog.title = "Add project group";
 }
 
-/** 修改按钮操作 */
+/** Modify button actions */
 const handleUpdate = async (row?: ProjectGroupVO) => {
   reset();
   const _id = row?.id || ids.value[0]
   const res = await getProjectGroup(_id);
   Object.assign(form.value, res.data);
   dialog.visible = true;
-  dialog.title = "修改项目组";
+  dialog.title = "Modify project group";
 }
 
-/** 提交按钮 */
+/** submit button */
 const submitForm = () => {
   projectGroupFormRef.value?.validate(async (valid: boolean) => {
     if (valid) {
@@ -196,23 +196,23 @@ const submitForm = () => {
       } else {
         await addProjectGroup(form.value).finally(() =>  buttonLoading.value = false);
       }
-      proxy?.$modal.msgSuccess("修改成功");
+      proxy?.$modal.msgSuccess("Modified successfully");
       dialog.visible = false;
       await getList();
     }
   });
 }
 
-/** 删除按钮操作 */
+/** Delete button action */
 const handleDelete = async (row?: ProjectGroupVO) => {
   const _ids = row?.id || ids.value;
-  await proxy?.$modal.confirm('是否确认删除项目组编号为"' + _ids + '"的数据项？').finally(() => loading.value = false);
+  await proxy?.$modal.confirm('Confirm to delete"' + _ids + '"?').finally(() => loading.value = false);
   await delProjectGroup(_ids);
-  proxy?.$modal.msgSuccess("Successfully deleted");
+  proxy?.$modal.msgSuccess("Deleted Successfully");
   await getList();
 }
 
-/** 导出按钮操作 */
+/** Export button action */
 const handleExport = () => {
   proxy?.download('system/projectGroup/export', {
     ...queryParams.value

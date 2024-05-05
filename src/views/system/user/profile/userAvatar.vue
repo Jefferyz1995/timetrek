@@ -1,6 +1,6 @@
 <template>
   <div class="user-info-head" @click="editCropper()">
-    <img :src="options.img" title="点击上传头像" class="img-circle img-lg" />
+    <img :src="options.img" title="Upload Image" class="img-circle img-lg" />
     <el-dialog :title="title" v-model="open" width="800px" append-to-body @opened="modalOpened" @close="closeDialog">
       <el-row>
         <el-col :xs="24" :md="12" :style="{ height: '350px' }">
@@ -28,7 +28,7 @@
         <el-col :lg="2" :md="2">
           <el-upload action="#" :http-request="requestUpload" :show-file-list="false" :before-upload="beforeUpload">
             <el-button>
-              选择
+              Select
               <el-icon class="el-icon--right">
                 <Upload />
               </el-icon>
@@ -48,7 +48,7 @@
           <el-button icon="RefreshRight" @click="rotateRight()"></el-button>
         </el-col>
         <el-col :lg="{ span: 2, offset: 6 }" :md="2">
-          <el-button type="primary" @click="uploadImg()">提 交</el-button>
+          <el-button type="primary" @click="uploadImg()">Submit</el-button>
         </el-col>
       </el-row>
     </el-dialog>
@@ -62,13 +62,13 @@ import { uploadAvatar } from "@/api/system/user";
 import useUserStore from "@/store/modules/user";
 
 interface Options {
-  img: string | any; // 裁剪图片的地址
-  autoCrop: boolean; // 是否默认生成截图框
-  autoCropWidth: number; // 默认生成截图框宽度
-  autoCropHeight: number; // 默认生成截图框高度
-  fixedBox: boolean; // 固定截图框大小 不允许改变
+  img: string | any;
+  autoCrop: boolean; 
+  autoCropWidth: number;
+  autoCropHeight: number;
+  fixedBox: boolean;
   fileName: string;
-  previews: any; // 预览数据
+  previews: any;
   outputType: string;
   visible: boolean;
 }
@@ -79,10 +79,10 @@ const { proxy } = getCurrentInstance() as ComponentInternalInstance;
 
 const open = ref(false);
 const visible = ref(false);
-const title = ref("修改头像");
+const title = ref("Change Image");
 
 const cropper = ref<any>({});
-//图片裁剪数据
+
 const options = reactive<Options>({
   img: userStore.avatar,
   autoCrop: true,
@@ -95,34 +95,34 @@ const options = reactive<Options>({
   visible: false
 });
 
-/** 编辑头像 */
+
 const editCropper = () => {
   open.value = true;
 };
-/** 打开弹出层结束时的回调 */
+
 const modalOpened = () => {
   visible.value = true;
 };
-/** 覆盖默认上传行为 */
+
 const requestUpload = (): any => {
 };
-/** 向左旋转 */
+
 const rotateLeft = () => {
   cropper.value.rotateLeft();
 };
-/** 向右旋转 */
+
 const rotateRight = () => {
   cropper.value.rotateRight();
 };
-/** 图片缩放 */
+
 const changeScale = (num: number) => {
   num = num || 1;
   cropper.value.changeScale(num);
 };
-/** 上传预处理 */
+
 const beforeUpload = (file: any) => {
   if (file.type.indexOf("image/") == -1) {
-    proxy?.$modal.msgError("文件格式错误，请上传图片类型,如：JPG，PNG后缀的文件。");
+    proxy?.$modal.msgError("Format Error，Please upload the file in JPG, PNG format");
   } else {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -132,7 +132,7 @@ const beforeUpload = (file: any) => {
     };
   }
 };
-/** 上传图片 */
+/** Upload */
 const uploadImg = async () => {
   cropper.value.getCropBlob(async (data: any) => {
     let formData = new FormData();
@@ -141,15 +141,15 @@ const uploadImg = async () => {
     open.value = false;
     options.img = res.data.imgUrl;
     userStore.setAvatar(options.img as string)
-    proxy?.$modal.msgSuccess("修改成功");
+    proxy?.$modal.msgSuccess("Success");
     visible.value = false;
   });
 };
-/** 实时预览 */
+/** Preview */
 const realTime = (data: any) => {
   options.previews = data;
 };
-/** 关闭窗口 */
+/** close */
 const closeDialog = () => {
   options.img = userStore.avatar;
   options.visible = false;

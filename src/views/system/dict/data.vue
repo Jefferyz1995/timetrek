@@ -10,7 +10,7 @@
               </el-select>
             </el-form-item>
             <el-form-item :label="$t('dictManager.dictLabel')" prop="dictLabel">
-              <el-input v-model="queryParams.dictLabel" placeholder="请输入字典标签" clearable style="width: 200px" @keyup.enter="handleQuery" />
+              <el-input v-model="queryParams.dictLabel" placeholder="Please enter a dictionary tag" clearable style="width: 200px" @keyup.enter="handleQuery" />
             </el-form-item>
             <el-form-item>
               <el-button type="primary" icon="Search" @click="handleQuery">{{$t('commonBtn.search')}}</el-button>
@@ -74,7 +74,7 @@
 
       <pagination v-show="total > 0" :total="total" v-model:page="queryParams.pageNum" v-model:limit="queryParams.pageSize" @pagination="getList" />
     </el-card>
-    <!-- 添加或修改参数配置对话框 -->
+    <!-- Add or modify parameter configuration dialog box -->
     <el-dialog :title="dialog.title" v-model="dialog.visible" width="500px" append-to-body>
       <el-form ref="dataFormRef" :model="form" :rules="rules" label-width="80px">
         <el-form-item :label="$t('dictManager.dictType')">
@@ -145,14 +145,14 @@ const dialog = reactive<DialogOption>({
   title: ''
 });
 
-// 数据标签回显样式
+// Data label echo style
 const listClassOptions = ref<Array<{ value: string, label: string }>>([
-  { value: "default", label: "默认" },
-  { value: "primary", label: "主要" },
-  { value: "success", label: "成功" },
-  { value: "info", label: "信息" },
-  { value: "warning", label: "警告" },
-  { value: "danger", label: "危险" }
+  { value: "default", label: "Default" },
+  { value: "primary", label: "Primary" },
+  { value: "success", label: "Success" },
+  { value: "info", label: "Info" },
+  { value: "warning", label: "Warning" },
+  { value: "danger", label: "Danger" }
 ]);
 
 const initFormData: DictDataForm = {
@@ -174,15 +174,15 @@ const data = reactive<PageData<DictDataForm, DictDataQuery>>({
     dictLabel: ''
   },
   rules: {
-    dictLabel: [{ required: true, message: "数据标签不能为空", trigger: "blur" }],
-    dictValue: [{ required: true, message: "数据键值不能为空", trigger: "blur" }],
-    dictSort: [{ required: true, message: "数据顺序不能为空", trigger: "blur" }]
+    dictLabel: [{ required: true, message: "Data label cannot be empty", trigger: "blur" }],
+    dictValue: [{ required: true, message: "Data key value cannot be empty", trigger: "blur" }],
+    dictSort: [{ required: true, message: "Data sequence cannot be empty", trigger: "blur" }]
   }
 });
 
 const { queryParams, form, rules } = toRefs(data);
 
-/** 查询字典类型详细 */
+/** Query dictionary type details */
 const getTypes = async (dictId: string | number) => {
   const { data } = await getType(dictId);
   queryParams.value.dictType = data.dictType;
@@ -190,12 +190,12 @@ const getTypes = async (dictId: string | number) => {
   getList();
 }
 
-/** 查询字典类型列表 */
+/** Query dictionary type list */
 const getTypeList = async () => {
   const res = await getDictOptionselect()
   typeOptions.value = res.data;
 }
-/** 查询字典数据列表 */
+/** Query dictionary data list */
 const getList = async () => {
   loading.value = true;
   const res = await listData(queryParams.value);
@@ -203,78 +203,78 @@ const getList = async () => {
   total.value = res.total;
   loading.value = false;
 }
-/** 取消按钮 */
+/** Cancel button */
 const cancel = () => {
   dialog.visible = false;
   reset();
 }
-/** 表单重置 */
+/** form reset */
 const reset = () => {
   form.value = { ...initFormData };
   dataFormRef.value?.resetFields();
 }
-/** 搜索按钮操作 */
+/** Search button action */
 const handleQuery = () => {
   queryParams.value.pageNum = 1;
   getList();
 }
-/** 返回按钮操作 */
+/** Back button action */
 const handleClose = () => {
   const obj = { path: "/system/dict" };
   proxy?.$tab.closeOpenPage(obj);
 }
-/** 重置按钮操作 */
+/** reset button action */
 const resetQuery = () => {
   queryFormRef.value?.resetFields();
   queryParams.value.dictType = defaultDictType.value;
   handleQuery();
 }
-/** 新增按钮操作 */
+/** Add button operation */
 const handleAdd = () => {
   reset();
   form.value.dictType = queryParams.value.dictType;
   dialog.visible = true;
-  dialog.title = "添加字典数据";
+  dialog.title = "Add dictionary data";
 }
-/** 多选框选中数据 */
+/** Multiple selection box selected data */
 const handleSelectionChange = (selection: DictDataVO[]) => {
   ids.value = selection.map(item => item.dictCode);
   single.value = selection.length != 1;
   multiple.value = !selection.length;
 }
-/** 修改按钮操作 */
+/** Modify button actions */
 const handleUpdate = async (row?: DictDataVO) => {
   reset();
   const dictCode = row?.dictCode || ids.value[0];
   const res = await getData(dictCode);
   Object.assign(form.value, res.data);
   dialog.visible = true;
-  dialog.title = "修改字典数据";
+  dialog.title = "Modify dictionary data";
 }
-/** 提交按钮 */
+/** submit button */
 const submitForm = () => {
   dataFormRef.value?.validate(async (valid: boolean) => {
     if (valid) {
       form.value.dictCode ? await updateData(form.value) : await addData(form.value);
       useDictStore().removeDict(queryParams.value.dictType);
-      proxy?.$modal.msgSuccess("Successful operation");
+      proxy?.$modal.msgSuccess("Submitted Successfully");
       dialog.visible = false;
       await getList();
 
     }
   });
 }
-/** 删除按钮操作 */
+/** Delete button action */
 const handleDelete = async (row?: DictDataVO) => {
   const dictCodes = row?.dictCode || ids.value;
-  await proxy?.$modal.confirm('是否确认删除字典编码为"' + dictCodes + '"的数据项？');
+  await proxy?.$modal.confirm('Confirm to delete the data with dictionary code"' + dictCodes + '"?');
   await delData(dictCodes);
   await getList();
   proxy?.$modal.msgSuccess("Successfully deleted");
   useDictStore().removeDict(queryParams.value.dictType);
 
 }
-/** 导出按钮操作 */
+/** Export button action */
 const handleExport = () => {
   proxy?.download("system/dict/data/export", {
     ...queryParams.value

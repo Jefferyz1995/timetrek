@@ -42,7 +42,7 @@
           </el-col>
           <el-col :span="1.5">
             <el-button type="success" plain icon="Edit" :disabled="single" @click="handleUpdate()" v-hasPermi="['system:config:edit']">
-              修改
+              Modify
             </el-button>
           </el-col>
           <el-col :span="1.5">
@@ -69,7 +69,7 @@
 
       <el-table v-loading="loading" :data="configList" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" align="center" />
-        <el-table-column label="参数主键" align="center" prop="configId" v-if="false" />
+        <el-table-column label="Param Primary Key" align="center" prop="configId" v-if="false" />
         <el-table-column :label="$t('paramSetting.configName')" align="center" prop="configName" :show-overflow-tooltip="true" />
         <el-table-column :label="$t('paramSetting.configKey')" align="center" prop="configKey" :show-overflow-tooltip="true" />
         <el-table-column :label="$t('paramSetting.configValue')" align="center" prop="configValue" :show-overflow-tooltip="true" />
@@ -98,17 +98,17 @@
       <pagination v-show="total > 0" :total="total" v-model:page="queryParams.pageNum" v-model:limit="queryParams.pageSize" @pagination="getList" />
     </el-card>
 
-    <!-- 添加或修改参数配置对话框 -->
+    <!-- Add or modify parameter configuration dialog box -->
     <el-dialog :title="dialog.title" v-model="dialog.visible" width="500px" append-to-body>
       <el-form ref="configFormRef" :model="form" :rules="rules" label-width="80px">
         <el-form-item :label="$t('paramSetting.configName')" prop="configName">
-          <el-input v-model="form.configName" placeholder="请输入参数名称" />
+          <el-input v-model="form.configName" placeholder="Please enter parameter name" />
         </el-form-item>
         <el-form-item :label="$t('paramSetting.configKey')" prop="configKey">
-          <el-input v-model="form.configKey" placeholder="请输入参数键名" />
+          <el-input v-model="form.configKey" placeholder="Please enter parameter key name" />
         </el-form-item>
         <el-form-item :label="$t('paramSetting.configValue')" prop="configValue">
-          <el-input v-model="form.configValue" placeholder="请输入参数键值" />
+          <el-input v-model="form.configValue" placeholder="Please enter parameter key value" />
         </el-form-item>
         <el-form-item :label="$t('paramSetting.configType')" prop="configType">
           <el-radio-group v-model="form.configType">
@@ -116,7 +116,7 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item :label="$t('commonColumn.remark')" prop="remark">
-          <el-input v-model="form.remark" type="textarea" placeholder="请输入内容" />
+          <el-input v-model="form.remark" type="textarea" placeholder="Please enter content" />
         </el-form-item>
       </el-form>
       <template #footer>
@@ -169,15 +169,15 @@ const data = reactive<PageData<ConfigForm, ConfigQuery>>({
     configType: '',
   },
   rules: {
-    configName: [{ required: true, message: "参数名称不能为空", trigger: "blur" }],
-    configKey: [{ required: true, message: "参数键名不能为空", trigger: "blur" }],
-    configValue: [{ required: true, message: "参数键值不能为空", trigger: "blur" }]
+    configName: [{ required: true, message: "Parameter name cannot be empty", trigger: "blur" }],
+    configKey: [{ required: true, message: "Parameter key name cannot be empty", trigger: "blur" }],
+    configValue: [{ required: true, message: "Parameter key value cannot be empty", trigger: "blur" }]
   }
 });
 
 const { queryParams, form, rules } = toRefs(data);
 
-/** 查询参数列表 */
+/** Query parameter list */
 const getList = async () => {
   loading.value = true;
   const res = await listConfig(proxy?.addDateRange(queryParams.value, dateRange.value));
@@ -185,49 +185,49 @@ const getList = async () => {
   total.value = res.total;
   loading.value = false;
 }
-/** 取消按钮 */
+/** Cancel button */
 const cancel = () => {
   reset();
   dialog.visible = false;
 }
-/** 表单重置 */
+/** form reset */
 const reset = () => {
   form.value = { ...initFormData };
   configFormRef.value?.resetFields();
 }
-/** 搜索按钮操作 */
+/** Search button action */
 const handleQuery = () => {
   queryParams.value.pageNum = 1;
   getList();
 }
-/** 重置按钮操作 */
+/** reset button action */
 const resetQuery = () => {
   dateRange.value = ['', ''];
   queryFormRef.value?.resetFields();
   handleQuery();
 }
-/** 多选框选中数据 */
+/** Multiple selection box selected data */
 const handleSelectionChange = (selection: ConfigVO[]) => {
   ids.value = selection.map(item => item.configId);
   single.value = selection.length != 1;
   multiple.value = !selection.length;
 }
-/** 新增按钮操作 */
+/** Add button operation */
 const handleAdd = () => {
   reset();
   dialog.visible = true;
-  dialog.title = "添加参数";
+  dialog.title = "Add parameters";
 }
-/** 修改按钮操作 */
+/** Modify button actions */
 const handleUpdate = async (row?: ConfigVO) => {
   reset();
   const configId = row?.configId || ids.value[0];
   const res = await getConfig(configId);
   Object.assign(form.value, res.data);
   dialog.visible = true;
-  dialog.title = "修改参数";
+  dialog.title = "Modify parameters";
 }
-/** 提交按钮 */
+/** submit button */
 const submitForm = () => {
   configFormRef.value?.validate(async (valid: boolean) => {
     if (valid) {
@@ -238,24 +238,24 @@ const submitForm = () => {
     }
   });
 }
-/** 删除按钮操作 */
+/** Delete button action */
 const handleDelete = async (row?: ConfigVO) => {
   const configIds = row?.configId || ids.value;
-  await proxy?.$modal.confirm('是否确认删除参数编号为"' + configIds + '"的数据项？');
+  await proxy?.$modal.confirm('Confirm to delete the data with parameter number"' + configIds + '"？');
   await delConfig(configIds);
   await getList();
   proxy?.$modal.msgSuccess("Successfully deleted");
 }
-/** 导出按钮操作 */
+/** Export button action */
 const handleExport = () => {
   proxy?.download("system/config/export", {
     ...queryParams.value
   }, `config_${new Date().getTime()}.xlsx`);
 }
-/** 刷新缓存按钮操作 */
+/** Refresh cache button action */
 const handleRefreshCache = async () => {
   await refreshCache();
-  proxy?.$modal.msgSuccess("刷新缓存成功");
+  proxy?.$modal.msgSuccess("Refresh cache successfully");
 }
 
 onMounted(() => {

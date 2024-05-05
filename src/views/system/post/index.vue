@@ -61,7 +61,7 @@
 
       <el-table v-loading="loading" :data="postList" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" align="center" />
-        <el-table-column label="岗位编号" align="center" prop="postId" v-if="false" />
+        <el-table-column label="Post ID" align="center" prop="postId" v-if="false" />
         <el-table-column :label="$t('postManager.postCode')" align="center" prop="postCode" />
         <el-table-column :label="$t('postManager.postName')" align="center" prop="postName" />
         <el-table-column :label="$t('postManager.postSort')" align="center" prop="postSort" />
@@ -90,7 +90,7 @@
       <pagination v-show="total > 0" :total="total" v-model:page="queryParams.pageNum" v-model:limit="queryParams.pageSize" @pagination="getList" />
     </el-card>
 
-    <!-- 添加或修改岗位对话框 -->
+    <!-- Add or modify post dialog box -->
     <el-dialog :title="dialog.title" v-model="dialog.visible" width="500px" append-to-body>
       <el-form ref="postFormRef" :model="form" :rules="rules" label-width="100px">
         <el-form-item :label="$t('postManager.postName')" prop="postName">
@@ -163,15 +163,15 @@ const data = reactive<PageData<PostForm, PostQuery>>({
     status: ''
   },
   rules: {
-    postName: [{ required: true, message: "岗位名称不能为空", trigger: "blur" }],
-    postCode: [{ required: true, message: "岗位编码不能为空", trigger: "blur" }],
-    postSort: [{ required: true, message: "岗位顺序不能为空", trigger: "blur" }],
+    postName: [{ required: true, message: "Post Name cannot be empty", trigger: "blur" }],
+    postCode: [{ required: true, message: "Post ID cannot be empty", trigger: "blur" }],
+    postSort: [{ required: true, message: "Post sorting cannot be empty", trigger: "blur" }],
   }
 });
 
 const { queryParams, form, rules } = toRefs<PageData<PostForm, PostQuery>>(data);
 
-/** 查询岗位列表 */
+/** Query post list */
 const getList = async () => {
   loading.value = true;
   const res = await listPost(queryParams.value);
@@ -179,39 +179,39 @@ const getList = async () => {
   total.value = res.total;
   loading.value = false;
 }
-/** 取消按钮 */
+/** Cancel button */
 const cancel = () => {
   reset();
   dialog.visible = false;
 }
-/** 表单重置 */
+/** form reset */
 const reset = () => {
   form.value = { ...initFormData };
   postFormRef.value?.resetFields();
 }
-/** 搜索按钮操作 */
+/** Search button action */
 const handleQuery = () => {
   queryParams.value.pageNum = 1;
   getList();
 }
-/** 重置按钮操作 */
+/** reset button action */
 const resetQuery = () => {
   queryFormRef.value?.resetFields();
   handleQuery();
 }
-/** 多选框选中数据 */
+/** Multiple selection box selected data */
 const handleSelectionChange = (selection: PostVO[]) => {
   ids.value = selection.map(item => item.postId);
   single.value = selection.length != 1;
   multiple.value = !selection.length;
 }
-/** 新增按钮操作 */
+/** Add button operation */
 const handleAdd = () => {
   reset();
   dialog.visible = true;
   dialog.title = "Add Post";
 }
-/** 修改按钮操作 */
+/** Modify button actions */
 const handleUpdate = async (row?: PostVO) => {
   reset();
   const postId = row?.postId || ids.value[0];
@@ -220,18 +220,18 @@ const handleUpdate = async (row?: PostVO) => {
   dialog.visible = true;
   dialog.title = "Modify Post";
 }
-/** 提交按钮 */
+/** submit button */
 const submitForm = () => {
   postFormRef.value?.validate(async (valid: boolean) => {
     if (valid) {
       form.value.postId ? await updatePost(form.value) : await addPost(form.value);
-      proxy?.$modal.msgSuccess("Successful operation");
+      proxy?.$modal.msgSuccess("Submitted Successfully");
       dialog.visible = false;
       await getList();
     }
   });
 }
-/** 删除按钮操作 */
+/** Delete button action */
 const handleDelete = async (row?: PostVO) => {
   const postIds = row?.postId || ids.value;
   await proxy?.$modal.confirm('Confirm delete"' + postIds + '"？');
@@ -239,7 +239,7 @@ const handleDelete = async (row?: PostVO) => {
   await getList();
   proxy?.$modal.msgSuccess("Successfully deleted");
 }
-/** 导出按钮操作 */
+/** Export button action */
 const handleExport = () => {
   proxy?.download("system/post/export", {
     ...queryParams.value

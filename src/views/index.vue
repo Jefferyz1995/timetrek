@@ -3,10 +3,10 @@
     <h2>TimeTrek Roster System</h2>
     <el-divider />
     <el-row>
-      <!--      上班-->
-      <el-button @click="handleSignIn">Sign In</el-button>
-      <!--      下班-->
-      <el-button @click="handleSignOut">Sign Out</el-button>
+      <!--      Clock in-->
+      <el-button @click="handleSignIn">Clock In</el-button>
+      <!--      Clock out-->
+      <el-button @click="handleSignOut">Clock Out</el-button>
     </el-row>
     <el-row>
       <el-calendar>
@@ -58,9 +58,9 @@ getData()
 const handleSignIn = () => {
   signIn().then(res=>{
     if(res.code === 200){
-      ElMessage.success("签到成功")
+      ElMessage.success("Clock in Success")
     }else{
-      ElMessage.error("签到失败")
+      ElMessage.error("Clock in Fail")
     }
   })
 }
@@ -68,9 +68,9 @@ const handleSignIn = () => {
 const handleSignOut = () => {
   sighOut().then(res=>{
     if(res.code === 200){
-      ElMessage.success("签到成功")
+      ElMessage.success("Clock out Success")
     }else{
-      ElMessage.error("签到失败")
+      ElMessage.error("Clock out Fail")
     }
   })
 }

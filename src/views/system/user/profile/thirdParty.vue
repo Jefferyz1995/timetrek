@@ -1,44 +1,44 @@
 <template>
   <div>
     <el-table :data="auths" style="width: 100%; height: 100%; font-size: 10px">
-      <el-table-column label="序号" width="50" type="index"></el-table-column>
-      <el-table-column label="绑定账号平台" width="140" align="center" prop="source" show-overflow-tooltip />
-      <el-table-column label="头像" width="120" align="center" prop="avatar">
+      <el-table-column label="No" width="50" type="index"></el-table-column>
+      <el-table-column label="Platform" width="140" align="center" prop="source" show-overflow-tooltip />
+      <el-table-column label="Image" width="120" align="center" prop="avatar">
         <template v-slot="scope">
           <img :src="scope.row.avatar" style="width: 45px; height: 45px" />
         </template>
       </el-table-column>
-      <el-table-column label="系统账号" width="180" align="center" prop="userName" :show-overflow-tooltip="true" />
-      <el-table-column label="绑定时间" width="180" align="center" prop="createTime" />
+      <el-table-column label="Account" width="180" align="center" prop="userName" :show-overflow-tooltip="true" />
+      <el-table-column label="Link time" width="180" align="center" prop="createTime" />
       <el-table-column :label="$t('commonColumn.action')" width="80" align="center" class-name="small-padding fixed-width">
         <template v-slot="scope">
-          <el-button size="small" type="text" @click="unlockAuth(scope.row)">解绑</el-button>
+          <el-button size="small" type="text" @click="unlockAuth(scope.row)">Unlink</el-button>
         </template>
       </el-table-column>
     </el-table>
 
     <div id="git-user-binding">
-      <h4 class="provider-desc">你可以绑定以下第三方帐号</h4>
+      <h4 class="provider-desc">Link with following platform</h4>
       <div id="authlist" class="user-bind">
-        <a class="third-app" href="#" @click="authUrl('wechat');" title="使用 微信 账号授权登录">
+        <a class="third-app" href="#" @click="authUrl('wechat');" title="WeChat">
           <div class="git-other-login-icon">
             <svg-icon icon-class="wechat" />
           </div>
           <span class="app-name">WeiXin</span>
         </a>
-        <a class="third-app" href="#" @click="authUrl('maxkey');" title="使用 MaxKey 账号授权登录">
+        <a class="third-app" href="#" @click="authUrl('maxkey');" title="MaxKey">
           <div class="git-other-login-icon">
             <svg-icon icon-class="maxkey" />
           </div>
           <span class="app-name">MaxKey</span>
         </a>
-        <a class="third-app" href="#" @click="authUrl('gitee');" title="使用 Gitee 账号授权登录">
+        <a class="third-app" href="#" @click="authUrl('gitee');" title="Gitee">
           <div class="git-other-login-icon">
             <svg-icon icon-class="gitee" />
           </div>
           <span class="app-name">Gitee</span>
         </a>
-        <a class="third-app" href="#" @click="authUrl('github');" title="使用 GitHub 账号授权登录">
+        <a class="third-app" href="#" @click="authUrl('github');" title="GitHub">
           <div class="git-other-login-icon">
             <svg-icon icon-class="github" />
           </div>
@@ -64,12 +64,12 @@ const auths = computed(() => props.auths);
 
 
 const unlockAuth = (row: any) => {
-  ElMessageBox.confirm('您确定要解除"' + row.source + '"的账号绑定吗？')
+  ElMessageBox.confirm('Confirm to unlink"' + row.source + '"?')
     .then(() => {
       return authUnlock(row.id);
     }).then((res: any) => {
       if (res.code === 200) {
-        proxy?.$modal.msgSuccess("解绑成功");
+        proxy?.$modal.msgSuccess("Success");
         proxy?.$tab.refreshPage();
       } else {
         proxy?.$modal.msgError(res.msg);

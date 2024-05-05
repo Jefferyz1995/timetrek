@@ -82,7 +82,7 @@
 
       <el-table v-loading="loading" :data="typeList" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" align="center" />
-        <el-table-column label="字典编号" align="center" prop="dictId" v-if="false" />
+        <el-table-column label="Sictionary Number" align="center" prop="dictId" v-if="false" />
         <el-table-column :label="$t('dictManager.dictName')" align="center" prop="dictName" :show-overflow-tooltip="true" />
         <el-table-column :label="$t('dictManager.dictType')" align="center" :show-overflow-tooltip="true">
           <template #default="scope">
@@ -111,7 +111,7 @@
 
       <pagination v-show="total > 0" :total="total" v-model:page="queryParams.pageNum" v-model:limit="queryParams.pageSize" @pagination="getList" />
     </el-card>
-    <!-- 添加或修改参数配置对话框 -->
+    <!-- Add or modify parameter configuration dialog box -->
     <el-dialog :title="dialog.title" v-model="dialog.visible" width="500px" append-to-body>
       <el-form ref="dictFormRef" :model="form" :rules="rules" label-width="100px">
         <el-form-item :label="$t('dictManager.dictName')" prop="dictName">
@@ -174,14 +174,14 @@ const data = reactive<PageData<DictTypeForm, DictTypeQuery>>({
     dictType: ''
   },
   rules: {
-    dictName: [{ required: true, message: "字典名称不能为空", trigger: "blur" }],
-    dictType: [{ required: true, message: "字典类型不能为空", trigger: "blur" }]
+    dictName: [{ required: true, message: "Dictionary name cannot be empty", trigger: "blur" }],
+    dictType: [{ required: true, message: "Dictionary type cannot be empty", trigger: "blur" }]
   },
 });
 
 const { queryParams, form, rules } = toRefs(data);
 
-/** 查询字典类型列表 */
+/** Query dictionary type list */
 const getList = () => {
   loading.value = true;
   listType(proxy?.addDateRange(queryParams.value, dateRange.value)).then(res => {
@@ -190,40 +190,40 @@ const getList = () => {
     loading.value = false;
   });
 }
-/** 取消按钮 */
+/** Cancel button */
 const cancel = () => {
   reset();
   dialog.visible = false;
 }
-/** 表单重置 */
+/** form reset */
 const reset = () => {
   form.value = { ...initFormData };
   dictFormRef.value?.resetFields();
 }
-/** 搜索按钮操作 */
+/** Search button action */
 const handleQuery = () => {
   queryParams.value.pageNum = 1;
   getList();
 }
-/** 重置按钮操作 */
+/** reset button action */
 const resetQuery = () => {
   dateRange.value = ['', ''];
   queryFormRef.value?.resetFields();
   handleQuery();
 }
-/** 新增按钮操作 */
+/** Add button operation */
 const handleAdd = () => {
   reset();
   dialog.visible = true;
   dialog.title = "Add Dict Type";
 }
-/** 多选框选中数据 */
+/** Multiple selection box selected data */
 const handleSelectionChange = (selection: DictTypeVO[]) => {
   ids.value = selection.map(item => item.dictId);
   single.value = selection.length != 1;
   multiple.value = !selection.length;
 }
-/** 修改按钮操作 */
+/** Modify button actions */
 const handleUpdate = async (row?: DictTypeVO) => {
   reset();
   const dictId = row?.dictId || ids.value[0];
@@ -232,7 +232,7 @@ const handleUpdate = async (row?: DictTypeVO) => {
   dialog.visible = true;
   dialog.title = "Modify Dict Type";
 }
-/** 提交按钮 */
+/** submit button */
 const submitForm = () => {
   dictFormRef.value?.validate(async (valid: boolean) => {
     if (valid) {
@@ -243,7 +243,7 @@ const submitForm = () => {
     }
   });
 }
-/** 删除按钮操作 */
+/** Delete button action */
 const handleDelete = async (row?: DictTypeVO) => {
   const dictIds = row?.dictId || ids.value;
   await proxy?.$modal.confirm('Confirm Delete"' + dictIds + '"？');
@@ -251,16 +251,16 @@ const handleDelete = async (row?: DictTypeVO) => {
   getList();
   proxy?.$modal.msgSuccess("Successfully deleted");
 }
-/** 导出按钮操作 */
+/** Export button action */
 const handleExport = () => {
   proxy?.download("system/dict/type/export", {
     ...queryParams.value
   }, `dict_${new Date().getTime()}.xlsx`);
 }
-/** 刷新缓存按钮操作 */
+/** Refresh cache button action */
 const handleRefreshCache = async () => {
   await refreshCache();
-  proxy?.$modal.msgSuccess("刷新成功");
+  proxy?.$modal.msgSuccess("Refresh successful");
   useDictStore().cleanDict();
 }
 

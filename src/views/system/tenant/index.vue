@@ -208,31 +208,31 @@ const data = reactive<PageData<TenantForm, TenantQuery>>({
     companyName: ''
   },
   rules: {
-    id: [{ required: true, message: "id不能为空", trigger: "blur" }],
-    tenantId: [{ required: true, message: "租户编号不能为空", trigger: "blur" }],
-    contactUserName: [{ required: true, message: "联系人不能为空", trigger: "blur" }],
-    contactPhone: [{ required: true, message: "联系电话不能为空", trigger: "blur" }],
-    companyName: [{ required: true, message: "企业名称不能为空", trigger: "blur" }],
+    id: [{ required: true, message: "id cannot be empty", trigger: "blur" }],
+    tenantId: [{ required: true, message: "Tenant ID cannot be empty", trigger: "blur" }],
+    contactUserName: [{ required: true, message: "Contact Person cannot be empty", trigger: "blur" }],
+    contactPhone: [{ required: true, message: "Contact No, cannot be empty", trigger: "blur" }],
+    companyName: [{ required: true, message: "Company name cannot be empty", trigger: "blur" }],
     username: [
-      { required: true, message: "用户名不能为空", trigger: "blur" },
-      { min: 2, max: 20, message: '用户名称长度必须介于 2 和 20 之间', trigger: 'blur' }
+      { required: true, message: "Username can not be empty", trigger: "blur" },
+      { min: 2, max: 20, message: 'Username length must be between 2 and 20', trigger: 'blur' }
     ],
     password: [
-      { required: true, message: "密码不能为空", trigger: "blur" },
-      { min: 5, max: 20, message: '用户密码长度必须介于 5 和 20 之间', trigger: 'blur' }
+      { required: true, message: "Password cannot be empty", trigger: "blur" },
+      { min: 5, max: 20, message: 'User password length must be between 5 and 20', trigger: 'blur' }
     ]
   }
 });
 
 const { queryParams, form, rules } = toRefs(data);
 
-/** 查询所有租户套餐 */
+/** View all tenant packages */
 const getTenantPackage = async () => {
   const res = await selectTenantPackage()
   packageList.value = res.data;
 }
 
-/** 查询租户列表 */
+/** Query tenant list */
 const getList = async () => {
   loading.value = true;
   const res = await listTenant(queryParams.value);
@@ -241,13 +241,13 @@ const getList = async () => {
   loading.value = false;
 }
 
-// 租户套餐状态修改
+// Tenant package status modification
 const handleStatusChange = async (row: TenantVO) => {
-  let text = row.status === "0" ? "启用" : "停用";
+  let text = row.status === "0" ? "Enable" : "Disable";
   try {
-    await proxy?.$modal.confirm('确认要"' + text + '""' + row.companyName + '"租户吗？');
+    await proxy?.$modal.confirm('Confirm to"' + text + '""' + row.companyName + '"?');
     await changeTenantStatus(row.id, row.tenantId, row.status);
-    proxy?.$modal.msgSuccess(text + "成功");
+    proxy?.$modal.msgSuccess(text + "Success");
   } catch {
     row.status = row.status === "0" ? "1" : "0";
   }

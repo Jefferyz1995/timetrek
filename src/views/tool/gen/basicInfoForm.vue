@@ -2,23 +2,23 @@
   <el-form ref="basicInfoForm" :model="infoForm" :rules="rules" label-width="150px">
     <el-row>
       <el-col :span="12">
-        <el-form-item label="表名称" prop="tableName">
-          <el-input placeholder="请输入仓库名称" v-model="infoForm.tableName" />
+        <el-form-item label="Table name" prop="tableName">
+          <el-input placeholder="Table name" v-model="infoForm.tableName" />
         </el-form-item>
       </el-col>
       <el-col :span="12">
-        <el-form-item label="表描述" prop="tableComment">
-          <el-input placeholder="请输入" v-model="infoForm.tableComment" />
+        <el-form-item label="Descrption" prop="tableComment">
+          <el-input placeholder="Descrption" v-model="infoForm.tableComment" />
         </el-form-item>
       </el-col>
       <el-col :span="12">
-        <el-form-item label="实体类名称" prop="className">
-          <el-input placeholder="请输入" v-model="infoForm.className" />
+        <el-form-item label="Entity class name" prop="className">
+          <el-input placeholder="Class name" v-model="infoForm.className" />
         </el-form-item>
       </el-col>
       <el-col :span="12">
-        <el-form-item label="作者" prop="functionAuthor">
-          <el-input placeholder="请输入" v-model="infoForm.functionAuthor" />
+        <el-form-item label="Author Name" prop="functionAuthor">
+          <el-input placeholder="Author Name" v-model="infoForm.functionAuthor" />
         </el-form-item>
       </el-col>
       <el-col :span="24">
@@ -39,11 +39,11 @@ const prop = defineProps({
 
 const infoForm = computed(() => prop.info)
 
-// 表单校验
+
 const rules = ref({
-  tableName: [{ required: true, message: "请输入表名称", trigger: "blur" }],
-  tableComment: [{ required: true, message: "请输入表描述", trigger: "blur" }],
-  className: [{ required: true, message: "请输入实体类名称", trigger: "blur" }],
-  functionAuthor: [{ required: true, message: "请输入作者", trigger: "blur" }]
+  tableName: [{ required: true, message: "Table Name", trigger: "blur" }],
+  tableComment: [{ required: true, message: "Table Descrption", trigger: "blur" }],
+  className: [{ required: true, message: "Entity Class Name", trigger: "blur" }],
+  functionAuthor: [{ required: true, message: "Author", trigger: "blur" }]
 });
 </script>

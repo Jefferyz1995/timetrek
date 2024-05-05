@@ -1,6 +1,6 @@
 <template>
   <el-row>
-    <el-dialog title="选择用户" v-model="visible" width="800px" top="5vh" append-to-body>
+    <el-dialog title="Select User" v-model="visible" width="800px" top="5vh" append-to-body>
       <el-form :model="queryParams" ref="queryFormRef" :inline="true">
         <el-form-item :label="$t('userManager.userName')" prop="userName">
           <el-input v-model="queryParams.userName" :placeholder="$t('userManager.userName')" clearable @keyup.enter="handleQuery" />
@@ -81,49 +81,49 @@ const show = () => {
 }
 
 /**
- * 选择行
+ * Select row
  */
 const clickRow = (row: any) => {
-  // ele的bug
+
   tableRef.value?.toggleRowSelection(row, false);
 }
-/** 多选框选中数据 */
+/** Multiple selection box selected data */
 const handleSelectionChange = (selection: UserVO[]) => {
   userIds.value = selection.map((item: UserVO) => item.userId);
 }
 
-/** 查询数据 */
+/** Query data */
 const getList = async () => {
   const res = await unallocatedUserList(queryParams);
   userList.value = res.rows;
   total.value = res.total;
 }
-/** 搜索按钮操作 */
+/** Search button action */
 const handleQuery = () => {
   queryParams.pageNum = 1;
   getList();
 }
-/** 重置按钮操作 */
+/** reset button action */
 const resetQuery = () => {
   queryFormRef.value?.resetFields();
   getList();
 }
 
 const emit = defineEmits(["ok"]);
-/**选择授权用户操作 */
+/**Select authorized user operations */
 const handleSelectUser = async () => {
   const roleId = queryParams.roleId;
   const ids = userIds.value.join(',');
   if (ids == "") {
-    proxy?.$modal.msgError('请选择要分配的用户');
+    proxy?.$modal.msgError('Please select a user to assign');
     return;
   }
   await authUserSelectAll({ roleId, userIds: ids });
-  proxy?.$modal.msgSuccess('分配成功');
+  proxy?.$modal.msgSuccess('Done');
   emit('ok');
   visible.value = false;
 }
-// 暴露
+
 defineExpose({
   show,
 });

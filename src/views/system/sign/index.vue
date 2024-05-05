@@ -7,8 +7,8 @@
             <el-input v-model="queryParams.userId" placeholder="" clearable style="width: 240px" @keyup.enter="handleQuery" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
-            <el-button icon="Refresh" @click="resetQuery">重置</el-button>
+            <el-button type="primary" icon="Search" @click="handleQuery">Search</el-button>
+            <el-button icon="Refresh" @click="resetQuery">Reset</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -18,18 +18,18 @@
       <template #header>
         <el-row :gutter="10" class="mb8">
           <el-col :span="1.5">
-            <el-button type="primary" plain icon="Plus" @click="handleAdd" v-hasPermi="['system:sign:add']">新增</el-button>
+            <el-button type="primary" plain icon="Plus" @click="handleAdd" v-hasPermi="['system:sign:add']">Add</el-button>
           </el-col>
           <el-col :span="1.5">
-            <el-button type="success" plain icon="Edit" :disabled="single" @click="handleUpdate()" v-hasPermi="['system:sign:edit']">修改</el-button>
+            <el-button type="success" plain icon="Edit" :disabled="single" @click="handleUpdate()" v-hasPermi="['system:sign:edit']">Modify</el-button>
           </el-col>
           <el-col :span="1.5">
             <el-button type="danger" plain icon="Delete" :disabled="multiple" @click="handleDelete()" v-hasPermi="['system:sign:remove']"
-              >删除</el-button
+              >Delete</el-button
             >
           </el-col>
           <el-col :span="1.5">
-            <el-button type="warning" plain icon="Download" @click="handleExport" v-hasPermi="['system:sign:export']">导出</el-button>
+            <el-button type="warning" plain icon="Download" @click="handleExport" v-hasPermi="['system:sign:export']">Export</el-button>
           </el-col>
           <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
         </el-row>
@@ -59,20 +59,20 @@
 
       <pagination v-show="total>0" :total="total" v-model:page="queryParams.pageNum" v-model:limit="queryParams.pageSize" @pagination="getList" />
     </el-card>
-    <!-- 添加或修改用户签到对话框 -->
+    <!-- Add or modify user sign-in dialog box -->
     <el-dialog :title="dialog.title" v-model="dialog.visible" width="500px" append-to-body>
       <el-form ref="signFormRef" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="用户id" prop="userId">
-          <el-input v-model="form.userId" placeholder="请输入用户id" />
+        <el-form-item label="User ID" prop="userId">
+          <el-input v-model="form.userId" placeholder="User ID" />
         </el-form-item>
-        <el-form-item label="备注" prop="remark">
-          <el-input v-model="form.remark" placeholder="请输入备注" />
+        <el-form-item label="Remark" prop="remark">
+          <el-input v-model="form.remark" placeholder="Please enter remarks" />
         </el-form-item>
       </el-form>
       <template #footer>
         <div class="dialog-footer">
-          <el-button :loading="buttonLoading" type="primary" @click="submitForm">确 定</el-button>
-          <el-button @click="cancel">取 消</el-button>
+          <el-button :loading="buttonLoading" type="primary" @click="submitForm">Confirm</el-button>
+          <el-button @click="cancel">Cancel</el-button>
         </div>
       </template>
     </el-dialog>
@@ -121,23 +121,23 @@ const data = reactive<PageData<SignForm, SignQuery>>({
   },
   rules: {
     id: [
-      { required: true, message: "主键id不能为空", trigger: "blur" }
+      { required: true, message: "Primary key id cannot be empty", trigger: "blur" }
     ],
     userId: [
-      { required: true, message: "用户id不能为空", trigger: "blur" }
+      { required: true, message: "User id cannot be empty", trigger: "blur" }
     ],
     signType: [
-      { required: true, message: "签到类型(0为签到,1为签退)不能为空", trigger: "change" }
+      { required: true, message: "Clock-in type cannot be empty", trigger: "change" }
     ],
     remark: [
-      { required: true, message: "备注不能为空", trigger: "blur" }
+      { required: true, message: "Remark cannot be empty", trigger: "blur" }
     ]
   }
 });
 
 const { queryParams, form, rules } = toRefs(data);
 
-/** 查询用户签到列表 */
+/** Query user check-in list */
 const getList = async () => {
   loading.value = true;
   const res = await listSign(queryParams.value);
@@ -146,55 +146,55 @@ const getList = async () => {
   loading.value = false;
 }
 
-/** 取消按钮 */
+/** Cancel button */
 const cancel = () => {
   reset();
   dialog.visible = false;
 }
 
-/** 表单重置 */
+/** form reset */
 const reset = () => {
   form.value = {...initFormData};
   signFormRef.value?.resetFields();
 }
 
-/** 搜索按钮操作 */
+/** Search button action */
 const handleQuery = () => {
   queryParams.value.pageNum = 1;
   getList();
 }
 
-/** 重置按钮操作 */
+/** reset button action */
 const resetQuery = () => {
   queryFormRef.value?.resetFields();
   handleQuery();
 }
 
-/** 多选框选中数据 */
+/** Multiple selection box selected data */
 const handleSelectionChange = (selection: SignVO[]) => {
   ids.value = selection.map(item => item.id);
   single.value = selection.length != 1;
   multiple.value = !selection.length;
 }
 
-/** 新增按钮操作 */
+/** Add button operation */
 const handleAdd = () => {
   reset();
   dialog.visible = true;
-  dialog.title = "添加用户签到";
+  dialog.title = "Add user Clock-in/out";
 }
 
-/** 修改按钮操作 */
+/** Modify button actions */
 const handleUpdate = async (row?: SignVO) => {
   reset();
   const _id = row?.id || ids.value[0]
   const res = await getSign(_id);
   Object.assign(form.value, res.data);
   dialog.visible = true;
-  dialog.title = "修改用户签到";
+  dialog.title = "Modify user clock-in/out";
 }
 
-/** 提交按钮 */
+/** submit button */
 const submitForm = () => {
   signFormRef.value?.validate(async (valid: boolean) => {
     if (valid) {
@@ -211,16 +211,16 @@ const submitForm = () => {
   });
 }
 
-/** 删除按钮操作 */
+/** Delete button action */
 const handleDelete = async (row?: SignVO) => {
   const _ids = row?.id || ids.value;
-  await proxy?.$modal.confirm('是否确认删除用户签到编号为"' + _ids + '"的数据项？').finally(() => loading.value = false);
+  await proxy?.$modal.confirm('Confirm to delete"' + _ids + '"?').finally(() => loading.value = false);
   await delSign(_ids);
   proxy?.$modal.msgSuccess("Successfully deleted");
   await getList();
 }
 
-/** 导出按钮操作 */
+/** Export button action */
 const handleExport = () => {
   proxy?.download('system/sign/export', {
     ...queryParams.value

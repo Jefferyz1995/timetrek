@@ -4,19 +4,19 @@
       <div class="search" v-show="showSearch">
         <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
           <el-form-item :label="$t('projectManager.projectName')" prop="projectName">
-            <el-input v-model="queryParams.projectName" placeholder="请输入项目名" clearable style="width: 240px" @keyup.enter="handleQuery" />
+            <el-input v-model="queryParams.projectName" placeholder="Project Name" clearable style="width: 240px" @keyup.enter="handleQuery" />
           </el-form-item>
           <el-form-item :label="$t('projectManager.projectDescription')" prop="projectDescription">
             <el-input
               v-model="queryParams.projectDescription"
-              placeholder="请输入项目描述"
+              placeholder="Project Description"
               clearable
               style="width: 240px"
               @keyup.enter="handleQuery"
             />
           </el-form-item>
           <el-form-item :label="$t('projectManager.projectTarget')" prop="projectTarget">
-            <el-input v-model="queryParams.projectTarget" placeholder="请输入项目目标" clearable style="width: 240px" @keyup.enter="handleQuery" />
+            <el-input v-model="queryParams.projectTarget" placeholder="Project Target" clearable style="width: 240px" @keyup.enter="handleQuery" />
           </el-form-item>
           <el-form-item>
             <el-button type="primary" icon="Search" @click="handleQuery">{{$t('commonBtn.search')}}</el-button>
@@ -72,7 +72,7 @@
             <el-tooltip :content="$t('commonBtn.edit')" placement="top">
               <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['system:project:edit']"></el-button>
             </el-tooltip>
-            <el-tooltip content="分配任务" placement="top">
+            <el-tooltip content="Assign Task" placement="top">
               <el-button link type="primary" icon="Edit" @click="handleAllocateTask(scope.row)" v-hasPermi="['system:project:edit']"></el-button>
             </el-tooltip>
             <el-tooltip :content="$t('commonBtn.delete')"  placement="top">
@@ -83,7 +83,7 @@
       </el-table>
       <pagination v-show="total>0" :total="total" v-model:page="queryParams.pageNum" v-model:limit="queryParams.pageSize" @pagination="getList" />
     </el-card>
-    <!-- 添加或修改项目对话框 -->
+    <!-- Add or modify project dialog -->
     <el-dialog :title="dialog.title" v-model="dialog.visible" width="500px" append-to-body>
       <el-form ref="projectFormRef" :model="form" :rules="rules" label-width="80px">
         <el-form-item :label="$t('projectManager.projectName')" prop="projectName">
@@ -158,7 +158,7 @@ const data = reactive<PageData<ProjectForm, ProjectQuery>>({
 
 const { queryParams, form, rules } = toRefs(data);
 
-/** 查询项目列表 */
+/** Query project list */
 const getList = async () => {
   loading.value = true;
   const res = await listProject(queryParams.value);
@@ -167,57 +167,57 @@ const getList = async () => {
   loading.value = false;
 }
 
-/** 取消按钮 */
+/** Cancel button */
 const cancel = () => {
   reset();
   dialog.visible = false;
 }
 
-/** 表单重置 */
+/** form reset */
 const reset = () => {
   form.value = {...initFormData};
   projectFormRef.value?.resetFields();
 }
 
-/** 搜索按钮操作 */
+/** Search button action */
 const handleQuery = () => {
   queryParams.value.pageNum = 1;
   getList();
 }
 
-/** 重置按钮操作 */
+/** reset button action */
 const resetQuery = () => {
   queryFormRef.value?.resetFields();
   handleQuery();
 }
 
-/** 多选框选中数据 */
+/** Multiple selection box selected data */
 const handleSelectionChange = (selection: ProjectVO[]) => {
   ids.value = selection.map(item => item.id);
   single.value = selection.length != 1;
   multiple.value = !selection.length;
 }
 
-/** 新增按钮操作 */
+/** Add button operation */
 const handleAdd = () => {
   reset();
   dialog.visible = true;
-  dialog.title = "添加项目";
+  dialog.title = "Add Project";
 }
 
-/** 修改按钮操作 */
+/** Modify button actions */
 const handleUpdate = async (row?: ProjectVO) => {
   reset();
   const _id = row?.id || ids.value[0]
   const res = await getProject(_id);
   Object.assign(form.value, res.data);
   dialog.visible = true;
-  dialog.title = "修改项目";
+  dialog.title = "Modify Project";
 }
 const handleAllocateTask = (row: ProjectVO) => {
   router.push("/project/projectTask?projectId=" + row.id);
 }
-/** 提交按钮 */
+/** Submit button */
 const submitForm = () => {
   projectFormRef.value?.validate(async (valid: boolean) => {
     if (valid) {
@@ -227,23 +227,23 @@ const submitForm = () => {
       } else {
         await addProject(form.value).finally(() =>  buttonLoading.value = false);
       }
-      proxy?.$modal.msgSuccess("修改成功");
+      proxy?.$modal.msgSuccess("Submitted Successfully");
       dialog.visible = false;
       await getList();
     }
   });
 }
 
-/** 删除按钮操作 */
+/** Delete button action */
 const handleDelete = async (row?: ProjectVO) => {
   const _ids = row?.id || ids.value;
-  await proxy?.$modal.confirm('是否确认删除项目编号为"' + _ids + '"的数据项？').finally(() => loading.value = false);
+  await proxy?.$modal.confirm('Confirm to delete"' + _ids + '"?').finally(() => loading.value = false);
   await delProject(_ids);
-  proxy?.$modal.msgSuccess("Successfully deleted");
+  proxy?.$modal.msgSuccess("Deleted Successfully");
   await getList();
 }
 
-/** 导出按钮操作 */
+/** Export */
 const handleExport = () => {
   proxy?.download('system/project/export', {
     ...queryParams.value

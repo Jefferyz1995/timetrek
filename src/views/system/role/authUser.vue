@@ -93,7 +93,7 @@ const queryParams = reactive<UserQuery>({
   phonenumber: undefined,
 });
 
-/** 查询授权用户列表 */
+/** Query the list of authorized users */
 const getList = async () => {
   loading.value = true;
   const res = await allocatedUserList(queryParams);
@@ -101,45 +101,45 @@ const getList = async () => {
   total.value = res.total;
   loading.value = false;
 }
-// 返回按钮
+// back button
 const handleClose = () => {
   const obj = { path: "/system/role" };
   proxy?.$tab.closeOpenPage(obj);
 }
-/** 搜索按钮操作 */
+/** Search button action */
 const handleQuery = () => {
   queryParams.pageNum = 1;
   getList();
 }
-/** 重置按钮操作 */
+/** reset button action */
 const resetQuery = () => {
   queryFormRef.value?.resetFields();
   handleQuery();
 }
-// 多选框选中数据
+// Multiple selection box selected data
 const handleSelectionChange = (selection: UserVO[]) => {
   userIds.value = selection.map(item => item.userId);
   multiple.value = !selection.length;
 }
-/** 打开授权用户表弹窗 */
+/** Open the authorized user table pop-up window */
 const openSelectUser = () => {
   selectRef.value?.show();
 }
-/** 取消授权按钮操作 */
+/** Cancel authorization button operation */
 const cancelAuthUser = async (row: UserVO) => {
-  await proxy?.$modal.confirm('确认要取消该用户"' + row.userName + '"角色吗？');
+  await proxy?.$modal.confirm('Confirm to cancel the role of this user"' + row.userName + '"?');
   await authUserCancel({ userId: row.userId, roleId: queryParams.roleId });
   await getList();
-  proxy?.$modal.msgSuccess("取消授权成功");
+  proxy?.$modal.msgSuccess("Deauthorization successful");
 }
-/** 批量取消授权按钮操作 */
+/** Batch deauthorization button operation */
 const cancelAuthUserAll = async () => {
   const roleId = queryParams.roleId;
   const uIds = userIds.value.join(",");
-  await proxy?.$modal.confirm("是否取消选中用户授权数据项?");
+  await proxy?.$modal.confirm("Confirm to cancel?");
   await authUserCancelAll({ roleId: roleId, userIds: uIds });
   await getList();
-  proxy?.$modal.msgSuccess("取消授权成功");
+  proxy?.$modal.msgSuccess("Success");
 }
 
 onMounted(() => {

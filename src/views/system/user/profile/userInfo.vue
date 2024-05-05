@@ -35,26 +35,26 @@ const userForm = computed(() => props.user);
 const { proxy } = getCurrentInstance() as ComponentInternalInstance;
 const userRef = ref<ElFormInstance>();
 const rules = ref<ElFormRules>({
-  nickName: [{ required: true, message: "用户昵称不能为空", trigger: "blur" }],
-  email: [{ required: true, message: "邮箱地址不能为空", trigger: "blur" }, {
+  nickName: [{ required: true, message: "Name cannot be empty", trigger: "blur" }],
+  email: [{ required: true, message: "Email cannot be empty", trigger: "blur" }, {
     type: "email",
-    message: "请输入正确的邮箱地址",
+    message: "Please enter the correct email",
     trigger: ["blur", "change"]
   }],
 
 });
 
 
-/** 提交按钮 */
+/** submit */
 const submit = () => {
   userRef.value?.validate(async (valid: boolean) => {
     if (valid) {
       await updateUserProfile(props.user);
-      proxy?.$modal.msgSuccess("修改成功");
+      proxy?.$modal.msgSuccess("Success");
     }
   });
 };
-/** 关闭按钮 */
+/** close */
 const close = () => {
   proxy?.$tab.closePage();
 };

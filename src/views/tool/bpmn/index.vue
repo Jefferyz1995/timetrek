@@ -9,18 +9,18 @@
 </template>
 
 <script lang="ts" setup>
-// 引入流程图
+// bpmn
 import { onMounted, markRaw } from 'vue';
 
-// bpmn-js相关
+// bpmn-js
 
-import 'bpmn-js/dist/assets/diagram-js.css'; // 左边工具栏以及编辑节点的样式
+import 'bpmn-js/dist/assets/diagram-js.css'; 
 
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';
 
 import BpmnModeler from 'bpmn-js/lib/Modeler';
 
-// bpmn-js-properties-panel相关
+
 
 import 'bpmn-js-properties-panel/dist/assets/bpmn-js-properties-panel.css'
 
@@ -34,11 +34,11 @@ onMounted(() => {
   const containerEl = document.getElementById('container');
   const bpmnModeler = markRaw(new BpmnModeler({
     container: containerEl,
-    // 添加控制板
+    // control panel
     propertiesPanel: {
       parent: '#js-properties-panel'
     },
-    // 右侧属性面板
+    // property panel
     additionalModules: [
       propertiesPanelModule,
       propertiesProviderModule

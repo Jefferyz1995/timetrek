@@ -176,7 +176,7 @@
               <el-input v-model="form.perms" :placeholder="$t('menuManager.perms')" maxlength="100" />
               <template #label>
                 <span>
-                  <el-tooltip content="控制器中定义的权限字符，如：@SaCheckPermission('system:user:list')" placement="top">
+                  <el-tooltip content="Permission characters defined in the controller, @SaCheckPermission('system:user:list')" placement="top">
                     <el-icon>
                       <question-filled />
                     </el-icon>
@@ -226,7 +226,7 @@
             <el-form-item>
               <template #label>
                 <span>
-                  <el-tooltip content="选择隐藏则路由将不会出现在侧边栏，但仍然可以访问" placement="top">
+                  <el-tooltip content="Select Hide and the route will not appear in the sidebar but will still be accessible." placement="top">
                     <el-icon>
                       <question-filled />
                     </el-icon>
@@ -317,16 +317,16 @@ const data = reactive<PageData<MenuForm, MenuQuery>>({
     status: undefined
   },
   rules: {
-    menuName: [{ required: true, message: "菜单名称不能为空", trigger: "blur" }],
-    orderNum: [{ required: true, message: "菜单顺序不能为空", trigger: "blur" }],
-    path: [{ required: true, message: "路由地址不能为空", trigger: "blur" }]
+    menuName: [{ required: true, message: "Menu name cannot be empty", trigger: "blur" }],
+    orderNum: [{ required: true, message: "Menu order cannot be empty", trigger: "blur" }],
+    path: [{ required: true, message: "Routing address cannot be empty", trigger: "blur" }]
   },
 })
 
 const menuTableRef = ref<ElTableInstance>();
 
 const { queryParams, form, rules } = toRefs<PageData<MenuForm, MenuQuery>>(data)
-/** 查询菜单列表 */
+/** Query menu list */
 const getList = async () => {
   loading.value = true
   const res = await listMenu(queryParams.value);
@@ -336,35 +336,35 @@ const getList = async () => {
   }
   loading.value = false
 }
-/** 查询菜单下拉树结构 */
+/** Query menu drop-down tree structure */
 const getTreeselect = async () => {
   menuOptions.value = []
   const response = await listMenu();
-  const menu: MenuOptionsType = { menuId: 0, menuName: "主类目", children: [] }
+  const menu: MenuOptionsType = { menuId: 0, menuName: "Main", children: [] }
   menu.children = proxy?.handleTree<MenuOptionsType>(response.data, "menuId")
   menuOptions.value.push(menu)
 }
-/** 取消按钮 */
+/** Cancel button */
 const cancel = () => {
   reset()
   dialog.visible = false
 }
-/** 表单重置 */
+/** form reset */
 const reset = () => {
   form.value = { ...initFormData };
   menuFormRef.value?.resetFields();
 }
 
-/** 搜索按钮操作 */
+/** Search button action */
 const handleQuery = () => {
   getList();
 }
-/** 重置按钮操作 */
+/** reset button action */
 const resetQuery = () => {
   queryFormRef.value?.resetFields();
   handleQuery();
 }
-/** 新增按钮操作 */
+/** Add button operation */
 const handleAdd = (row?: MenuVO) => {
   reset();
   getTreeselect();
@@ -372,19 +372,19 @@ const handleAdd = (row?: MenuVO) => {
   dialog.visible = true;
   dialog.title = "Add Menu";
 }
-/** Unfold/fold操作 */
+/** Unfold/fold */
 const handleToggleExpandAll = () => {
   isExpandAll.value = !isExpandAll.value;
   toggleExpandAll(menuList.value, isExpandAll.value)
 }
-/** Unfold/fold所有 */
+/** Unfold/fold all */
 const toggleExpandAll = (data: MenuVO[], status: boolean) => {
   data.forEach((item: MenuVO) => {
     menuTableRef.value?.toggleRowExpansion(item, status)
     if (item.children && item.children.length > 0) toggleExpandAll(item.children, status)
   })
 }
-/** 修改按钮操作 */
+/** Modify button actions */
 const handleUpdate = async (row: MenuVO) => {
   reset();
   await getTreeselect();
@@ -395,23 +395,23 @@ const handleUpdate = async (row: MenuVO) => {
   dialog.visible = true;
   dialog.title = "Modify Menu";
 }
-/** 提交按钮 */
+/** submit button */
 const submitForm = () => {
   menuFormRef.value?.validate(async (valid: boolean) => {
     if (valid) {
       form.value.menuId ? await updateMenu(form.value) : await addMenu(form.value);
-      proxy?.$modal.msgSuccess("Successful operation");
+      proxy?.$modal.msgSuccess("Submitted Successfully");
       dialog.visible = false;
       await getList();
     }
   })
 }
-/** 删除按钮操作 */
+/** Delete button action */
 const handleDelete = async (row: MenuVO) => {
   await proxy?.$modal.confirm('Confirm Delete"' + row.menuName + '?');
   await delMenu(row.menuId);
   await getList();
-  proxy?.$modal.msgSuccess("Successfully deleted");
+  proxy?.$modal.msgSuccess("Deleted Successfully");
 }
 
 onMounted(() => {

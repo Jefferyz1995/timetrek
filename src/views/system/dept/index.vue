@@ -193,7 +193,7 @@ const data = reactive<PageData<DeptForm, DeptQuery>>({
 
 const { queryParams, form, rules } = toRefs<PageData<DeptForm, DeptQuery>>(data)
 
-/** 查询菜单列表 */
+/** Query menu list */
 const getList = async () => {
   loading.value = true;
   const res = await listDept(queryParams.value);
@@ -204,7 +204,7 @@ const getList = async () => {
   loading.value = false
 }
 
-/** 查询当前部门的所有用户 */
+/** Query all users in the current department */
 async function getDeptAllUser(deptId: any) {
   if (deptId !== null && deptId !== "" && deptId !== undefined) {
     const res = await listUserByDeptId(deptId);
@@ -212,33 +212,33 @@ async function getDeptAllUser(deptId: any) {
   }
 }
 
-/** 取消按钮 */
+/** Cancel button */
 const cancel = () => {
   reset()
   dialog.visible = false
 }
-/** 表单重置 */
+/** form reset */
 const reset = () => {
   form.value = { ...initFormData };
   deptFormRef.value?.resetFields();
 }
 
-/** 搜索按钮操作 */
+/** Search button action */
 const handleQuery = () => {
   getList();
 }
-/** 重置按钮操作 */
+/** reset button action */
 const resetQuery = () => {
   queryFormRef.value?.resetFields();
   handleQuery()
 }
 
-/** Unfold/fold操作 */
+/** Unfold/fold */
 const handleToggleExpandAll = () => {
   isExpandAll.value = !isExpandAll.value;
   toggleExpandAll(deptList.value, isExpandAll.value)
 }
-/** Unfold/fold所有 */
+/** Unfold/fold all */
 const toggleExpandAll = (data: DeptVO[], status: boolean) => {
   data.forEach((item) => {
     deptTableRef.value?.toggleRowExpansion(item, status)
@@ -246,7 +246,7 @@ const toggleExpandAll = (data: DeptVO[], status: boolean) => {
   })
 }
 
-/** 新增按钮操作 */
+/** Add button operation */
 const handleAdd = async (row?: DeptVO) => {
   reset();
   const res = await listDept();
@@ -261,10 +261,10 @@ const handleAdd = async (row?: DeptVO) => {
   }
 }
 
-/** 修改按钮操作 */
+/** Modify button actions */
 const handleUpdate = async (row: DeptVO) => {
   reset();
-  //查询当前部门所有用户
+  //Query all users in the current department
   getDeptAllUser(row.deptId);
   const res = await getDept(row.deptId);
   form.value = res.data
@@ -284,23 +284,23 @@ const handleUpdate = async (row: DeptVO) => {
   dialog.visible = true;
   dialog.title = "Edit Dept";
 }
-/** 提交按钮 */
+/** submit button */
 const submitForm = () => {
   deptFormRef.value?.validate(async (valid: boolean) => {
     if (valid) {
       form.value.deptId ? await updateDept(form.value) : await addDept(form.value);
-      proxy?.$modal.msgSuccess("Successful operation");
+      proxy?.$modal.msgSuccess("Submitted Successfully");
       dialog.visible = false;
       await getList();
     }
   })
 }
-/** 删除按钮操作 */
+/** Delete button action */
 const handleDelete = async (row: DeptVO) => {
   await proxy?.$modal.confirm('Confirm delete"' + row.deptName + '?');
   await delDept(row.deptId);
   await getList();
-  proxy?.$modal.msgSuccess("successfully deleted");
+  proxy?.$modal.msgSuccess("Deleted Successfully");
 }
 
 onMounted(() => {

@@ -1,7 +1,7 @@
 <template>
   <div class="p-2">
     <el-row :gutter="20">
-      <!-- 部门树 -->
+
       <el-col :lg="4" :xs="24" style="">
         <el-card shadow="hover">
           <el-input v-model="deptName" :placeholder="$t('userManager.deptName')" prefix-icon="Search" clearable />
@@ -157,11 +157,11 @@
                 <el-tooltip :content="$t('commonBtn.delete')" placement="top" v-if="scope.row.userId !== 1">
                   <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)" v-hasPermi="['system:user:remove']"></el-button>
                 </el-tooltip>
-                <el-tooltip content="重置密码" placement="top" v-if="scope.row.userId !== 1">
+                <el-tooltip content="Reset Password" placement="top" v-if="scope.row.userId !== 1">
                   <el-button link type="primary" icon="Key" @click="handleResetPwd(scope.row)" v-hasPermi="['system:user:resetPwd']"></el-button>
                 </el-tooltip>
 
-                <el-tooltip content="分配角色" placement="top" v-if="scope.row.userId !== 1">
+                <el-tooltip content="Assign Role" placement="top" v-if="scope.row.userId !== 1">
                   <el-button link type="primary" icon="CircleCheck" @click="handleAuthRole(scope.row)" v-hasPermi="['system:user:edit']"></el-button>
                 </el-tooltip>
               </template>
@@ -179,7 +179,7 @@
       </el-col>
     </el-row>
 
-    <!-- 添加或修改用户配置对话框 -->
+
     <el-dialog ref="formDialogRef" :title="dialog.title" v-model="dialog.visible" width="600px" append-to-body @close="closeDialog">
       <el-form :model="form" :rules="rules" ref="userFormRef" label-width="120px">
         <el-row>
@@ -291,7 +291,7 @@
       </template>
     </el-dialog>
 
-    <!-- 用户导入对话框 -->
+
     <el-dialog :title="upload.title" v-model="upload.open" width="400px" append-to-body>
       <el-upload
         ref="uploadRef"
@@ -308,10 +308,10 @@
         <el-icon class="el-icon--upload">
           <i-ep-upload-filled />
         </el-icon>
-        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+        <div class="el-upload__text">Drap the file here, or<em>upload</em></div>
         <template #tip>
           <div class="text-center el-upload__tip">
-            <div class="el-upload__tip"><el-checkbox v-model="upload.updateSupport" />是否更新已经存在的用户数据</div>
+            <div class="el-upload__tip"><el-checkbox v-model="upload.updateSupport" />Confirm to update the existing user data</div>
             <span>xls、xlsx</span>
             <el-link type="primary" :underline="false" style="font-size:12px;vertical-align: baseline;" @click="importTemplate">下载模板</el-link>
           </div>
@@ -354,30 +354,30 @@ const deptOptions = ref<DeptVO[]>([]);
 const initPassword = ref<string>('');
 const postOptions = ref<PostVO[]>([]);
 const roleOptions = ref<RoleVO[]>([]);
-/*** 用户导入参数 */
+
 const upload = reactive<ImportOption>({
-  // 是否显示弹出层（用户导入）
+
   open: false,
-  // 弹出层标题（用户导入）
+
   title: "",
-  // 是否禁用上传
+
   isUploading: false,
-  // 是否更新已经存在的用户数据
+
   updateSupport: 0,
-  // 设置上传的请求头部
+
   headers: globalHeaders(),
-  // 上传的地址
+
   url: import.meta.env.VITE_APP_BASE_API + "/system/user/importData"
 })
-// 列显隐信息
+
 const columns = ref<FieldOption[]>([
-  { key: 0, label: `用户编号`, visible: false,children: [] },
-  { key: 1, label: `用户名称`, visible: true,children: [] },
-  { key: 2, label: `用户昵称`, visible: true,children: [] },
-  { key: 3, label: `部门`, visible: true,children: [] },
-  { key: 4, label: `手机号码`, visible: true,children: [] },
-  { key: 5, label: `状态`, visible: true,children: [] },
-  { key: 6, label: `创建时间`, visible: true,children: [] }
+  { key: 0, label: `User ID`, visible: false,children: [] },
+  { key: 1, label: `User Name`, visible: true,children: [] },
+  { key: 2, label: `User Name`, visible: true,children: [] },
+  { key: 3, label: `Dept`, visible: true,children: [] },
+  { key: 4, label: `Contack No.`, visible: true,children: [] },
+  { key: 5, label: `Status`, visible: true,children: [] },
+  { key: 6, label: `Creation Time`, visible: true,children: [] }
 ])
 
 
@@ -427,26 +427,26 @@ const data = reactive<PageData<UserForm, UserQuery>>({
 
 const { queryParams, form, rules } = toRefs<PageData<UserForm, UserQuery>>(data)
 
-/** 通过条件过滤节点  */
+
 const filterNode = (value: string, data: any) => {
   if (!value) return true
   return data.label.indexOf(value) !== -1
 }
-/** 根据名称筛选部门树 */
+
 watchEffect(
   () => { deptTreeRef.value?.filter(deptName.value); },
   {
-    flush: 'post' // watchEffect会在DOM挂载或者更新之前就会触发，此属性控制在DOM元素更新后运行
+    flush: 'post'
   }
 );
 
-/** 查询部门下拉树结构 */
+
 const getTreeSelect = async () => {
   const res = await api.deptTreeSelect();
   deptOptions.value = res.data;
 };
 
-/** 查询用户列表 */
+
 const getList = async () => {
   loading.value = true;
   const res = await api.listUser(proxy?.addDateRange(queryParams.value, dateRange.value));
@@ -455,19 +455,19 @@ const getList = async () => {
   total.value = res.total;
 }
 
-/** 节点单击事件 */
+
 const handleNodeClick = (data: DeptVO) => {
   queryParams.value.deptId = data.id;
   handleQuery()
 }
 
 
-/** 搜索按钮操作 */
+
 const handleQuery = () => {
   queryParams.value.pageNum = 1
   getList()
 }
-/** 重置按钮操作 */
+
 const resetQuery = () => {
   dateRange.value = ['', '']
   queryFormRef.value?.resetFields();
@@ -477,10 +477,10 @@ const resetQuery = () => {
   handleQuery();
 }
 
-/** 删除按钮操作 */
+
 const handleDelete = async (row?: UserVO) => {
   const userIds = row?.userId || ids.value;
-  const [err] = await to(proxy?.$modal.confirm('是否确认删除用户编号为"' + userIds + '"的数据项？') as any);
+  const [err] = await to(proxy?.$modal.confirm('Confirm to delete"' + userIds + '"?') as any);
   if (!err) {
     await api.delUser(userIds);
     await getList();
@@ -488,57 +488,57 @@ const handleDelete = async (row?: UserVO) => {
   }
 }
 
-/** 用户状态修改  */
+/** Change the user status  */
 const handleStatusChange = async (row: UserVO) => {
-  let text = row.status === "0" ? "启用" : "停用"
+  let text = row.status === "0" ? "Enable" : "Disable"
   try {
-    await proxy?.$modal.confirm('确认要"' + text + '""' + row.userName + '"用户吗?');
+    await proxy?.$modal.confirm('Confirm to"' + text + '""' + row.userName + '"?');
     await api.changeUserStatus(row.userId, row.status);
-    proxy?.$modal.msgSuccess(text + "成功");
+    proxy?.$modal.msgSuccess(text + "Success");
   } catch (err) {
     row.status = row.status === "0" ? "1" : "0";
   }
 }
-/** 跳转角色分配 */
+
 const handleAuthRole = (row: UserVO) => {
   const userId = row.userId;
   router.push("/system/user-auth/role/" + userId);
 }
 
-/** 重置密码按钮操作 */
+/** reset password */
 const handleResetPwd = async (row: UserVO) => {
-  const [err, res] = await to(ElMessageBox.prompt('请输入"' + row.userName + '"的新密码', "提示", {
-    confirmButtonText: "确定",
-    cancelButtonText: "取消",
+  const [err, res] = await to(ElMessageBox.prompt('Please enter"' + row.userName + '" new password', "Reminder", {
+    confirmButtonText: "Confirm",
+    cancelButtonText: "Cancel",
     closeOnClickModal: false,
     inputPattern: /^.{5,20}$/,
-    inputErrorMessage: "用户密码长度必须介于 5 和 20 之间",
+    inputErrorMessage: "Password length must be between 5 and 20 5 和 20 之间",
   }))
   if (!err) {
     await api.resetUserPwd(row.userId, res.value);
-    proxy?.$modal.msgSuccess("修改成功，新密码是：" + res.value);
+    proxy?.$modal.msgSuccess("Success, new password is " + res.value);
   }
 }
 
-/** 选择条数  */
+
 const handleSelectionChange = (selection: UserVO[]) => {
   ids.value = selection.map((item) => item.userId);
   single.value = selection.length != 1;
   multiple.value = !selection.length;
 }
 
-/** 导入按钮操作 */
+/** import */
 const handleImport = () => {
-  upload.title = "用户导入";
+  upload.title = "Import";
   upload.open = true;
 }
-/** 导出按钮操作 */
+/** Export */
 const handleExport = () => {
   proxy?.download("system/user/export", {
     ...queryParams.value,
   }, `user_${new Date().getTime()}.xlsx`);
 };
-/** 下载模板操作 */
+/** Download template */
 const importTemplate = () => {
   proxy?.download("system/user/importTemplate", {
   }, `user_template_${new Date().getTime()}.xlsx`);
@@ -548,7 +548,7 @@ const importTemplate = () => {
 const handleFileUploadProgress = () => {
   upload.isUploading = true;
 }
-/** 文件上传成功处理 */
+
 const handleFileSuccess = (response: any, file: UploadFile) => {
   upload.open = false;
   upload.isUploading = false;
@@ -557,14 +557,14 @@ const handleFileSuccess = (response: any, file: UploadFile) => {
   getList();
 }
 
-/** 提交上传文件 */
+/** upload */
 function submitFileForm() {
   uploadRef.value?.submit();
 }
 
-/** 初始化部门数据 */
+
 const initTreeData = async () => {
-  // 判断部门的数据是否存在，存在不获取，不存在则获取
+
   if (deptOptions.value === undefined) {
     const { data } = await treeselect();
     deptOptions.value = data;
@@ -572,18 +572,18 @@ const initTreeData = async () => {
 }
 
 
-/** 重置操作表单 */
+/** reset */
 const reset = () => {
   form.value = { ...initFormData };
   userFormRef.value?.resetFields();
 }
-/** 取消按钮 */
+/** Cancel */
 const cancel = () => {
   dialog.visible = false;
   reset();
 }
 
-/** 新增按钮操作 */
+/** Add */
 const handleAdd = async () => {
   reset();
   const { data } = await api.getUser();
@@ -594,7 +594,7 @@ const handleAdd = async () => {
   roleOptions.value = data.roles;
   form.value.password = initPassword.value.toString();
 }
-/** 修改按钮操作 */
+/** Modify */
 const handleUpdate = async (row?: UserForm) => {
   reset();
   const userId = row?.userId || ids.value[0]
@@ -610,12 +610,12 @@ const handleUpdate = async (row?: UserForm) => {
   form.value.password = "";
 }
 
-/** 提交按钮 */
+/** submit */
 const submitForm = () => {
   userFormRef.value?.validate(async (valid: boolean) => {
     if (valid) {
       form.value.userId ? await api.updateUser(form.value) : await api.addUser(form.value);
-      proxy?.$modal.msgSuccess("Successful operation");
+      proxy?.$modal.msgSuccess("Success");
       dialog.visible = false;
       await getList();
     }
@@ -624,7 +624,7 @@ const submitForm = () => {
 
 
 /**
- * 关闭用户弹窗
+ * close
  */
 const closeDialog = () => {
   dialog.visible = false;
@@ -632,7 +632,7 @@ const closeDialog = () => {
 }
 
 /**
- * 重置表单
+ * reset
  */
 const resetForm = () => {
   userFormRef.value?.resetFields();
@@ -642,8 +642,8 @@ const resetForm = () => {
   form.value.status = '1';
 }
 onMounted(() => {
-  getTreeSelect() // 初始化部门数据
-  getList() // 初始化列表数据
+  getTreeSelect()
+  getList()
   proxy?.getConfigKey("sys.user.initPassword").then(response => {
     initPassword.value = response.data;
   });

@@ -184,7 +184,7 @@ const data = reactive<PageData<AskHolidayForm, AskHolidayQuery>>({
 
 const { queryParams, form, rules } = toRefs(data);
 
-/** 查询请假申请列表 */
+/** Check the leave application list */
 const getList = async () => {
   loading.value = true;
   const res = await listAskHoliday(queryParams.value);
@@ -196,55 +196,55 @@ const getAllUserLit = async ()=>{
   const res=await listAllUser();
   userList.value=res.data
 }
-/** 取消按钮 */
+/** Cancel button */
 const cancel = () => {
   reset();
   dialog.visible = false;
 }
 
-/** 表单重置 */
+/** form reset */
 const reset = () => {
   form.value = {...initFormData};
   askHolidayFormRef.value?.resetFields();
 }
 
-/** 搜索按钮操作 */
+/** Search button action */
 const handleQuery = () => {
   queryParams.value.pageNum = 1;
   getList();
 }
 
-/** 重置按钮操作 */
+/** reset button action */
 const resetQuery = () => {
   queryFormRef.value?.resetFields();
   handleQuery();
 }
 
-/** 多选框选中数据 */
+/** Multiple selection box selected data */
 const handleSelectionChange = (selection: AskHolidayVO[]) => {
   ids.value = selection.map(item => item.id);
   single.value = selection.length != 1;
   multiple.value = !selection.length;
 }
 
-/** 新增按钮操作 */
+/** Add button operation */
 const handleAdd = () => {
   reset();
   dialog.visible = true;
-  dialog.title = "添加请假申请";
+  dialog.title = "Add a leave request";
 }
 
-/** 修改按钮操作 */
+/** Modify button actions */
 const handleUpdate = async (row?: AskHolidayVO) => {
   reset();
   const _id = row?.id || ids.value[0]
   const res = await getAskHoliday(_id);
   Object.assign(form.value, res.data);
   dialog.visible = true;
-  dialog.title = "修改请假申请";
+  dialog.title = "Modify leave application";
 }
 
-/** 提交按钮 */
+/** submit button */
 const submitForm = () => {
   askHolidayFormRef.value?.validate(async (valid: boolean) => {
     if (valid) {
@@ -261,16 +261,16 @@ const submitForm = () => {
   });
 }
 
-/** 删除按钮操作 */
+/** Delete button action */
 const handleDelete = async (row?: AskHolidayVO) => {
   const _ids = row?.id || ids.value;
-  await proxy?.$modal.confirm('是否确认删除请假申请编号为"' + _ids + '"的数据项？').finally(() => loading.value = false);
+  await proxy?.$modal.confirm('Confirm to delete the data with leave application no."' + _ids + '"？').finally(() => loading.value = false);
   await delAskHoliday(_ids);
   proxy?.$modal.msgSuccess("Successfully deleted");
   await getList();
 }
 
-/** 导出按钮操作 */
+/** Export button action */
 const handleExport = () => {
   proxy?.download('system/askHoliday/export', {
     ...queryParams.value

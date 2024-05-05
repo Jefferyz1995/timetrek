@@ -91,11 +91,11 @@
 
       <pagination v-show="total>0" :total="total" v-model:page="queryParams.pageNum" v-model:limit="queryParams.pageSize" @pagination="getList" />
     </el-card>
-    <!-- 添加或修改项目的任务对话框 -->
+    <!-- Add or modify a project's task dialog box -->
     <el-dialog :title="dialog.title" v-model="dialog.visible" width="500px" append-to-body>
       <el-form ref="projectTaskFormRef" :model="form" :rules="rules" label-width="150px">
-        <el-form-item label="项目" prop="projectId">
-          <el-select v-model="form.projectId" placeholder="请选择项目">
+        <el-form-item label="Project" prop="projectId">
+          <el-select v-model="form.projectId" placeholder="Please seletct project">
             <el-option v-for="item in projectList" :key="item.id" :label="item.projectName" :value="item.id"> </el-option>
           </el-select>
         </el-form-item>
@@ -206,7 +206,7 @@ const data = reactive<PageData<ProjectTaskForm, ProjectTaskQuery>>({
 
 const { queryParams, form, rules } = toRefs(data);
 
-/** 查询项目的任务列表 */
+/** Query the task list of a project */
 const getList = async () => {
   loading.value = true;
   const res = await listProjectTask(queryParams.value);
@@ -227,25 +227,25 @@ const getAllProjectMember =async()=>{
   const  res= await listAllProjectMember(qry);
   projectMemberList.value=res.data
 }
-/** 取消按钮 */
+/** Cancel button */
 const cancel = () => {
   reset();
   dialog.visible = false;
 }
 
-/** 表单重置 */
+/** form reset */
 const reset = () => {
   form.value = {...initFormData};
   projectTaskFormRef.value?.resetFields();
 }
 
-/** 搜索按钮操作 */
+/** Search button action */
 const handleQuery = () => {
   queryParams.value.pageNum = 1;
   getList();
 }
 
-/** 重置按钮操作 */
+/** reset button action */
 const resetQuery = () => {
   queryFormRef.value?.resetFields();
   handleQuery();
@@ -258,24 +258,24 @@ const handleSelectionChange = (selection: ProjectTaskVO[]) => {
   multiple.value = !selection.length;
 }
 
-/** 新增按钮操作 */
+/** Multiple selection box selected data */
 const handleAdd = () => {
   reset();
   dialog.visible = true;
-  dialog.title = "添加项目的任务";
+  dialog.title = "Add project tasks";
 }
 
-/** 修改按钮操作 */
+/** Modify button actions */
 const handleUpdate = async (row?: ProjectTaskVO) => {
   reset();
   const _id = row?.id || ids.value[0]
   const res = await getProjectTask(_id);
   Object.assign(form.value, res.data);
   dialog.visible = true;
-  dialog.title = "修改项目的任务";
+  dialog.title = "Modify project tasks";
 }
 
-/** 提交按钮 */
+/** submit button */
 const submitForm = () => {
   projectTaskFormRef.value?.validate(async (valid: boolean) => {
     if (valid) {
@@ -295,16 +295,16 @@ const submitForm = () => {
   });
 }
 
-/** 删除按钮操作 */
+/** Delete button action */
 const handleDelete = async (row?: ProjectTaskVO) => {
   const _ids = row?.id || ids.value;
-  await proxy?.$modal.confirm('是否确认删除项目的任务编号为"' + _ids + '"的数据项？').finally(() => loading.value = false);
+  await proxy?.$modal.confirm('Confirm to delete"' + _ids + '"?').finally(() => loading.value = false);
   await delProjectTask(_ids);
-  proxy?.$modal.msgSuccess("Successfully deleted");
+  proxy?.$modal.msgSuccess("Deleted Successfully");
   await getList();
 }
 
-/** 导出按钮操作 */
+/** Export button action */
 const handleExport = () => {
   proxy?.download('system/projectTask/export', {
     ...queryParams.value

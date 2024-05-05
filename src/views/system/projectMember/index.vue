@@ -13,10 +13,10 @@
             />
           </el-form-item>
           <el-form-item :label="$t('memberManager.memberName')" prop="memberUserId">
-            <el-input v-model="queryParams.memberUserId" placeholder="请输入成员id" clearable style="width: 240px" @keyup.enter="handleQuery" />
+            <el-input v-model="queryParams.memberUserId" placeholder="Please enter member id" clearable style="width: 240px" @keyup.enter="handleQuery" />
           </el-form-item>
           <el-form-item :label="$t('memberManager.memberRole')" prop="memberRole">
-            <el-input v-model="queryParams.memberRole" placeholder="请输入成员角色" clearable style="width: 240px" @keyup.enter="handleQuery" />
+            <el-input v-model="queryParams.memberRole" placeholder="Please enter member role" clearable style="width: 240px" @keyup.enter="handleQuery" />
           </el-form-item>
           <el-form-item>
             <el-button type="primary" icon="Search" @click="handleQuery">{{$t('commonBtn.search')}}</el-button>
@@ -99,7 +99,7 @@
 
       <pagination v-show="total>0" :total="total" v-model:page="queryParams.pageNum" v-model:limit="queryParams.pageSize" @pagination="getList" />
     </el-card>
-    <!-- 添加或修改项目组内成员对话框 -->
+    <!-- Add or modify project group members dialog box -->
     <el-dialog :title="dialog.title" v-model="dialog.visible" width="500px" append-to-body>
       <el-form ref="projectMemberFormRef" :model="form" :rules="rules" label-width="80px">
         <el-form-item :label="$t('memberManager.projectName')" prop="projectId">
@@ -186,17 +186,17 @@ const data = reactive<PageData<ProjectMemberForm, ProjectMemberQuery>>({
   },
   rules: {
     id: [
-      { required: true, message: "主键id不能为空", trigger: "blur" }
+      { required: true, message: "Primary key id cannot be empty", trigger: "blur" }
     ],
     projectId: [
-      { required: true, message: "项目id不能为空", trigger: "blur" }
+      { required: true, message: "Project id cannot be empty", trigger: "blur" }
     ],
   }
 });
 
 const { queryParams, form, rules } = toRefs(data);
 
-/** 查询项目组内成员列表 */
+/** Query the list of members in the project team */
 const getList = async () => {
   loading.value = true;
   const res = await listProjectMember(queryParams.value);
@@ -217,55 +217,55 @@ const getAllProject= async ()=>{
   projectList.value=res.data
 
 }
-/** 取消按钮 */
+/** Cancel button */
 const cancel = () => {
   reset();
   dialog.visible = false;
 }
 
-/** 表单重置 */
+/** form reset */
 const reset = () => {
   form.value = {...initFormData};
   projectMemberFormRef.value?.resetFields();
 }
 
-/** 搜索按钮操作 */
+/** Search button action */
 const handleQuery = () => {
   queryParams.value.pageNum = 1;
   getList();
 }
 
-/** 重置按钮操作 */
+/** reset button action */
 const resetQuery = () => {
   queryFormRef.value?.resetFields();
   handleQuery();
 }
 
-/** 多选框选中数据 */
+/** Multiple selection box selected data */
 const handleSelectionChange = (selection: ProjectMemberVO[]) => {
   ids.value = selection.map(item => item.id);
   single.value = selection.length != 1;
   multiple.value = !selection.length;
 }
 
-/** 新增按钮操作 */
+/** Add button operation */
 const handleAdd = () => {
   reset();
   dialog.visible = true;
-  dialog.title = "添加项目组内成员";
+  dialog.title = "Add members to the project group";
 }
 
-/** 修改按钮操作 */
+/** Modify button actions */
 const handleUpdate = async (row?: ProjectMemberVO) => {
   reset();
   const _id = row?.id || ids.value[0]
   const res = await getProjectMember(_id);
   Object.assign(form.value, res.data);
   dialog.visible = true;
-  dialog.title = "修改项目组内成员";
+  dialog.title = "Modify project group members";
 }
 
-/** 提交按钮 */
+/** submit button */
 const submitForm = () => {
   projectMemberFormRef.value?.validate(async (valid: boolean) => {
     if (valid) {
@@ -275,23 +275,23 @@ const submitForm = () => {
       } else {
         await addProjectMember(form.value).finally(() =>  buttonLoading.value = false);
       }
-      proxy?.$modal.msgSuccess("修改成功");
+      proxy?.$modal.msgSuccess("Submitted Successfully");
       dialog.visible = false;
       await getList();
     }
   });
 }
 
-/** 删除按钮操作 */
+/** Delete button action */
 const handleDelete = async (row?: ProjectMemberVO) => {
   const _ids = row?.id || ids.value;
-  await proxy?.$modal.confirm('是否确认删除项目组内成员编号为"' + _ids + '"的数据项？').finally(() => loading.value = false);
+  await proxy?.$modal.confirm('Confirm to delete"' + _ids + '"?').finally(() => loading.value = false);
   await delProjectMember(_ids);
-  proxy?.$modal.msgSuccess("Successfully deleted");
+  proxy?.$modal.msgSuccess("Deleted Successfully");
   await getList();
 }
 
-/** 导出按钮操作 */
+/** export */
 const handleExport = () => {
   proxy?.download('system/projectMember/export', {
     ...queryParams.value

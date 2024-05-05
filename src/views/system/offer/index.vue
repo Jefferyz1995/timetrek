@@ -3,14 +3,14 @@
     <transition :enter-active-class="proxy?.animate.searchAnimate.enter" :leave-active-class="proxy?.animate.searchAnimate.leave">
       <div class="search" v-show="showSearch">
         <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
-          <el-form-item label="招聘岗位" prop="offerName">
-            <el-input v-model="queryParams.offerName" placeholder="请输入招聘岗位" clearable style="width: 240px" @keyup.enter="handleQuery" />
+          <el-form-item label="Recruitment positions" prop="offerName">
+            <el-input v-model="queryParams.offerName" placeholder="Please enter the recruitment position" clearable style="width: 240px" @keyup.enter="handleQuery" />
           </el-form-item>
-          <el-form-item label="招聘标题" prop="offerTitle">
-            <el-input v-model="queryParams.offerTitle" placeholder="请输入招聘标题" clearable style="width: 240px" @keyup.enter="handleQuery" />
+          <el-form-item label="Recruitment title" prop="offerTitle">
+            <el-input v-model="queryParams.offerTitle" placeholder="Please enter the recruitment title" clearable style="width: 240px" @keyup.enter="handleQuery" />
           </el-form-item>
-          <el-form-item label="招聘人数" prop="offerNum">
-            <el-input v-model="queryParams.offerNum" placeholder="请输入招聘人数" clearable style="width: 240px" @keyup.enter="handleQuery" />
+          <el-form-item label="Recruitment number" prop="offerNum">
+            <el-input v-model="queryParams.offerNum" placeholder="Please enter the number of recruits" clearable style="width: 240px" @keyup.enter="handleQuery" />
           </el-form-item>
           <el-form-item>
             <el-button type="primary" icon="Search" @click="handleQuery">{{$t('commonBtn.search')}}</el-button>
@@ -41,10 +41,10 @@
 
       <el-table v-loading="loading" :data="offerList" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" align="center" />
-        <el-table-column label="招聘岗位" align="center" prop="offerName" />
-        <el-table-column label="招聘标题" align="center" prop="offerTitle" />
-        <el-table-column label="招聘介绍" align="center" prop="offerIntroduction" />
-        <el-table-column label="招聘人数" align="center" prop="offerNum" />
+        <el-table-column label="Recruitment positions" align="center" prop="offerName" />
+        <el-table-column label="Recruitment title" align="center" prop="offerTitle" />
+        <el-table-column label="Recruitment introduction" align="center" prop="offerIntroduction" />
+        <el-table-column label="Recruitment number" align="center" prop="offerNum" />
         <el-table-column :label="$t('commonColumn.action')" align="center" class-name="small-padding fixed-width">
           <template #default="scope">
             <el-tooltip :content="$t('commonBtn.edit')" placement="top">
@@ -65,21 +65,21 @@
           @pagination="getList"
       />
     </el-card>
-    <!-- 添加或修改招聘对话框 -->
+    <!-- Add or modify recruitment dialog box -->
     <el-dialog :title="dialog.title" v-model="dialog.visible" width="500px" append-to-body>
       <el-form ref="offerFormRef" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="招聘岗位" prop="offerName">
-          <el-input v-model="form.offerName" placeholder="请输入招聘岗位" />
+        <el-form-item label="Recruitment positions" prop="offerName">
+          <el-input v-model="form.offerName" placeholder="Please enter the recruitment position" />
         </el-form-item>
-        <el-form-item label="招聘标题" prop="offerTitle">
-          <el-input v-model="form.offerTitle" placeholder="请输入招聘标题" />
+        <el-form-item label="Recruitment title" prop="offerTitle">
+          <el-input v-model="form.offerTitle" placeholder="Please enter the recruitment title" />
         </el-form-item>
 
-        <el-form-item label="招聘介绍">
+        <el-form-item label="Recruitment introduction">
           <editor v-model="form.offerIntroduction" :min-height="192" />
         </el-form-item>
-        <el-form-item label="招聘人数" prop="offerNum">
-          <el-input v-model="form.offerNum" placeholder="请输入招聘人数" />
+        <el-form-item label="Recruitment number" prop="offerNum">
+          <el-input v-model="form.offerNum" placeholder="Please enter the number of recruits" />
         </el-form-item>
       </el-form>
       <template #footer>
@@ -136,26 +136,26 @@ const data = reactive<PageData<OfferForm, OfferQuery>>({
   },
   rules: {
     id: [
-      { required: true, message: " 主键id不能为空", trigger: "blur" }
+      { required: true, message: " Primary key id cannot be empty", trigger: "blur" }
     ],
     offerName: [
-      { required: true, message: "招聘岗位不能为空", trigger: "blur" }
+      { required: true, message: "Recruitment position cannot be empty", trigger: "blur" }
     ],
     offerTitle: [
-      { required: true, message: "招聘标题不能为空", trigger: "blur" }
+      { required: true, message: "Recruitment title cannot be empty", trigger: "blur" }
     ],
     offerIntroduction: [
-      { required: true, message: "招聘介绍不能为空", trigger: "blur" }
+      { required: true, message: "Recruitment introduction cannot be empty", trigger: "blur" }
     ],
     offerNum: [
-      { required: true, message: "招聘人数不能为空", trigger: "blur" }
+      { required: true, message: "Recruitment number cannot be empty", trigger: "blur" }
     ],
   }
 });
 
 const { queryParams, form, rules } = toRefs(data);
 
-/** 查询招聘列表 */
+/** Check recruitment list */
 const getList = async () => {
   loading.value = true;
   const res = await listOffer(queryParams.value);
@@ -164,55 +164,55 @@ const getList = async () => {
   loading.value = false;
 }
 
-/** 取消按钮 */
+/** Cancel button */
 const cancel = () => {
   reset();
   dialog.visible = false;
 }
 
-/** 表单重置 */
+/** form reset */
 const reset = () => {
   form.value = {...initFormData};
   offerFormRef.value?.resetFields();
 }
 
-/** 搜索按钮操作 */
+/** Search button action */
 const handleQuery = () => {
   queryParams.value.pageNum = 1;
   getList();
 }
 
-/** 重置按钮操作 */
+/** reset button action */
 const resetQuery = () => {
   queryFormRef.value?.resetFields();
   handleQuery();
 }
 
-/** 多选框选中数据 */
+/** Multiple selection box selected data */
 const handleSelectionChange = (selection: OfferVO[]) => {
   ids.value = selection.map(item => item.id);
   single.value = selection.length != 1;
   multiple.value = !selection.length;
 }
 
-/** 新增按钮操作 */
+/** Add button operation */
 const handleAdd = () => {
   reset();
   dialog.visible = true;
-  dialog.title = "添加招聘";
+  dialog.title = "Add recruitment";
 }
 
-/** 修改按钮操作 */
+/** Modify button actions */
 const handleUpdate = async (row?: OfferVO) => {
   reset();
   const _id = row?.id || ids.value[0]
   const res = await getOffer(_id);
   Object.assign(form.value, res.data);
   dialog.visible = true;
-  dialog.title = "修改招聘";
+  dialog.title = "Modify recruitment";
 }
 
-/** 提交按钮 */
+/** submit button */
 const submitForm = () => {
   offerFormRef.value?.validate(async (valid: boolean) => {
     if (valid) {
@@ -222,23 +222,23 @@ const submitForm = () => {
       } else {
         await addOffer(form.value).finally(() =>  buttonLoading.value = false);
       }
-      proxy?.$modal.msgSuccess("修改成功");
+      proxy?.$modal.msgSuccess("Modify Done");
       dialog.visible = false;
       await getList();
     }
   });
 }
 
-/** 删除按钮操作 */
+/** Delete button action */
 const handleDelete = async (row?: OfferVO) => {
   const _ids = row?.id || ids.value;
-  await proxy?.$modal.confirm('是否确认删除招聘编号为"' + _ids + '"的数据项？').finally(() => loading.value = false);
+  await proxy?.$modal.confirm('Confirm to delete"' + _ids + '"?').finally(() => loading.value = false);
   await delOffer(_ids);
   proxy?.$modal.msgSuccess("Successfully deleted");
   await getList();
 }
 
-/** 导出按钮操作 */
+/** Export button action */
 const handleExport = () => {
   proxy?.download('system/offer/export', {
     ...queryParams.value
