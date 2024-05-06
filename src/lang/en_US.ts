@@ -45,16 +45,16 @@ export default {
     status: 'Status',
     remark: 'Remark',
     action: 'Action',
-    createBy: 'createBy',
-    createTime: 'createTime',
+    createBy: 'Create By',
+    createTime: 'Create Time',
     startTime: 'Start Time',
     endTime: 'End Time'
   },
   userManager: {
     userName: 'User ID',
     password: 'Password',
-    nickName: 'User Code',
-    phonenumber: 'Phone NO.',
+    nickName: 'Name',
+    phonenumber: 'Contact No.',
     deptName: 'Dept',
     sex: 'Sex',
     email: 'email',
@@ -86,8 +86,8 @@ export default {
     deptName: 'Dept',
     orderNum: 'Order No.',
     parent: 'Previous menu',
-    leader: 'Leader',
-    phone: 'Phone NO.'
+    leader: 'PIC',
+    phone: 'Contact No.'
   },
 
   postManager: {
@@ -120,19 +120,19 @@ export default {
     tenantId: 'Tenant Id',
     tenantName: 'Tenant Name',
     contactUserName: 'Contact Person',
-    contactPhone: 'Contact',
+    contactPhone: 'Contact No.',
     contactEmail: 'Contact Email',
     companyName: 'Company Name',
     companyNum: 'UEN NO.',
     expireTime: 'Expire Date',
-    accountCount: 'Account Count',
+    accountCount: 'Company Size',
     domain: 'Domain',
     address: 'Address',
     intro: 'Introduction',
     tenantStatus: 'Tenant Status',
     tenantCode: 'Tenant Code',
     tenantRemark: 'Tenant Remark',
-    username: 'UserName',
+    username: 'User ID',
     password: 'Password'
   },
   packageManager: {

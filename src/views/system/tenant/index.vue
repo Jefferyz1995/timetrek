@@ -7,8 +7,8 @@
             <el-form-item :label="$t('tenantManager.tenantId')" prop="tenantId">
               <el-input v-model="queryParams.tenantId" :placeholder="$t('tenantManager.tenantId')" clearable style="width: 240px" @keyup.enter="handleQuery" />
             </el-form-item>
-            <el-form-item :label="$t('tenantManager.concatPerson')" prop="contactUserName">
-              <el-input v-model="queryParams.contactUserName" :placeholder="$t('tenantManager.concatPerson')" clearable style="width: 240px" @keyup.enter="handleQuery" />
+            <el-form-item :label="$t('tenantManager.contactUserName')" prop="contactUserName">
+              <el-input v-model="queryParams.contactUserName" :placeholder="$t('tenantManager.contactUserName')" clearable style="width: 240px" @keyup.enter="handleQuery" />
             </el-form-item>
             <el-form-item :label="$t('tenantManager.contactPhone')" prop="contactPhone">
               <el-input v-model="queryParams.contactPhone" :placeholder="$t('tenantManager.contactPhone')" clearable style="width: 240px" @keyup.enter="handleQuery" />
@@ -47,7 +47,7 @@
               {{$t('commonBtn.delete')}}</el-button
             >
           </el-col>
-          <el-col :span="1.5">
+          <!-- <el-col :span="1.5">
             <el-button
               type="warning"
               plain
@@ -56,7 +56,7 @@
               v-hasPermi="['system:tenant:export']"
               >{{$t('commonBtn.export')}}</el-button
             >
-          </el-col>
+          </el-col> -->
           <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
         </el-row>
       </template>
@@ -65,7 +65,7 @@
         <el-table-column type="selection" width="55" align="center" />
         <el-table-column label="id" align="center" prop="id" v-if="false" />
         <el-table-column :label="$t('tenantManager.tenantId')" align="center" prop="tenantId" />
-        <el-table-column :label="$t('tenantManager.concatPerson')" align="center" prop="contactUserName" />
+        <el-table-column :label="$t('tenantManager.contactUserName')" align="center" prop="contactUserName" />
         <el-table-column :label="$t('tenantManager.contactPhone')" align="center" prop="contactPhone" />
         <el-table-column :label="$t('tenantManager.companyName')" align="center" prop="companyName" />
         <el-table-column :label="$t('tenantManager.companyNum')" align="center" prop="licenseNumber" />
@@ -103,8 +103,8 @@
         <el-form-item :label="$t('tenantManager.companyName')" prop="companyName">
           <el-input v-model="form.companyName" :placeholder="$t('tenantManager.companyName')" />
         </el-form-item>
-        <el-form-item :label="$t('tenantManager.concatPerson')" prop="contactUserName">
-          <el-input v-model="form.contactUserName" :placeholder="$t('tenantManager.concatPerson')" />
+        <el-form-item :label="$t('tenantManager.contactUserName')" prop="contactUserName">
+          <el-input v-model="form.contactUserName" :placeholder="$t('tenantManager.contactUserName')" />
         </el-form-item>
         <el-form-item :label="$t('tenantManager.contactPhone')" prop="contactPhone">
           <el-input v-model="form.contactPhone" :placeholder="$t('tenantManager.contactPhone')" />
@@ -115,8 +115,8 @@
         <el-form-item v-if="!form.id" :label="$t('tenantManager.password')" prop="password">
           <el-input type="password" v-model="form.password" :placeholder="$t('tenantManager.password')" maxlength="20" />
         </el-form-item>
-        <el-form-item :label="$t('tenantManager.packageNme')" prop="packageId">
-          <el-select v-model="form.packageId" :disabled="!!form.tenantId" :placeholder="$t('tenantManager.packageNme')" clearable style="width: 100%">
+        <el-form-item :label="$t('packageManager.packageName')" prop="packageId">
+          <el-select v-model="form.packageId" :disabled="!!form.tenantId" :placeholder="$t('packageManager.packageName')" clearable style="width: 100%">
             <el-option v-for="item in packageList" :key="item.packageId" :label="item.packageName" :value="item.packageId" />
           </el-select>
         </el-form-item>
@@ -127,17 +127,11 @@
         <el-form-item :label="$t('tenantManager.accountCount')"  prop="accountCount">
           <el-input v-model="form.accountCount" :placeholder="$t('tenantManager.accountCount')" />
         </el-form-item>
-        <el-form-item :label="$t('tenantManager.domain')" prop="domain">
-          <el-input v-model="form.domain" :placeholder="$t('tenantManager.domain')" />
-        </el-form-item>
         <el-form-item :label="$t('tenantManager.address')" prop="address">
           <el-input v-model="form.address" :placeholder="$t('tenantManager.address')" />
         </el-form-item>
         <el-form-item :label="$t('tenantManager.companyNum')" prop="licenseNumber">
           <el-input v-model="form.licenseNumber" :placeholder="$t('tenantManager.companyNum')" />
-        </el-form-item>
-        <el-form-item :label="$t('tenantManager.intro')" prop="intro">
-          <el-input type="textarea" v-model="form.intro" :placeholder="$t('tenantManager.intro')" />
         </el-form-item>
         <el-form-item :label="$t('commonColumn.remark')" prop="remark">
           <el-input v-model="form.remark" :placeholder="$t('commonColumn.remark')" />
@@ -302,7 +296,7 @@ const handleUpdate = async (row?: TenantVO) => {
   const res = await getTenant(_id);
   Object.assign(form.value, res.data)
   dialog.visible = true;
-  dialog.title = "Modifying a tenant";
+  dialog.title = "Modify Tenant Info";
 }
 
 /** 提交按钮 */

@@ -3,20 +3,20 @@
     <transition :enter-active-class="proxy?.animate.searchAnimate.enter" :leave-active-class="proxy?.animate.searchAnimate.leave">
       <div class="search" v-show="showSearch">
         <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
-          <el-form-item label="User ID" prop="userId">
+          <el-form-item label="User ID" prop="User ID">
             <el-input v-model="queryParams.userId" placeholder="User ID" clearable style="width: 240px" @keyup.enter="handleQuery" />
           </el-form-item>
-          <el-form-item label="askDays" prop="askDays">
-            <el-input v-model="queryParams.askDays" placeholder="askDays" clearable style="width: 240px" @keyup.enter="handleQuery" />
+          <el-form-item label="Days" prop="askDays">
+            <el-input v-model="queryParams.askDays" placeholder="Days" clearable style="width: 240px" @keyup.enter="handleQuery" />
           </el-form-item>
-          <el-form-item label="askStartTime" prop="askStartTime">
-            <el-date-picker clearable v-model="queryParams.askStartTime" type="date" value-format="YYYY-MM-DD" placeholder="askStartTime" />
+          <el-form-item label="Start Time" prop="askStartTime">
+            <el-date-picker clearable v-model="queryParams.askStartTime" type="date" value-format="YYYY-MM-DD" placeholder="Start Time" />
           </el-form-item>
-          <el-form-item label="askEndTime" prop="askEndTime">
-            <el-date-picker clearable v-model="queryParams.askEndTime" type="date" value-format="YYYY-MM-DD" placeholder="askEndTime" />
+          <el-form-item label="End Time" prop="askEndTime">
+            <el-date-picker clearable v-model="queryParams.askEndTime" type="date" value-format="YYYY-MM-DD" placeholder="End Time" />
           </el-form-item>
-          <el-form-item label="approveUserId" prop="approveUserId">
-            <el-input v-model="queryParams.approveUserId" placeholder="approveUserId" clearable style="width: 240px" @keyup.enter="handleQuery" />
+          <el-form-item label="Approver" prop="approveUserId">
+            <el-input v-model="queryParams.approveUserId" placeholder="Approver" clearable style="width: 240px" @keyup.enter="handleQuery" />
           </el-form-item>
           <el-form-item>
             <el-button type="primary" icon="Search" @click="handleQuery">{{$t('commonBtn.search')}}</el-button>
@@ -42,9 +42,6 @@
               >{{$t('commonBtn.delete')}}</el-button
             >
           </el-col>
-          <el-col :span="1.5">
-            <el-button type="warning" plain icon="Download" @click="handleExport" v-hasPermi="['system:askHoliday:export']">{{$t('commonBtn.export')}}</el-button>
-          </el-col>
           <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
         </el-row>
       </template>
@@ -52,25 +49,25 @@
       <el-table v-loading="loading" :data="askHolidayList" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" align="center" />
         <el-table-column label="User ID" align="center" prop="reqUserName" />
-        <el-table-column label="askDays" align="center" prop="askDays" />
-        <el-table-column label="askStartTime" align="center" prop="askStartTime" width="180">
+        <el-table-column label="Days" align="center" prop="askDays" />
+        <el-table-column label="Start Time" align="center" prop="askStartTime" width="180">
           <template #default="scope">
             <span>{{ parseTime(scope.row.askStartTime, '{y}-{m}-{d}') }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="askEndTime" align="center" prop="askEndTime" width="180">
+        <el-table-column label="End Time" align="center" prop="askEndTime" width="180">
           <template #default="scope">
             <span>{{ parseTime(scope.row.askEndTime, '{y}-{m}-{d}') }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="askStatus" align="center" prop="askStatus">
+        <el-table-column label="Status" align="center" prop="askStatus">
           <template #default="scope">
             <dict-tag :options="ask_holiday_status" :value="scope.row.askStatus" />
           </template>
         </el-table-column>
-        <el-table-column label="askReason" align="center" prop="askReason" />
-        <el-table-column label="approvalOpinion" align="center" prop="approvalOpinion" />
-        <el-table-column label="approveUserName" align="center" prop="approveUserName" />
+        <el-table-column label="Reason" align="center" prop="askReason" />
+        <el-table-column label="Remark" align="center" prop="approvalOpinion" />
+        <el-table-column label="Approver" align="center" prop="approveUserName" />
         <el-table-column :label="$t('commonColumn.remark')" align="center" prop="remark" />
         <el-table-column :label="$t('commonColumn.action')" align="center" class-name="small-padding fixed-width">
           <template #default="scope">
@@ -89,27 +86,27 @@
     <!-- 添加或修改请假申请对话框 -->
     <el-dialog :title="dialog.title" v-model="dialog.visible" width="500px" append-to-body>
       <el-form ref="askHolidayFormRef" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="askReason" prop="askReason">
+        <el-form-item label="Reason" prop="askReason">
           <el-input type="textarea" v-model="form.askReason" placeholder="askReason" />
         </el-form-item>
-        <el-form-item label="askDays" prop="askDays">
+        <el-form-item label="Days" prop="askDays">
           <el-input v-model="form.askDays" placeholder="askDays" />
         </el-form-item>
 
-        <el-form-item label="askStartTime" prop="askStartTime">
+        <el-form-item label="Start Time" prop="askStartTime">
           <el-date-picker clearable v-model="form.askStartTime" type="datetime" value-format="YYYY-MM-DD HH:mm:ss" placeholder="askStartTime">
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="askEndTime" prop="askEndTime">
+        <el-form-item label="End Time" prop="askEndTime">
           <el-date-picker clearable v-model="form.askEndTime" type="datetime" value-format="YYYY-MM-DD HH:mm:ss" placeholder="askEndTime">
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="askStatus" prop="askStatus" v-hasPermi="['system:askHoliday:approve']">
+        <el-form-item label="Status" prop="askStatus" v-hasPermi="['system:askHoliday:approve']">
           <el-radio v-model="form.askStatus" v-for="dict in ask_holiday_status" :key="dict.value" :label="dict.value">
             {{ dict.label }}
           </el-radio>
         </el-form-item>
-        <el-form-item label="approvalOpinion" prop="approvalOpinion" v-hasPermi="['system:askHoliday:approve']">
+        <el-form-item label="Remark" prop="approvalOpinion" v-hasPermi="['system:askHoliday:approve']">
           <el-input type="textarea" v-model="form.approvalOpinion" placeholder="approvalOpinion" />
         </el-form-item>
       </el-form>

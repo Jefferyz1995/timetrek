@@ -60,8 +60,8 @@
             <dict-tag :options="sys_device_type" :value="scope.row.deviceType" />
           </template>
         </el-table-column>
-        <el-table-column label="Token活跃超时时间" align="center" prop="activeTimeout" />
-        <el-table-column label="Token固定超时时间" align="center" prop="timeout" />
+        <el-table-column label="Token active timeout time" align="center" prop="activeTimeout" />
+        <el-table-column label="Token fixed timeout time" align="center" prop="timeout" />
         <el-table-column :label="$t('commonColumn.status')" align="center" key="status">
           <template #default="scope">
             <el-switch v-model="scope.row.status" active-value="0" inactive-value="1" @change="handleStatusChange(scope.row)"></el-switch>

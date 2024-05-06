@@ -51,9 +51,9 @@
               >{{$t('commonBtn.delete')}}</el-button
             >
           </el-col>
-          <el-col :span="1.5">
+          <!-- <el-col :span="1.5">
             <el-button type="warning" plain icon="Download" @click="handleExport" v-hasPermi="['system:projectTask:export']">{{$t('commonBtn.export')}}</el-button>
-          </el-col>
+          </el-col> -->
           <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
         </el-row>
       </template>
@@ -121,11 +121,11 @@
           </el-radio>
         </el-form-item>
         <el-form-item :label="$t('taskManager.startTime')" prop="taskStartTime">
-          <el-date-picker clearable v-model="form.taskStartTime" type="datetime" value-format="YYYY-MM-DD HH:mm:ss" placeholder="请选择任务开始时间">
+          <el-date-picker clearable v-model="form.taskStartTime" type="datetime" value-format="YYYY-MM-DD HH:mm:ss" placeholder="Start Time">
           </el-date-picker>
         </el-form-item>
         <el-form-item :label="$t('taskManager.endTime')" prop="taskEndTime">
-          <el-date-picker clearable v-model="form.taskEndTime" type="datetime" value-format="YYYY-MM-DD HH:mm:ss" placeholder="请选择任务截止时间">
+          <el-date-picker clearable v-model="form.taskEndTime" type="datetime" value-format="YYYY-MM-DD HH:mm:ss" placeholder="End Time">
           </el-date-picker>
         </el-form-item>
         <el-form-item :label="$t('commonColumn.remark')" prop="remark">

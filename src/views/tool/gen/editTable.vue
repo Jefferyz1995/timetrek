@@ -1,20 +1,20 @@
 <template>
   <el-card>
     <el-tabs v-model="activeName">
-      <el-tab-pane label="基本信息" name="basic">
+      <el-tab-pane label="Basic info" name="basic">
         <basic-info-form ref="basicInfo" :info="info" />
       </el-tab-pane>
-      <el-tab-pane label="字段信息" name="columnInfo">
+      <el-tab-pane label="Field info" name="columnInfo">
         <el-table ref="dragTable" :data="columns" row-key="columnId" :max-height="tableHeight">
-          <el-table-column label="序号" type="index" min-width="5%" />
-          <el-table-column label="字段列名" prop="columnName" min-width="10%" :show-overflow-tooltip="true" />
-          <el-table-column label="字段描述" min-width="10%">
+          <el-table-column label="No." type="index" min-width="5%" />
+          <el-table-column label="Field column name" prop="columnName" min-width="10%" :show-overflow-tooltip="true" />
+          <el-table-column label="Field Descrption" min-width="10%">
             <template #default="scope">
               <el-input v-model="scope.row.columnComment"></el-input>
             </template>
           </el-table-column>
-          <el-table-column label="物理类型" prop="columnType" min-width="10%" :show-overflow-tooltip="true" />
-          <el-table-column label="Java类型" min-width="11%">
+          <el-table-column label="Physical type" prop="columnType" min-width="10%" :show-overflow-tooltip="true" />
+          <el-table-column label="Java Type" min-width="11%">
             <template #default="scope">
               <el-select v-model="scope.row.javaType">
                 <el-option label="Long" value="Long" />
@@ -27,33 +27,33 @@
               </el-select>
             </template>
           </el-table-column>
-          <el-table-column label="java属性" min-width="10%">
+          <el-table-column label="java property" min-width="10%">
             <template #default="scope">
               <el-input v-model="scope.row.javaField"></el-input>
             </template>
           </el-table-column>
 
-          <el-table-column label="插入" min-width="5%">
+          <el-table-column label="Insert" min-width="5%">
             <template #default="scope">
               <el-checkbox true-label="1" false-label="0" v-model="scope.row.isInsert"></el-checkbox>
             </template>
           </el-table-column>
-          <el-table-column label="编辑" min-width="5%">
+          <el-table-column label="Edit" min-width="5%">
             <template #default="scope">
               <el-checkbox true-label="1" false-label="0" v-model="scope.row.isEdit"></el-checkbox>
             </template>
           </el-table-column>
-          <el-table-column label="列表" min-width="5%">
+          <el-table-column label="Table" min-width="5%">
             <template #default="scope">
               <el-checkbox true-label="1" false-label="0" v-model="scope.row.isList"></el-checkbox>
             </template>
           </el-table-column>
-          <el-table-column label="查询" min-width="5%">
+          <el-table-column label="Search" min-width="5%">
             <template #default="scope">
               <el-checkbox true-label="1" false-label="0" v-model="scope.row.isQuery"></el-checkbox>
             </template>
           </el-table-column>
-          <el-table-column label="查询方式" min-width="10%">
+          <el-table-column label="Search Method" min-width="10%">
             <template #default="scope">
               <el-select v-model="scope.row.queryType">
                 <el-option label="=" value="EQ" />

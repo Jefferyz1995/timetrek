@@ -31,9 +31,9 @@
             <el-button type="danger" plain icon="Delete" :disabled="multiple" @click="handleDelete()" v-hasPermi="['system:tenantPackage:remove']">
               {{$t('commonBtn.delete')}}</el-button>
           </el-col>
-          <el-col :span="1.5">
+          <!-- <el-col :span="1.5">
             <el-button type="warning" plain icon="Download" @click="handleExport" v-hasPermi="['system:tenantPackage:export']">Export </el-button>
-          </el-col>
+          </el-col> -->
           <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
         </el-row>
       </template>

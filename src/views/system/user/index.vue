@@ -83,21 +83,6 @@
                   {{$t('commonBtn.delete')}}
                 </el-button>
               </el-col>
-              <el-col :span="1.5">
-                <el-dropdown class="mt-[1px]">
-                  <el-button plain type="info">
-                    {{$t('commonBtn.more')}}
-                    <el-icon class="el-icon--right"><arrow-down /></el-icon
-                  ></el-button>
-                  <template #dropdown>
-                    <el-dropdown-menu>
-                      <el-dropdown-item @click="importTemplate" icon="Download">{{$t('userManager.importTemplate')}}</el-dropdown-item>
-                      <el-dropdown-item @click="handleImport" icon="Top"> {{$t("commonBtn.import")}}</el-dropdown-item>
-                      <el-dropdown-item @click="handleExport" icon="Download"> {{$t("commonBtn.export")}}</el-dropdown-item>
-                    </el-dropdown-menu>
-                  </template>
-                </el-dropdown>
-              </el-col>
               <right-toolbar v-model:showSearch="showSearch" @queryTable="getList" :columns="columns" :search="true"></right-toolbar>
             </el-row>
           </template>
@@ -212,11 +197,6 @@
               <el-input v-model="form.email" :placeholder="$t('userManager.email')" maxlength="50" />
             </el-form-item>
           </el-col>
-        </el-row>
-        <el-row>
-          <el-form-item :label="$t('userManager.bankNum')" prop="bankNum">
-            <el-input v-model="form.bankNum" :placeholder="$t('userManager.bankNum')" />
-          </el-form-item>
         </el-row>
         <el-row>
           <el-col :span="12">

@@ -11,7 +11,6 @@
       <el-form-item :label="$t('tenantManager.contactPhone')" prop="contactPhone">
         <el-input v-model="registerForm.contactPhone" :placeholder="$t('tenantManager.contactPhone')" />
       </el-form-item>
-
       <el-form-item :label="$t('tenantManager.contactEmail')" prop="contactEmail">
         <el-input v-model="registerForm.contactEmail" :placeholder="$t('tenantManager.contactEmail')" />
       </el-form-item>
@@ -24,20 +23,11 @@
       <el-form-item :label="$t('tenantManager.accountCount')" prop="accountCount">
         <el-input v-model="registerForm.accountCount" :placeholder="$t('tenantManager.accountCount')" />
       </el-form-item>
-      <el-form-item :label="$t('tenantManager.domain')" prop="domain">
-        <el-input v-model="registerForm.domain" :placeholder="$t('tenantManager.domain')" />
-      </el-form-item>
       <el-form-item :label="$t('tenantManager.address')" prop="address">
         <el-input v-model="registerForm.address" :placeholder="$t('tenantManager.address')" />
       </el-form-item>
       <el-form-item :label="$t('tenantManager.companyNum')" prop="licenseNumber">
         <el-input v-model="registerForm.licenseNumber" :placeholder="$t('tenantManager.companyNum')" />
-      </el-form-item>
-      <el-form-item :label="$t('tenantManager.intro')" prop="intro">
-        <el-input type="textarea" v-model="registerForm.intro" :placeholder="$t('tenantManager.intro')" />
-      </el-form-item>
-      <el-form-item :label="$t('commonColumn.remark')" prop="remark">
-        <el-input v-model="registerForm.remark" :placeholder="$t('commonColumn.remark')" />
       </el-form-item>
       <el-form-item style="width:100%;">
         <el-button :loading="loading" size="large" type="primary" style="width:100%;" @click.prevent="handleRegister">
@@ -85,29 +75,45 @@ const tenantEnabled = ref(true);
 
 const equalToPassword = (rule: any, value: string, callback: any) => {
   if (registerForm.value.password !== value) {
-    callback(new Error("两次输入的密码不一致"));
+    callback(new Error("Password not match"));
   } else {
     callback();
   }
 };
 
 const registerRules: ElFormRules = {
-  tenantId: [
-    { required: true, trigger: "blur", message: "请输入您的租户编号" }
+  companyName: [
+    { required: true, trigger: "blur", message: "Company Name Required" },
+    { min: 2, max: 30, message: "Company name length must be between 2 and 30", trigger: "blur" }
   ],
+
+  contactUserName: [
+    { required: true, trigger: "blur", message: "Contact Person Required" },
+    { min: 2, max: 10, message: "Person Name length must be between 2 and 10", trigger: "blur" }
+  ],
+
+  contactPhone: [
+    { required: true, trigger: "blur", message: "Contact No. Required" },
+    { min: 8, max: 10, message: "Contact No length must be between 8 and 10", trigger: "blur" }
+  ],
+
+  contactEmail: [
+    { required: true, trigger: "blur", message: "Email is Required" },
+    { min: 5, max: 10, message: "Email address length must be between 5 and 20", trigger: "blur" }
+  ],
+
   username: [
-    { required: true, trigger: "blur", message: "请输入您的账号" },
-    { min: 2, max: 20, message: "用户账号长度必须介于 2 和 20 之间", trigger: "blur" }
+    { required: true, trigger: "blur", message: "User ID Required" },
+    { min: 2, max: 20, message: "User ID length must be between 2 and 20", trigger: "blur" }
   ],
   password: [
-    { required: true, trigger: "blur", message: "请输入您的密码" },
-    { min: 5, max: 20, message: "用户密码长度必须介于 5 和 20 之间", trigger: "blur" }
+    { required: true, trigger: "blur", message: "Password Required" },
+    { min: 5, max: 20, message: "Password length must be between 5 and 20", trigger: "blur" }
   ],
-  confirmPassword: [
-    { required: true, trigger: "blur", message: "请再次输入您的密码" },
-    { required: true, validator: equalToPassword, trigger: "blur" }
+  accountCount: [
+    { required: true, trigger: "blur", message: "Company Size Required" },
+    { min: 5, max: 20, message: "Password length must be between 5 and 20", trigger: "blur" }
   ],
-  code: [{ required: true, trigger: "change", message: "请输入验证码" }]
 };
 const codeUrl = ref("");
 const loading = ref(false);
@@ -123,7 +129,7 @@ const handleRegister = () => {
       const [err] = await to(register(registerForm.value));
       if (!err) {
         const username = registerForm.value.username;
-        await ElMessageBox.alert("<font color='red'>恭喜你，您的账号 " + username + " 注册成功！</font>", "系统提示", {
+        await ElMessageBox.alert("<font color='red'>Congrats " + username + " Registered Successfully</font>", "System Reminder", {
           dangerouslyUseHTMLString: true,
           type: "success",
         });

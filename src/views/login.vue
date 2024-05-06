@@ -67,19 +67,17 @@ const userStore = useUserStore();
 const router = useRouter();
 
 const loginForm = ref<LoginData>({
-  tenantId: '000000',
-  username: 'admin',
-  password: 'admin123',
+  tenantId: '',
+  username: '',
+  password: '',
   rememberMe: false,
   code: '',
   uuid: ''
 } as LoginData);
 
 const loginRules: ElFormRules = {
-  tenantId: [{ required: true, trigger: "blur", message: "请输入您的租户编号" }],
-  username: [{ required: true, trigger: 'blur', message: '请输入您的账号' }],
-  password: [{ required: true, trigger: 'blur', message: '请输入您的密码' }],
-  code: [{ required: true, trigger: 'change', message: '请输入验证码' }]
+  username: [{ required: true, trigger: 'blur', message: 'User ID Required' }],
+  password: [{ required: true, trigger: 'blur', message: 'Password Required' }],
 };
 
 const codeUrl = ref('');

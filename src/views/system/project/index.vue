@@ -54,10 +54,10 @@
               >{{$t('commonBtn.delete')}}</el-button
             >
           </el-col>
-          <el-col :span="1.5">
+          <!-- <el-col :span="1.5">
             <el-button type="warning" plain icon="Download" @click="handleExport" v-hasPermi="['system:project:export']">{{$t('commonBtn.export')}}</el-button>
           </el-col>
-          <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
+          <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar> -->
         </el-row>
       </template>
 

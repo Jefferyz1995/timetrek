@@ -103,16 +103,6 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item :label="$t('deptManager.phone')" prop="phone">
-              <el-input v-model="form.phone" :placeholder="$t('deptManager.phone')" maxlength="11" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item :label="$t('userManager.email')" prop="email">
-              <el-input v-model="form.email" :placeholder="$t('deptManager.email')" maxlength="50" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
             <el-form-item :label="$t('commonColumn.status')">
               <el-radio-group v-model="form.status">
                 <el-radio v-for="dict in sys_normal_disable" :key="dict.value" :label="dict.value">{{ dict.label

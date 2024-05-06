@@ -14,7 +14,7 @@
             </div>
             <ul class="list-group list-group-striped">
               <li class="list-group-item">
-                <svg-icon icon-class="user" />User Name
+                <svg-icon icon-class="user" />User ID
                 <div class="pull-right">{{ state.user.userName }}</div>
               </li>
               <li class="list-group-item">
@@ -55,9 +55,9 @@
             <el-tab-pane label="Change Password" name="resetPwd">
               <resetPwd />
             </el-tab-pane>
-            <el-tab-pane label="3rd Party" name="thirdParty">
+            <!-- <el-tab-pane label="3rd Party" name="thirdParty">
               <thirdParty :auths="state.auths" />
-            </el-tab-pane>
+            </el-tab-pane> -->
           </el-tabs>
         </el-card>
       </el-col>
