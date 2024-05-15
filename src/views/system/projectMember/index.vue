@@ -2,7 +2,7 @@
   <div class="p-2">
     <transition :enter-active-class="proxy?.animate.searchAnimate.enter" :leave-active-class="proxy?.animate.searchAnimate.leave">
       <div class="search" v-show="showSearch">
-        <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
+        <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="150px">
           <el-form-item :label="$t('memberManager.projectName')" prop="projectId">
             <el-input
               v-model="queryParams.projectId"
@@ -101,7 +101,7 @@
     </el-card>
     <!-- Add or modify project group members dialog box -->
     <el-dialog :title="dialog.title" v-model="dialog.visible" width="500px" append-to-body>
-      <el-form ref="projectMemberFormRef" :model="form" :rules="rules" label-width="80px">
+      <el-form ref="projectMemberFormRef" :model="form" :rules="rules" label-width="120px">
         <el-form-item :label="$t('memberManager.projectName')" prop="projectId">
           <el-select v-model="form.projectId" :placeholder="$t('memberManager.projectName')">
             <el-option v-for="item in projectList" :key="item.id" :label="item.projectName" :value="item.id"> </el-option>

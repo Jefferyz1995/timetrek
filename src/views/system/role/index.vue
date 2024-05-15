@@ -151,7 +151,7 @@
         <el-form-item :label="$t('roleManager.roleMenuPermission')">
           <el-checkbox v-model="menuExpand" @change="handleCheckedTreeExpand($event, 'menu')">Unfold/fold</el-checkbox>
           <el-checkbox v-model="menuNodeAll" @change="handleCheckedTreeNodeAll($event, 'menu')">Select all/Select none</el-checkbox>
-          <el-checkbox v-model="form.menuCheckStrictly" @change="handleCheckedTreeConnect($event, 'menu')">Father-son interaction</el-checkbox>
+          <el-checkbox v-model="form.menuCheckStrictly" @change="handleCheckedTreeConnect($event, 'menu')">Permission Inheritance</el-checkbox>
           <el-tree
             class="tree-border"
             :data="menuOptions"

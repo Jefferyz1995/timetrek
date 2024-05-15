@@ -2,9 +2,9 @@
   <div class="p-2">
     <transition :enter-active-class="proxy?.animate.searchAnimate.enter" :leave-active-class="proxy?.animate.searchAnimate.leave">
       <div class="search" v-show="showSearch">
-        <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
-          <el-form-item label="groupName" prop="groupName">
-            <el-input v-model="queryParams.groupName" placeholder="groupName" clearable style="width: 240px" @keyup.enter="handleQuery" />
+        <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="150px">
+          <el-form-item label="Project Team" prop="groupName">
+            <el-input v-model="queryParams.groupName" placeholder="Project Team" clearable style="width: 240px" @keyup.enter="handleQuery" />
           </el-form-item>
           <el-form-item>
             <el-button type="primary" icon="Search" @click="handleQuery">{{$t('commonBtn.search')}}</el-button>
@@ -35,7 +35,7 @@
 
       <el-table v-loading="loading" :data="projectGroupList" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" align="center" />
-        <el-table-column label="groupName" align="center" prop="groupName" />
+        <el-table-column label="Project Team" align="center" prop="groupName" />
         <el-table-column :label="$t('commonColumn.remark')" align="center" prop="remark" />
         <el-table-column :label="$t('commonColumn.action')" align="center" class-name="small-padding fixed-width">
           <template #default="scope">
@@ -59,12 +59,12 @@
     </el-card>
     <!-- Add or modify project group dialog box -->
     <el-dialog :title="dialog.title" v-model="dialog.visible" width="500px" append-to-body>
-      <el-form ref="projectGroupFormRef" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="groupName" prop="groupName">
-          <el-input v-model="form.groupName" placeholder="groupName" />
+      <el-form ref="projectGroupFormRef" :model="form" :rules="rules" label-width="120px">
+        <el-form-item label="Project Team" prop="groupName">
+          <el-input v-model="form.groupName" placeholder="Project Team" />
         </el-form-item>
         <el-form-item :label="$t('commonColumn.remark')" prop="remark">
-            <el-input v-model="form.remark" type="textarea" placeholder="remark" />
+            <el-input v-model="form.remark" type="textarea" placeholder="Remark" />
         </el-form-item>
       </el-form>
       <template #footer>

@@ -133,7 +133,8 @@ export default {
     tenantCode: 'Tenant Code',
     tenantRemark: 'Tenant Remark',
     username: 'User ID',
-    password: 'Password'
+    password: 'Password',
+    confirmPassword: 'Confirmed Password'
   },
   packageManager: {
     packageName: 'Package Name',

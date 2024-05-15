@@ -14,7 +14,7 @@ const size = computed(() => appStore.size as any);
 
 onMounted(() => {
   nextTick(() => {
-    // 初始化主题样式
+
     // handleThemeStyle(useSettingsStore().theme)
   })
 })

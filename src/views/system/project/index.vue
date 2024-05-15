@@ -2,7 +2,7 @@
   <div class="p-2">
     <transition :enter-active-class="proxy?.animate.searchAnimate.enter" :leave-active-class="proxy?.animate.searchAnimate.leave">
       <div class="search" v-show="showSearch">
-        <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
+        <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="150px">
           <el-form-item :label="$t('projectManager.projectName')" prop="projectName">
             <el-input v-model="queryParams.projectName" placeholder="Project Name" clearable style="width: 240px" @keyup.enter="handleQuery" />
           </el-form-item>
@@ -85,7 +85,7 @@
     </el-card>
     <!-- Add or modify project dialog -->
     <el-dialog :title="dialog.title" v-model="dialog.visible" width="500px" append-to-body>
-      <el-form ref="projectFormRef" :model="form" :rules="rules" label-width="80px">
+      <el-form ref="projectFormRef" :model="form" :rules="rules" label-width="150px">
         <el-form-item :label="$t('projectManager.projectName')" prop="projectName">
           <el-input v-model="form.projectName" :placeholder="$t('projectManager.projectName')" />
         </el-form-item>
@@ -153,6 +153,15 @@ const data = reactive<PageData<ProjectForm, ProjectQuery>>({
     }
   },
   rules: {
+    projectName: [
+      { required: true, message: "Project Name is required", trigger: "blur" }
+    ],
+    projectDescription: [
+      { required: true, message: "Project Description is required", trigger: "blur" }
+    ],
+    projectTarget: [
+      { required: true, message: "Project Target is required", trigger: "blur" }
+    ]
   }
 });
 

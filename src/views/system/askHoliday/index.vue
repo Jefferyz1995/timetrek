@@ -4,7 +4,7 @@
       <div class="search" v-show="showSearch">
         <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
           <el-form-item label="User ID" prop="User ID">
-            <el-input v-model="queryParams.userId" placeholder="User ID" clearable style="width: 240px" @keyup.enter="handleQuery" />
+            <el-input v-model="queryParams.userId" placeholder="User ID" clearable style="width: 200px" @keyup.enter="handleQuery" />
           </el-form-item>
           <el-form-item label="Days" prop="askDays">
             <el-input v-model="queryParams.askDays" placeholder="Days" clearable style="width: 240px" @keyup.enter="handleQuery" />
@@ -83,22 +83,22 @@
 
       <pagination v-show="total>0" :total="total" v-model:page="queryParams.pageNum" v-model:limit="queryParams.pageSize" @pagination="getList" />
     </el-card>
-    <!-- 添加或修改请假申请对话框 -->
+
     <el-dialog :title="dialog.title" v-model="dialog.visible" width="500px" append-to-body>
       <el-form ref="askHolidayFormRef" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="Reason" prop="askReason">
-          <el-input type="textarea" v-model="form.askReason" placeholder="askReason" />
+          <el-input type="textarea" v-model="form.askReason" placeholder="Reason" />
         </el-form-item>
         <el-form-item label="Days" prop="askDays">
-          <el-input v-model="form.askDays" placeholder="askDays" />
+          <el-input v-model="form.askDays" placeholder="Days" />
         </el-form-item>
 
         <el-form-item label="Start Time" prop="askStartTime">
-          <el-date-picker clearable v-model="form.askStartTime" type="datetime" value-format="YYYY-MM-DD HH:mm:ss" placeholder="askStartTime">
+          <el-date-picker clearable v-model="form.askStartTime" type="datetime" value-format="YYYY-MM-DD HH:mm:ss" placeholder="Start Time">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="End Time" prop="askEndTime">
-          <el-date-picker clearable v-model="form.askEndTime" type="datetime" value-format="YYYY-MM-DD HH:mm:ss" placeholder="askEndTime">
+          <el-date-picker clearable v-model="form.askEndTime" type="datetime" value-format="YYYY-MM-DD HH:mm:ss" placeholder="End Time">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="Status" prop="askStatus" v-hasPermi="['system:askHoliday:approve']">
@@ -107,7 +107,7 @@
           </el-radio>
         </el-form-item>
         <el-form-item label="Remark" prop="approvalOpinion" v-hasPermi="['system:askHoliday:approve']">
-          <el-input type="textarea" v-model="form.approvalOpinion" placeholder="approvalOpinion" />
+          <el-input type="textarea" v-model="form.approvalOpinion" placeholder="Approval Option" />
         </el-form-item>
       </el-form>
       <template #footer>

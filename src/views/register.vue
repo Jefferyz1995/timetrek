@@ -20,6 +20,9 @@
       <el-form-item v-if="!registerForm.id" :label="$t('tenantManager.password')" prop="password">
         <el-input type="password" v-model="registerForm.password" :placeholder="$t('tenantManager.password')" maxlength="20" />
       </el-form-item>
+      <el-form-item v-if="!registerForm.id" :label="$t('tenantManager.confirmPassword')" prop="confirmPassword">
+        <el-input type="password" v-model="registerForm.confirmPassword" :placeholder="$t('tenantManager.confirmPassword')" maxlength="20" />
+      </el-form-item>
       <el-form-item :label="$t('tenantManager.accountCount')" prop="accountCount">
         <el-input v-model="registerForm.accountCount" :placeholder="$t('tenantManager.accountCount')" />
       </el-form-item>
@@ -57,6 +60,7 @@ const registerForm = ref<TenantForm>({
   contactPhone: '',
   username: '',
   password: '',
+  confirmPassword: '',
   companyName: '',
   licenseNumber: '',
   domain: '',
@@ -69,17 +73,20 @@ const registerForm = ref<TenantForm>({
   status: '0',
 });
 
-// 租户开关
+
 const tenantEnabled = ref(true);
 
 
 const equalToPassword = (rule: any, value: string, callback: any) => {
-  if (registerForm.value.password !== value) {
-    callback(new Error("Password not match"));
+  if (value === '') {
+    callback(new Error('Please input the password again'));
+  } else if (value !== registerForm.value.password) {
+    callback(new Error("Passwords do not match"));
   } else {
     callback();
   }
 };
+
 
 const registerRules: ElFormRules = {
   companyName: [
@@ -99,7 +106,7 @@ const registerRules: ElFormRules = {
 
   contactEmail: [
     { required: true, trigger: "blur", message: "Email is Required" },
-    { min: 5, max: 10, message: "Email address length must be between 5 and 20", trigger: "blur" }
+    // { min: 5, max: 10, message: "Email address length must be between 5 and 20", trigger: "blur" }
   ],
 
   username: [
@@ -110,16 +117,20 @@ const registerRules: ElFormRules = {
     { required: true, trigger: "blur", message: "Password Required" },
     { min: 5, max: 20, message: "Password length must be between 5 and 20", trigger: "blur" }
   ],
+  confirmPassword: [
+    { required: true, trigger: "blur", message: "Confirm Password Required" },
+    { validator: equalToPassword, trigger: 'blur' }
+  ],
   accountCount: [
     { required: true, trigger: "blur", message: "Company Size Required" },
-    { min: 5, max: 20, message: "Password length must be between 5 and 20", trigger: "blur" }
+    { min: 1, max: 20, message: "Password length must be between 5 and 20", trigger: "blur" }
   ],
 };
 const codeUrl = ref("");
 const loading = ref(false);
 const captchaEnabled = ref(true);
 const registerRef = ref<ElFormInstance>();
-// 租户列表
+
 const tenantList = ref<TenantVO[]>([]);
 
 const handleRegister = () => {
@@ -133,7 +144,7 @@ const handleRegister = () => {
           dangerouslyUseHTMLString: true,
           type: "success",
         });
-        window.location.href="http://ec2-13-212-13-238.ap-southeast-1.compute.amazonaws.com:8075/admin/login"
+        window.location.href="http://8.218.107.24:8075/admin/login"
       } else {
         loading.value = false;
         if (captchaEnabled) {

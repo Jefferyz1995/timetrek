@@ -82,17 +82,17 @@ const loginRules: ElFormRules = {
 
 const codeUrl = ref('');
 const loading = ref(false);
-// 验证码开关
+
 const captchaEnabled = ref(true);
-// 租户开关
+
 const tenantEnabled = ref(true);
 
 
-// 注册开关
+
 const register = ref(false);
 const redirect = ref(undefined);
 const loginRef = ref<ElFormInstance>();
-// 租户列表
+
 const tenantList = ref<TenantVO[]>([]);
 
 watch(() => router.currentRoute.value, (newRoute: any) => {
@@ -103,27 +103,27 @@ const handleLogin = () => {
   loginRef.value?.validate(async (valid: boolean, fields: any) => {
     if (valid) {
       loading.value = true;
-      // 勾选了需要记住密码设置在 localStorage 中设置记住用户名和密码
+
       if (loginForm.value.rememberMe) {
         localStorage.setItem("tenantId", String(loginForm.value.tenantId));
         localStorage.setItem('username', String(loginForm.value.username));
         localStorage.setItem('password', String(loginForm.value.password));
         localStorage.setItem('rememberMe', String(loginForm.value.rememberMe));
       } else {
-        // 否则移除
+
         localStorage.removeItem("tenantId");
         localStorage.removeItem('username');
         localStorage.removeItem('password');
         localStorage.removeItem('rememberMe');
       }
-      // 调用action的登录方法
+
       const [err] = await to(userStore.login(loginForm.value));
       if (!err) {
         await router.push({ path: redirect.value || '/' });
         loading.value = false;
       } else {
         loading.value = false;
-        // 重新获取验证码
+
         if (captchaEnabled.value) {
           await getCode();
         }
@@ -134,9 +134,7 @@ const handleLogin = () => {
   });
 };
 
-/**
- * 获取验证码
- */
+
 const getCode = async () => {
   const res = await getCodeImg();
   const { data } = res;
@@ -161,9 +159,7 @@ const getLoginData = () => {
 }
 
 
-/**
- * 获取租户列表
- */
+
 const initTenantList = async () => {
   const { data } = await getTenantList();
   tenantEnabled.value = data.tenantEnabled === undefined ? true : data.tenantEnabled;
@@ -175,19 +171,18 @@ const initTenantList = async () => {
   }
 }
 
-//检测租户选择框的变化
+
 watch(() => loginForm.value.tenantId, () => {
   localStorage.setItem("tenantId", String(loginForm.value.tenantId))
 });
 
 /**
- * 第三方登录
+ * 
  * @param type
  */
 const doSocialLogin = (type: string) => {
   authBinding(type).then((res: any) => {
     if (res.code === HttpStatus.SUCCESS) {
-      // 获取授权地址跳转
       window.location.href = res.data;
     } else {
       ElMessage.error(res.msg);

@@ -17,7 +17,7 @@
     },
     "types": ["vite/client"],
     "skipLibCheck": true,
-    // 允许默认导入
+
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true
   },
