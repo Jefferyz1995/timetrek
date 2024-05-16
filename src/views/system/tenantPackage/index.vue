@@ -3,7 +3,7 @@
     <transition :enter-active-class="proxy?.animate.searchAnimate.enter" :leave-active-class="proxy?.animate.searchAnimate.leave">
       <div class="mb-[10px]" v-show="showSearch">
         <el-card shadow="hover">
-          <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
+          <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="120px">
             <el-form-item label="Package Name" prop="packageName">
               <el-input v-model="queryParams.packageName" placeholder="Package Name" clearable style="width: 240px" @keyup.enter="handleQuery" />
             </el-form-item>

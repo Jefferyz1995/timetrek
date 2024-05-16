@@ -23,9 +23,9 @@
       <el-form-item v-if="!registerForm.id" :label="$t('tenantManager.confirmPassword')" prop="confirmPassword">
         <el-input type="password" v-model="registerForm.confirmPassword" :placeholder="$t('tenantManager.confirmPassword')" maxlength="20" />
       </el-form-item>
-      <el-form-item :label="$t('tenantManager.accountCount')" prop="accountCount">
+      <!-- <el-form-item :label="$t('tenantManager.accountCount')" prop="accountCount">
         <el-input v-model="registerForm.accountCount" :placeholder="$t('tenantManager.accountCount')" />
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item :label="$t('tenantManager.address')" prop="address">
         <el-input v-model="registerForm.address" :placeholder="$t('tenantManager.address')" />
       </el-form-item>
@@ -121,10 +121,10 @@ const registerRules: ElFormRules = {
     { required: true, trigger: "blur", message: "Confirm Password Required" },
     { validator: equalToPassword, trigger: 'blur' }
   ],
-  accountCount: [
-    { required: true, trigger: "blur", message: "Company Size Required" },
-    { min: 1, max: 20, message: "Password length must be between 5 and 20", trigger: "blur" }
-  ],
+  // accountCount: [
+  //   { required: true, trigger: "blur", message: "Company Size Required" },
+  //   { min: 1, max: 20, message: "Password length must be between 5 and 20", trigger: "blur" }
+  // ],
 };
 const codeUrl = ref("");
 const loading = ref(false);

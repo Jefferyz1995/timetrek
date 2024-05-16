@@ -3,7 +3,7 @@
     <transition :enter-active-class="proxy?.animate.searchAnimate.enter" :leave-active-class="proxy?.animate.searchAnimate.leave">
       <div class="mb-[10px]" v-show="showSearch">
         <el-card shadow="hover">
-          <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
+          <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="120px">
             <el-form-item :label="$t('tenantManager.tenantId')" prop="tenantId">
               <el-input v-model="queryParams.tenantId" :placeholder="$t('tenantManager.tenantId')" clearable style="width: 240px" @keyup.enter="handleQuery" />
             </el-form-item>
@@ -68,7 +68,7 @@
         <el-table-column :label="$t('tenantManager.contactUserName')" align="center" prop="contactUserName" />
         <el-table-column :label="$t('tenantManager.contactPhone')" align="center" prop="contactPhone" />
         <el-table-column :label="$t('tenantManager.companyName')" align="center" prop="companyName" />
-        <el-table-column :label="$t('tenantManager.companyNum')" align="center" prop="licenseNumber" />
+        <!-- <el-table-column :label="$t('tenantManager.companyNum')" align="center" prop="licenseNumber" /> -->
         <el-table-column :label="$t('tenantManager.expireTime')" align="center" prop="expireTime" width="180">
           <template #default="scope">
             <span>{{ parseTime(scope.row.expireTime, '{y}-{m}-{d}') }}</span>
@@ -97,7 +97,7 @@
 
       <pagination v-show="total > 0" :total="total" v-model:page="queryParams.pageNum" v-model:limit="queryParams.pageSize" @pagination="getList" />
     </el-card>
-    <!-- 添加或修改租户对话框 -->
+
     <el-dialog :title="dialog.title" v-model="dialog.visible" width="500px" append-to-body>
       <el-form ref="tenantFormRef" :model="form" :rules="rules" label-width="200px">
         <el-form-item :label="$t('tenantManager.companyName')" prop="companyName">
@@ -124,9 +124,9 @@
           <el-date-picker clearable v-model="form.expireTime" type="datetime" value-format="YYYY-MM-DD HH:mm:ss" :placeholder="$t('tenantManager.expireTime')">
           </el-date-picker>
         </el-form-item>
-        <el-form-item :label="$t('tenantManager.accountCount')"  prop="accountCount">
+        <!-- <el-form-item :label="$t('tenantManager.accountCount')"  prop="accountCount">
           <el-input v-model="form.accountCount" :placeholder="$t('tenantManager.accountCount')" />
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item :label="$t('tenantManager.address')" prop="address">
           <el-input v-model="form.address" :placeholder="$t('tenantManager.address')" />
         </el-form-item>

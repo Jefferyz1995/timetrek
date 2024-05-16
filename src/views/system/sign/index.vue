@@ -2,7 +2,7 @@
   <div class="p-2">
     <transition :enter-active-class="proxy?.animate.searchAnimate.enter" :leave-active-class="proxy?.animate.searchAnimate.leave">
       <div class="search" v-show="showSearch">
-        <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
+        <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="100px">
           <el-form-item label="User No." prop="userId">
             <el-input v-model="queryParams.userId" placeholder="" clearable style="width: 240px" @keyup.enter="handleQuery" />
           </el-form-item>
@@ -28,9 +28,9 @@
               >Delete</el-button
             >
           </el-col>
-          <el-col :span="1.5">
+          <!-- <el-col :span="1.5">
             <el-button type="warning" plain icon="Download" @click="handleExport" v-hasPermi="['system:sign:export']">Export</el-button>
-          </el-col>
+          </el-col> -->
           <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
         </el-row>
       </template>
@@ -44,7 +44,7 @@
           </template>
         </el-table-column>
         <el-table-column label="Sign Time" align="center" prop="createTime" />
-        <el-table-column label="remark" align="center" prop="remark" />
+        <el-table-column label="Remark" align="center" prop="remark" />
         <el-table-column label="Action" align="center" class-name="small-padding fixed-width">
           <template #default="scope">
             <el-tooltip content="Modify" placement="top">
